@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>云外庭院 · Personal Garden</title>
+  <link rel="stylesheet" href="src/styles.css" />
+</head>
+<body>
+  <div class="sky-layer stars" aria-hidden="true"></div>
+  <div class="sky-layer aurora aurora-one" aria-hidden="true"></div>
+  <div class="sky-layer aurora aurora-two" aria-hidden="true"></div>
+  <div class="sky-layer cloud cloud-one" aria-hidden="true"></div>
+  <div class="sky-layer cloud cloud-two" aria-hidden="true"></div>
+  <div class="sky-layer garden-silhouette garden-left" aria-hidden="true"></div>
+  <div class="sky-layer garden-silhouette garden-right" aria-hidden="true"></div>
+  <div class="sky-layer vine-trail" aria-hidden="true"></div>
+
+  <main class="desktop" id="desktop" aria-label="可拖动的云外庭院桌面">
+    <section class="widget profile-widget island-card" data-widget="profile" style="--x: 8%; --y: 13%; --w: 292px; --h: 446px;">
+      <div class="drag-handle" aria-label="拖动旅人档案模块"></div>
+      <div class="profile-head">
+        <div class="avatar orb-avatar">✦</div>
+        <div>
+          <span class="kicker">WANDERER FILE</span>
+          <h1>云外旅人</h1>
+          <p>Lv. 07 · Garden Builder</p>
+        </div>
+      </div>
+      <div class="status-runes" aria-label="状态">
+        <span>静谧 +12</span>
+        <span>灵感 +8</span>
+        <span>好奇 +∞</span>
+      </div>
+      <nav class="side-nav" aria-label="庭院导航">
+        <a class="active" href="#">⌂ <span>首页</span></a>
+        <a href="#">⚒ <span>开发项目</span></a>
+        <a href="#">✎ <span>近期文章</span></a>
+        <a href="#">▧ <span>照片墙</span></a>
+        <a href="#">◎ <span>网站收藏</span></a>
+      </nav>
+    </section>
+
+    <section class="widget portal-widget" data-widget="portal" style="--x: 36%; --y: 7%; --w: 390px; --h: 220px;">
+      <div class="drag-handle" aria-label="拖动世界窗口模块"></div>
+      <div class="portal-scene" aria-hidden="true">
+        <div class="sun"></div>
+        <div class="floating-island island-a"></div>
+        <div class="floating-island island-b"></div>
+        <div class="floating-island island-c"></div>
+        <div class="mini-tower"></div>
+      </div>
+      <p class="portal-caption">Cloud Atlas · 一个世界之外的小庭院</p>
+    </section>
+
+    <section class="widget greeting-widget island-card" data-widget="greeting" style="--x: 37%; --y: 34%; --w: 370px; --h: 292px;">
+      <div class="drag-handle" aria-label="拖动问候模块"></div>
+      <div class="spirit" id="spirit" aria-hidden="true">
+        <span class="spirit-face">•ᴗ•</span>
+      </div>
+      <span class="kicker">TODAY'S SPAWN POINT</span>
+      <h2 id="greeting">Good Morning</h2>
+      <p>欢迎回到 <strong>云外庭院</strong><br />今天也慢慢发光。</p>
+      <button class="game-button" id="sparkButton" type="button">收集星屑</button>
+    </section>
+
+    <section class="widget clock-widget rune-card" data-widget="clock" style="--x: 68%; --y: 20%; --w: 246px; --h: 140px;">
+      <div class="drag-handle" aria-label="拖动时间模块"></div>
+      <span class="kicker">TIME CRYSTAL</span>
+      <div class="digital-time" id="time">--:--</div>
+    </section>
+
+    <section class="widget calendar-widget island-card" data-widget="calendar" style="--x: 66%; --y: 40%; --w: 360px; --h: 300px;">
+      <div class="drag-handle" aria-label="拖动星历模块"></div>
+      <div class="calendar-head">
+        <div>
+          <span class="kicker">MOON CALENDAR</span>
+          <p class="calendar-title" id="date">2026/7/1 周三</p>
+        </div>
+        <span class="moon-chip">☾</span>
+      </div>
+      <div class="calendar-grid" id="calendarGrid"></div>
+      <div class="year-mini">
+        <span>本年航行</span>
+        <strong id="yearPercent">0%</strong>
+        <i><b id="yearBar"></b></i>
+      </div>
+    </section>
+
+    <section class="widget links-widget" data-widget="links" style="--x: 34%; --y: 67%; --w: 455px; --h: 78px;">
+      <div class="drag-handle" aria-label="拖动传送门模块"></div>
+      <div class="quick-links" id="bookmarkGrid"></div>
+    </section>
+
+    <section class="widget quote-widget parchment-card" data-widget="quote" style="--x: 35%; --y: 78%; --w: 315px; --h: 164px;" id="quoteCard" tabindex="0" role="button" aria-label="点击切换一句箴言">
+      <div class="drag-handle" aria-label="拖动箴言模块"></div>
+      <span class="kicker">FORTUNE SCROLL</span>
+      <blockquote id="quoteText">慢慢来，比较快。</blockquote>
+      <small id="quoteSource">个人语录</small>
+    </section>
+
+    <section class="widget quest-widget parchment-card" data-widget="quest" style="--x: 12%; --y: 67%; --w: 282px; --h: 172px;">
+      <div class="drag-handle" aria-label="拖动任务板模块"></div>
+      <span class="kicker">SIDE QUEST</span>
+      <div class="quest-row">
+        <div class="quest-icon">✎</div>
+        <div>
+          <h3>给庭院添一块石头</h3>
+          <p>今天只需要留下一个小想法。</p>
+          <time>Reward: 星屑 × 20</time>
+        </div>
+      </div>
+    </section>
+
+    <section class="widget music-widget rune-card" data-widget="music" style="--x: 57%; --y: 78%; --w: 304px; --h: 72px;">
+      <div class="drag-handle" aria-label="拖动音乐模块"></div>
+      <span class="music-note">♬</span>
+      <div class="song-info">
+        <strong>Quiet Planet Radio</strong>
+        <i></i>
+      </div>
+      <button type="button" aria-label="播放">▶</button>
+    </section>
+
+    <section class="widget weather-widget island-card" data-widget="weather" style="--x: 74%; --y: 74%; --w: 210px; --h: 154px;">
+      <div class="drag-handle" aria-label="拖动天气模块"></div>
+      <div class="weather-head">
+        <span class="kicker">LOCAL WEATHER</span>
+        <button id="refreshWeather" type="button" aria-label="刷新当前位置天气">↻</button>
+      </div>
+      <div class="weather-main">
+        <div class="weather-orb" id="weatherIcon">◌</div>
+        <div>
+          <strong id="weatherTemp">--°</strong>
+          <p id="weatherText">点击刷新获取天气</p>
+        </div>
+      </div>
+      <small id="weatherPlace">等待定位</small>
+    </section>
+
+    <button class="notes-fab" id="notesToggle" type="button" data-widget="notesButton" style="--x: 59%; --y: 88%; --w: 58px; --h: 58px;" aria-label="打开便签">✦</button>
+
+    <aside class="notes-panel" id="notesPanel" aria-label="便签模块" hidden>
+      <div class="notes-header">
+        <div>
+          <span class="kicker">SECRET NOTE</span>
+          <h2>灵感瓶</h2>
+        </div>
+        <button id="closeNotes" type="button" aria-label="关闭便签">×</button>
+      </div>
+      <textarea id="noteInput" maxlength="120" placeholder="把一粒灵感放进瓶子里，按 Ctrl + Enter 保存"></textarea>
+      <button id="addNote" type="button">封存灵感</button>
+      <div class="note-wall" id="noteWall"></div>
+    </aside>
+
+    <div class="hud">
+      <span>✦ 星屑 <strong id="sparkCount">0</strong></span>
+      <span>拖动模块可重新布置庭院</span>
+    </div>
+    <button class="reset-layout" id="resetLayout" type="button">重置庭院</button>
+  </main>
+
+  <script defer src="src/main.js"></script>
+</body>
+</html>
+
+
+

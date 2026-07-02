@@ -83,7 +83,9 @@ function setMode(mode) {
   }
 
   elements.clockModeButtons?.forEach((button) => {
-    button.classList.toggle('active', button.dataset.clockMode === mode);
+    const isActive = button.dataset.clockMode === mode;
+    button.classList.toggle('active', isActive);
+    button.setAttribute('aria-selected', String(isActive));
   });
   if (elements.clockModeLabel) elements.clockModeLabel.textContent = modeLabels[mode];
   if (elements.timerSetup) elements.timerSetup.hidden = !['pomodoro', 'countdown'].includes(mode);

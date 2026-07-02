@@ -68,10 +68,10 @@
       </div>
       <div class="digital-time" id="time">--:--:--</div>
       <div class="clock-tabs" role="tablist" aria-label="时钟模式">
-        <button class="active" type="button" data-clock-mode="clock">时钟</button>
-        <button type="button" data-clock-mode="pomodoro">番茄</button>
-        <button type="button" data-clock-mode="stopwatch">正计时</button>
-        <button type="button" data-clock-mode="countdown">倒计时</button>
+        <button class="active" type="button" role="tab" aria-selected="true" data-clock-mode="clock">时钟</button>
+        <button type="button" role="tab" aria-selected="false" data-clock-mode="pomodoro">番茄</button>
+        <button type="button" role="tab" aria-selected="false" data-clock-mode="stopwatch">正计时</button>
+        <button type="button" role="tab" aria-selected="false" data-clock-mode="countdown">倒计时</button>
       </div>
       <div class="timer-setup" id="timerSetup" hidden>
         <label>

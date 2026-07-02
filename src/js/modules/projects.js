@@ -54,6 +54,16 @@ function normalizeProjects(data) {
     .slice(0, github.maxRepos || 6);
 }
 
+async function readSnapshotProjects() {
+  try {
+    const response = await fetch('src/data/github-projects.json', { cache: 'no-cache' });
+    if (!response.ok) return [];
+    return normalizeCachedProjects(await response.json());
+  } catch {
+    return [];
+  }
+}
+
 function writeProjectCache(projects) {
   writeStorage(storageKeys.githubProjects, {
     username: github.username,
@@ -117,6 +127,11 @@ async function loadProjects() {
   } catch {
     if (cachedProjects.length > 0) {
       renderProjects(cachedProjects, '暂时无法连接 GitHub，已使用本地缓存项目。');
+      return;
+    }
+    const snapshotProjects = await readSnapshotProjects();
+    if (snapshotProjects.length > 0) {
+      renderProjects(snapshotProjects, '暂时无法连接 GitHub，已使用本地快照项目。');
       return;
     }
     renderProjects(fallbackProjects, '暂时无法连接 GitHub，且暂无本地缓存，先展示备用项目。');

@@ -40,7 +40,8 @@ export async function loadQuotes() {
     const response = await fetch('src/data/quotes.json', { cache: 'no-cache' });
     if (!response.ok) throw new Error('quotes request failed');
     quotes = normalizeQuotes(await response.json());
-  } catch {
+  } catch (error) {
+    console.warn('[箴言] 读取 quotes.json 失败:', error);
     quotes = fallbackQuotes;
     elements.quoteSource.textContent = '读取本地 JSON 失败，已使用兜底语录';
   }

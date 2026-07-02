@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>&#36817;&#26399;&#25991;&#31456; ? &#20113;&#22806;&#24237;&#38498;</title>
+  <script src="src/js/theme-init.js"></script>
+  <link rel="stylesheet" href="src/styles.css" />
+</head>
+<body class="projects-page articles-page">
+  <div class="sky-layer stars" aria-hidden="true"></div>
+  <div class="sky-layer aurora aurora-one" aria-hidden="true"></div>
+  <div class="sky-layer aurora aurora-two" aria-hidden="true"></div>
+  <div class="sky-layer cloud cloud-one" aria-hidden="true"></div>
+  <div class="sky-layer cloud cloud-two" aria-hidden="true"></div>
+  <div class="sky-layer garden-silhouette garden-left" aria-hidden="true"></div>
+  <div class="sky-layer garden-silhouette garden-right" aria-hidden="true"></div>
+  <div class="sky-layer vine-trail" aria-hidden="true"></div>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="&#20999;&#25442;&#20027;&#39064;" aria-pressed="false"><span>&#9790;</span><b>&#22812;&#38388;</b></button>
+
+  <main class="projects-page-shell articles-page-shell" aria-label="&#36817;&#26399;&#25991;&#31456;&#39029;&#38754;">
+    <aside class="projects-side floating-nav island-card">
+      <div class="profile-head">
+        <img class="avatar profile-avatar" src="src/assets/avatar.jpg" alt="XTPixel avatar" />
+      </div>
+      <nav class="side-nav" aria-label="Garden navigation">
+        <a href="index.html" aria-label="Home"><span class="nav-icon" aria-hidden="true">&#8962;</span><span class="nav-label">&#39318;&#39029;</span></a>
+        <a href="projects.html" aria-label="Projects"><span class="nav-icon" aria-hidden="true">&#9874;</span><span class="nav-label">&#24320;&#21457;&#39033;&#30446;</span></a>
+        <a class="active" href="articles.html" aria-label="Articles"><span class="nav-icon" aria-hidden="true">&#9998;</span><span class="nav-label">&#36817;&#26399;&#25991;&#31456;</span></a>
+        <a href="photos.html" aria-label="Photos"><span class="nav-icon" aria-hidden="true">&#9639;</span><span class="nav-label">&#29031;&#29255;&#22681;</span></a>
+        <a href="favorites.html" aria-label="Favorites"><span class="nav-icon" aria-hidden="true">&#9678;</span><span class="nav-label">&#32593;&#31449;&#25910;&#34255;</span></a>
+      </nav>
+    </aside>
+
+    <section class="projects-hero articles-hero island-card">
+      <span class="kicker">RECENT NOTES</span>
+      <div class="projects-hero-head">
+        <div>
+          <h2>&#36817;&#26399;&#25991;&#31456;</h2>
+        </div>
+      </div>
+    </section>
+
+    <section class="projects-board articles-board island-card" aria-labelledby="articlesTitle">
+      <div class="projects-board-head">
+        <div>
+          <span class="kicker">LOCAL MARKDOWN</span>
+          <h2 id="articlesTitle">&#25991;&#31456;&#21015;&#34920;</h2>
+        </div>
+        <p>&#28857;&#20987;&#21345;&#29255;&#25171;&#24320;&#20840;&#25991;&#38405;&#35835;</p>
+      </div>
+      <div class="article-list" id="articleList" aria-live="polite">
+        <p class="projects-status">&#27491;&#22312;&#25972;&#29702;&#26412;&#22320;&#25991;&#31456;&#8230;</p>
+      </div>
+    </section>
+  </main>
+
+  <script defer src="src/js/config.js"></script>
+  <script defer src="src/js/dom.js"></script>
+  <script defer src="src/js/modules/theme.js"></script>
+  <script defer src="src/js/modules/pageTransitions.js"></script>
+  <script defer src="src/js/modules/articles.js"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => Garden.initPageTransitions());
+  </script>
+</body>
+</html>

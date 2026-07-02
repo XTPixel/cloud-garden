@@ -41,9 +41,15 @@ export async function loadQuotes() {
     if (!response.ok) throw new Error('quotes request failed');
     quotes = normalizeQuotes(await response.json());
   } catch (error) {
-    console.warn('[箴言] 读取 quotes.json 失败:', error);
-    quotes = fallbackQuotes;
-    elements.quoteSource.textContent = '读取本地 JSON 失败，已使用兜底语录';
+    console.warn('[箴言] fetch 失败，尝试动态导入备用数据:', error);
+    try {
+      const module = await import('../../data/quotes-data.js');
+      quotes = normalizeQuotes(module.quotesData);
+    } catch (importError) {
+      console.warn('[箴言] 动态导入也失败，使用硬编码兜底:', importError);
+      quotes = fallbackQuotes;
+      elements.quoteSource.textContent = '读取本地 JSON 失败，已使用兜底语录';
+    }
   }
   renderQuote();
 }

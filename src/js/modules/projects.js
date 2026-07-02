@@ -57,10 +57,15 @@ function normalizeProjects(data) {
 async function readSnapshotProjects() {
   try {
     const response = await fetch('src/data/github-projects.json', { cache: 'no-cache' });
-    if (!response.ok) return [];
+    if (!response.ok) throw new Error('snapshot fetch failed');
     return normalizeCachedProjects(await response.json());
   } catch {
-    return [];
+    try {
+      const module = await import('../../data/github-projects-data.js');
+      return normalizeCachedProjects(module.githubProjectsSnapshot);
+    } catch {
+      return [];
+    }
   }
 }
 

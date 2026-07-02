@@ -71,7 +71,7 @@ function saveWidgetPosition(widget, onSaved) {
 
 export function applySavedLayout() {
   const layout = getLayout();
-  if (!Object.keys(layout).length) {
+  if (!layout || typeof layout !== 'object' || !Object.keys(layout).length) {
     resetLayout();
     return;
   }

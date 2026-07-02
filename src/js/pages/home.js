@@ -25,20 +25,48 @@ function bindEvents() {
 }
 
 async function init() {
-  initTheme();
-  applySavedLayout();
-  initClockControls();
-  renderCalendar();
-  await loadQuotes();
-  await loadBookmarks();
-  renderNotes();
-  initMusicPlayer();
-  loadWeather();
-  initCursorTrail();
-  initPageTransitions({ homeEntry: true });
-  enableDragging({});
-  enableNoteDragging();
-  bindEvents();
+  try {
+    initTheme();
+  } catch (e) { console.warn('[首页] initTheme:', e); }
+  try {
+    applySavedLayout();
+  } catch (e) { console.warn('[首页] applySavedLayout:', e); }
+  try {
+    initClockControls();
+  } catch (e) { console.warn('[首页] initClockControls:', e); }
+  try {
+    renderCalendar();
+  } catch (e) { console.warn('[首页] renderCalendar:', e); }
+  try {
+    await loadQuotes();
+  } catch (e) { console.warn('[首页] loadQuotes:', e); }
+  try {
+    await loadBookmarks();
+  } catch (e) { console.warn('[首页] loadBookmarks:', e); }
+  try {
+    renderNotes();
+  } catch (e) { console.warn('[首页] renderNotes:', e); }
+  try {
+    initMusicPlayer();
+  } catch (e) { console.warn('[首页] initMusicPlayer:', e); }
+  try {
+    loadWeather();
+  } catch (e) { console.warn('[首页] loadWeather:', e); }
+  try {
+    initCursorTrail();
+  } catch (e) { console.warn('[首页] initCursorTrail:', e); }
+  try {
+    initPageTransitions({ homeEntry: true });
+  } catch (e) { console.warn('[首页] initPageTransitions:', e); }
+  try {
+    enableDragging({});
+  } catch (e) { console.warn('[首页] enableDragging:', e); }
+  try {
+    enableNoteDragging();
+  } catch (e) { console.warn('[首页] enableNoteDragging:', e); }
+  try {
+    bindEvents();
+  } catch (e) { console.warn('[首页] bindEvents:', e); }
 }
 
 init();

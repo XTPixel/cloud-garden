@@ -28,7 +28,15 @@ async function fetchGitHubProjects() {
   const response = await fetch(`https://api.github.com/users/${github.username}/repos?type=owner&sort=updated&per_page=100`, {
     headers: { Accept: 'application/vnd.github+json' }
   });
-  if (!response.ok) throw new Error('github request failed');
+  if (!response.ok) {
+    const remaining = response.headers.get('X-RateLimit-Remaining');
+    const resetTime = response.headers.get('X-RateLimit-Reset');
+    const details = remaining === '0'
+      ? `GitHub API 限流已达上限（60次/小时），将在 ${resetTime ? new Date(Number(resetTime) * 1000).toLocaleTimeString() : '稍后'} 重置`
+      : `GitHub API 返回 ${response.status} ${response.statusText}`;
+    console.warn('[项目] 同步失败:', details);
+    throw new Error(details);
+  }
   return normalizeProjects(await response.json());
 }
 
@@ -129,7 +137,8 @@ async function loadProjects() {
     const usableProjects = projects.length > 0 ? projects : fallbackProjects;
     writeProjectCache(usableProjects);
     renderProjects(usableProjects);
-  } catch {
+  } catch (error) {
+    console.warn('[项目] loadProjects 失败:', error?.message);
     if (cachedProjects.length > 0) {
       renderProjects(cachedProjects, '暂时无法连接 GitHub，已使用本地缓存项目。');
       return;

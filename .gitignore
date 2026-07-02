@@ -1,0 +1,21 @@
+# 大体积照片 - 用占位文件代替
+photos/*.jpg
+photos/*.jpeg
+photos/*.png
+
+# 音乐文件
+src/assets/music/*.mp3
+src/assets/music/*.wav
+src/assets/music/*.flac
+
+# OS 缓存文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE 配置
+.vscode/
+.idea/
+*.swp
+*.swo
+*~

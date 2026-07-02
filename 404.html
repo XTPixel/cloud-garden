@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>迷路了 · 云外庭院</title>
+  <script src="src/js/theme-init.js"></script>
+  <link rel="stylesheet" href="src/css/base.css" />
+  <style>
+    body {
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .lost-card {
+      position: relative;
+      z-index: 10;
+      display: grid;
+      place-items: center;
+      gap: 18px;
+      width: min(480px, calc(100% - 48px));
+      padding: 48px 36px;
+      border: 1px solid var(--line);
+      border-radius: 34px 42px 38px 46px;
+      background:
+        radial-gradient(circle at 22% 18%, rgba(255, 250, 214, 0.42), transparent 8rem),
+        linear-gradient(145deg, rgba(255, 255, 255, 0.76), rgba(235, 255, 238, 0.52)),
+        var(--glass);
+      box-shadow: var(--shadow), var(--inner);
+      backdrop-filter: blur(26px) saturate(1.08);
+      text-align: center;
+    }
+
+    .lost-card h1 {
+      margin: 0;
+      font-size: 6rem;
+      line-height: 1;
+      background: linear-gradient(135deg, #73d7c5, #9fe3ac, #c9c1ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .lost-card h2 {
+      margin: 0;
+      color: #315256;
+      font-size: 1.4rem;
+    }
+
+    .lost-card p {
+      margin: 0;
+      color: #6f8a92;
+      font-weight: 800;
+      line-height: 1.7;
+    }
+
+    .lost-card a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 46px;
+      padding: 0 24px;
+      border: 1px solid rgba(255, 255, 255, 0.82);
+      border-radius: 999px;
+      color: #fff;
+      background: linear-gradient(135deg, #73d7c5, #96dc91 48%, #b8b0ff);
+      box-shadow: 0 16px 36px rgba(78, 123, 104, 0.16), var(--inner);
+      text-decoration: none;
+      font-weight: 900;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .lost-card a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 22px 48px rgba(78, 123, 104, 0.22), var(--inner);
+    }
+
+    .spirit-icon {
+      font-size: 4rem;
+      line-height: 1;
+      animation: spiritFloat 3.4s ease-in-out infinite;
+    }
+
+    html[data-theme="night"] .lost-card {
+      border-color: var(--line);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 14% 10%, rgba(119, 228, 216, 0.14), transparent 7rem),
+        linear-gradient(145deg, rgba(28, 54, 70, 0.82), rgba(18, 38, 53, 0.66));
+      box-shadow: var(--shadow), var(--inner);
+    }
+
+    html[data-theme="night"] .lost-card h2 {
+      color: #f2fffb;
+    }
+  </style>
+</head>
+<body>
+  <div class="sky-layer stars" aria-hidden="true"></div>
+  <div class="sky-layer aurora aurora-one" aria-hidden="true"></div>
+  <div class="sky-layer aurora aurora-two" aria-hidden="true"></div>
+
+  <main class="lost-card">
+    <span class="spirit-icon" aria-hidden="true">•̮•</span>
+    <h1>404</h1>
+    <h2>走丢啦</h2>
+    <p>这个页面似乎不在云外庭院里。<br />也许是风把它吹到了别的地方。</p>
+    <a href="index.html">← 回到庭院入口</a>
+  </main>
+</body>
+</html>

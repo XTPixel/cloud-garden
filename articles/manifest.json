@@ -1,16 +1,1 @@
-﻿[
-  {
-    "title": "把个人主页种成一座庭院",
-    "file": "personal-garden.md",
-    "createdAt": "2026-07-01T20:30:00+08:00",
-    "summary": "记录这个个人主页的视觉方向、模块布局与后续想继续打磨的小灵感。",
-    "tags": ["个人主页", "设计", "前端"]
-  },
-  {
-    "title": "近期文章系统说明",
-    "file": "recent-articles-guide.md",
-    "createdAt": "2026-07-01T21:20:00+08:00",
-    "summary": "说明如何在本地 articles 文件夹新增 Markdown 文章，并让它们显示在近期文章页面。",
-    "tags": ["Markdown", "文章"]
-  }
-]
+[]

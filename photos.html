@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>&#29031;&#29255;&#22681; &middot; &#20113;&#22806;&#24237;&#38498;</title>
   <script src="src/js/theme-init.js"></script>
-  <link rel="stylesheet" href="src/styles.css?v=photos-layout-2" />
+  <link rel="stylesheet" href="src/css/base.css" />
+  <link rel="stylesheet" href="src/css/pages.css" />
 </head>
 <body class="projects-page photos-page">
   <div class="sky-layer stars" aria-hidden="true"></div>
@@ -41,13 +42,6 @@
     <p id="photoLightboxCaption"></p>
   </div>
 
-  <script defer src="src/js/config.js"></script>
-  <script defer src="src/js/dom.js"></script>
-  <script defer src="src/js/modules/theme.js"></script>
-  <script defer src="src/js/modules/pageTransitions.js"></script>
-  <script defer src="src/js/modules/photos.js?v=photos-layout-2"></script>
-  <script>
-    window.addEventListener('DOMContentLoaded', () => window.Garden?.initPageTransitions?.());
-  </script>
+  <script type="module" src="src/js/pages/photos.js"></script>
 </body>
 </html>

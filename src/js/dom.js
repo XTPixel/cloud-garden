@@ -1,4 +1,4 @@
-window.Garden.elements = {
+export const elements = {
   desktop: document.querySelector('#desktop'),
   themeToggle: document.querySelector('#themeToggle'),
   greeting: document.querySelector('#greeting'),
@@ -43,7 +43,3 @@ window.Garden.elements = {
   selectAllFavorites: document.querySelector('#selectAllFavorites'),
   deleteSelectedFavorites: document.querySelector('#deleteSelectedFavorites')
 };
-
-
-
-

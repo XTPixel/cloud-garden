@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>&#25991;&#31456; &middot; &#20113;&#22806;&#24237;&#38498;</title>
   <script src="src/js/theme-init.js"></script>
-  <link rel="stylesheet" href="src/styles.css" />
+  <link rel="stylesheet" href="src/css/base.css" />
+  <link rel="stylesheet" href="src/css/pages.css" />
 </head>
 <body class="projects-page article-page">
   <div class="sky-layer stars" aria-hidden="true"></div>
@@ -49,13 +50,6 @@
     </aside>
   </main>
 
-  <script defer src="src/js/config.js"></script>
-  <script defer src="src/js/dom.js"></script>
-  <script defer src="src/js/modules/theme.js"></script>
-  <script defer src="src/js/modules/pageTransitions.js"></script>
-  <script defer src="src/js/modules/articleReader.js"></script>
-  <script>
-    window.addEventListener('DOMContentLoaded', () => Garden.initPageTransitions());
-  </script>
+  <script type="module" src="src/js/pages/article.js"></script>
 </body>
 </html>

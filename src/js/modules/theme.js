@@ -1,6 +1,7 @@
-﻿(() => {
+import { elements } from '../dom.js';
+
+export function initTheme() {
   const storageKey = 'dashboard.theme';
-  const { elements } = window.Garden || {};
   const root = document.documentElement;
   const toggle = elements?.themeToggle || document.querySelector('#themeToggle');
 
@@ -13,11 +14,7 @@
   }
 
   function writeTheme(theme) {
-    try {
-      localStorage.setItem(storageKey, theme);
-    } catch (error) {
-      // Ignore storage failures; the current page still updates.
-    }
+    try { localStorage.setItem(storageKey, theme); } catch (e) { /* ignore */ }
   }
 
   function applyTheme(theme) {
@@ -37,4 +34,4 @@
     applyTheme(nextTheme);
     writeTheme(nextTheme);
   });
-})();
+}

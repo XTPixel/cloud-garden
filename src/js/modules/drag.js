@@ -18,6 +18,81 @@ const defaultLayout = [
 ];
 
 const defaultCanvas = { width: 1100, height: 720 };
+const RESIZE_MARGIN = 8;
+const RESIZE_TRANSITION_MS = 300;
+
+// --- 窗口缩放平滑调整 ---
+const savedDesktop = { width: 0, height: 0 };
+let resizeRAF = null;
+
+function syncDesktopSize() {
+  const desktop = document.querySelector('.desktop');
+  if (desktop) {
+    savedDesktop.width = desktop.offsetWidth;
+    savedDesktop.height = desktop.offsetHeight;
+  }
+}
+
+function handleResize() {
+  const currentWidth = window.innerWidth;
+  const currentHeight = window.innerHeight;
+
+  if (currentWidth === savedDesktop.width && currentHeight === savedDesktop.height) return;
+
+  const scaleX = currentWidth / savedDesktop.width;
+  const scaleY = currentHeight / savedDesktop.height;
+
+  const widgets = document.querySelectorAll('[data-widget]');
+
+  // 临时 transition 实现平滑动画
+  widgets.forEach((w) => {
+    w.style.transition = `left ${RESIZE_TRANSITION_MS}ms ease, top ${RESIZE_TRANSITION_MS}ms ease`;
+  });
+
+  widgets.forEach((widget) => {
+    const left = parseFloat(widget.style.left) || 0;
+    const top = parseFloat(widget.style.top) || 0;
+    const w = widget.offsetWidth;
+    const h = widget.offsetHeight;
+
+    let newLeft = Math.round(left * scaleX);
+    let newTop = Math.round(top * scaleY);
+
+    // Clamp 保证不溢出视口
+    const maxX = currentWidth - w - RESIZE_MARGIN;
+    const maxY = currentHeight - h - RESIZE_MARGIN;
+    if (maxX >= RESIZE_MARGIN) newLeft = Math.min(newLeft, maxX);
+    if (maxY >= RESIZE_MARGIN) newTop = Math.min(newTop, maxY);
+    newLeft = Math.max(RESIZE_MARGIN, newLeft);
+    newTop = Math.max(RESIZE_MARGIN, newTop);
+
+    widget.style.left = `${newLeft}px`;
+    widget.style.top = `${newTop}px`;
+    widget.style.setProperty('--x', widget.style.left);
+    widget.style.setProperty('--y', widget.style.top);
+  });
+
+  // 动画完成后移除 transition，恢复拖拽即时响应
+  setTimeout(() => {
+    widgets.forEach((w) => {
+      w.style.transition = '';
+    });
+  }, RESIZE_TRANSITION_MS + 50);
+
+  savedDesktop.width = currentWidth;
+  savedDesktop.height = currentHeight;
+}
+
+export function initResizeHandler() {
+  syncDesktopSize();
+  window.addEventListener('resize', () => {
+    if (resizeRAF) return;
+    resizeRAF = requestAnimationFrame(() => {
+      resizeRAF = null;
+      handleResize();
+    });
+  });
+}
 
 function getWidgetSize(widget) {
   const styles = getComputedStyle(widget);
@@ -126,6 +201,7 @@ export function enableDragging({ onPositionSaved } = {}) {
       widget.classList.remove('dragging');
       widget.releasePointerCapture(event.pointerId);
       saveWidgetPosition(widget, onPositionSaved);
+      syncDesktopSize();
       if (widget.classList.contains('notes-fab') && !didMove) addNote();
     });
 

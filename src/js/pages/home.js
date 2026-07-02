@@ -4,24 +4,32 @@ import { initClockControls, renderCalendar } from '../modules/clock.js';
 import { loadBookmarks } from '../modules/bookmarks.js';
 import { loadQuotes, nextQuote } from '../modules/quotes.js';
 import { renderNotes, updateNoteText, startNoteDrag, enableNoteDragging } from '../modules/notes.js';
-import { applySavedLayout, resetLayout, enableDragging } from '../modules/drag.js';
+import { applySavedLayout, resetLayout, enableDragging, initResizeHandler } from '../modules/drag.js';
 import { loadWeather } from '../modules/weather.js';
 import { initMusicPlayer } from '../modules/music.js';
 import { initPageTransitions } from '../modules/pageTransitions.js';
 import { initCursorTrail } from '../modules/cursorTrail.js';
+import { initCat, catReact } from '../modules/cat.js';
 
 function bindEvents() {
   elements.quoteCard.addEventListener('click', (event) => {
     if (event.target.closest('.drag-handle')) return;
     nextQuote();
+    try { catReact('quoteClick'); } catch (e) {}
   });
   elements.quoteCard.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter' || event.key === ' ') nextQuote();
+    if (event.key === 'Enter' || event.key === ' ') {
+      nextQuote();
+      try { catReact('quoteClick'); } catch (e) {}
+    }
   });
   elements.noteWall.addEventListener('pointerdown', startNoteDrag);
   elements.noteWall.addEventListener('input', updateNoteText);
   elements.resetLayout.addEventListener('click', resetLayout);
-  elements.refreshWeather.addEventListener('click', () => loadWeather());
+  elements.refreshWeather.addEventListener('click', () => {
+    loadWeather();
+    try { catReact('weatherChange'); } catch (e) {}
+  });
 }
 
 async function init() {
@@ -50,14 +58,28 @@ async function init() {
     initMusicPlayer();
   } catch (e) { console.warn('[首页] initMusicPlayer:', e); }
   try {
+    // 猫对音乐的反应
+    const audio = elements.musicAudio;
+    if (audio) {
+      audio.addEventListener('play', () => { try { catReact('musicPlay'); } catch (e) {} });
+      audio.addEventListener('pause', () => { try { catReact('musicPause'); } catch (e) {} });
+    }
+  } catch (e) { console.warn('[首页] 猫音乐连接:', e); }
+  try {
     loadWeather();
   } catch (e) { console.warn('[首页] loadWeather:', e); }
   try {
     initCursorTrail();
   } catch (e) { console.warn('[首页] initCursorTrail:', e); }
   try {
+    initCat();
+  } catch (e) { console.warn('[首页] initCat:', e); }
+  try {
     initPageTransitions({ homeEntry: true });
   } catch (e) { console.warn('[首页] initPageTransitions:', e); }
+  try {
+    initResizeHandler();
+  } catch (e) { console.warn('[首页] initResizeHandler:', e); }
   try {
     enableDragging({});
   } catch (e) { console.warn('[首页] enableDragging:', e); }

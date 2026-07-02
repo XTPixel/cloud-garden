@@ -1,0 +1,277 @@
+/* ========================================
+   cat.css — 庭中黑猫电子宠物样式
+   云外庭院 · 罗小黑风格
+   ======================================== */
+
+/* ---- 猫容器 ---- */
+.cat-container {
+  position: fixed;
+  z-index: 90;
+  pointer-events: auto;
+  cursor: pointer;
+  width: 96px;
+  height: 104px;
+  transform: translate(-50%, -50%);
+  transition: left 0.08s linear, top 0.08s linear;
+  will-change: left, top;
+  image-rendering: auto;
+}
+
+.cat-container::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  width: 32px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(68, 117, 86, 0.2), transparent 70%);
+  transform: translateX(-50%);
+  pointer-events: none;
+  transition: width 0.3s ease, opacity 0.3s ease;
+}
+
+.cat-container.is-sleeping::after {
+  width: 24px;
+  opacity: 0.5;
+}
+
+.cat-container.is-jumping::after {
+  width: 18px;
+  opacity: 0.3;
+  transform: translateX(-50%) translateY(8px);
+}
+
+/* ---- 猫精灵图 ---- */
+.cat-sprite {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ---- 猫翻转（走路朝向） ---- */
+.cat-container[data-facing="left"] .cat-sprite {
+  transform: scaleX(-1);
+}
+
+/* ---- 点击涟漪反馈 ---- */
+.cat-ripple {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 200, 100, 0.6);
+  pointer-events: none;
+  animation: catRipple 0.6s ease-out forwards;
+}
+
+@keyframes catRipple {
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* ---- 猫心情气泡 ---- */
+.cat-bubble {
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  transform: translateX(-50%);
+  padding: 3px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 12px 12px 12px 4px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  color: #315256;
+  font-size: 0.7rem;
+  font-weight: 900;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  animation: bubbleFloat 2s ease-out forwards;
+}
+
+@keyframes bubbleFloat {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(4px);
+  }
+  15% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  85% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-6px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-12px);
+  }
+}
+
+/* ---- 猫说话气泡（长按/点击消息） ---- */
+.cat-speech {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  transform: translateX(-50%);
+  padding: 6px 12px;
+  max-width: 140px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 16px 16px 16px 4px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(78, 123, 104, 0.12);
+  color: #315256;
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1.4;
+  text-align: center;
+  white-space: normal;
+  pointer-events: none;
+  z-index: 95;
+}
+
+/* ---- Zzz 气泡（睡觉时） ---- */
+.cat-zzz {
+  position: absolute;
+  right: -4px;
+  top: -8px;
+  pointer-events: none;
+  font-size: 0;
+  letter-spacing: 0;
+  animation: zzzFloat 2.4s ease-in-out infinite;
+}
+
+.cat-zzz span {
+  display: block;
+  color: #7ECF8A;
+  font-weight: 900;
+  font-size: 0;
+  animation: zzzAppear 2.4s ease-in-out infinite;
+}
+
+.cat-zzz .z1 { font-size: 10px; animation-delay: 0s; }
+.cat-zzz .z2 { font-size: 13px; animation-delay: 0.6s; }
+.cat-zzz .z3 { font-size: 16px; animation-delay: 1.2s; }
+
+@keyframes zzzFloat {
+  0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+  50% { transform: translateY(-8px) translateX(4px); opacity: 1; }
+}
+
+@keyframes zzzAppear {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+/* ---- 心形粒子 ---- */
+.cat-heart {
+  position: absolute;
+  pointer-events: none;
+  font-size: 14px;
+  animation: heartFloat 1.2s ease-out forwards;
+  z-index: 96;
+}
+
+@keyframes heartFloat {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(0.5) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-20px) scale(1.2) rotate(10deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-40px) scale(0.8) rotate(-5deg);
+  }
+}
+
+/* ---- 鼠标指向互动提示 ---- */
+.cat-container:hover {
+  filter: brightness(1.08);
+}
+
+.cat-container:active {
+  transform: translate(-50%, -50%) scale(0.95);
+}
+
+/* ---- 索引叠加 ---- */
+.cat-container.interacting {
+  z-index: 91;
+}
+
+/* =============================================
+   子页面 — 猫缩小到右下角
+   ============================================= */
+.cat-container.is-mini {
+  width: 64px;
+  height: 70px;
+  right: 20px;
+  bottom: 20px;
+  left: auto !important;
+  top: auto !important;
+  opacity: 0.7;
+  transition: opacity 0.4s ease;
+}
+
+.cat-container.is-mini:hover {
+  opacity: 1;
+}
+
+/* =============================================
+   夜间模式
+   ============================================= */
+html[data-theme="night"] .cat-container::after {
+  background: radial-gradient(ellipse, rgba(119, 228, 216, 0.18), transparent 70%);
+}
+
+html[data-theme="night"] .cat-zzz span {
+  color: #a78bfa;
+}
+
+html[data-theme="night"] .cat-speech,
+html[data-theme="night"] .cat-bubble {
+  background: rgba(28, 54, 70, 0.88);
+  border-color: rgba(188, 240, 231, 0.24);
+  color: #e8fbf7;
+}
+
+html[data-theme="night"] .cat-ripple {
+  border-color: rgba(167, 139, 250, 0.5);
+}
+
+html[data-theme="night"] .cat-container:hover {
+  filter: brightness(1.15) saturate(1.1);
+}
+
+/* =============================================
+   弱动效
+   ============================================= */
+@media (prefers-reduced-motion: reduce) {
+  .cat-container {
+    transition: none !important;
+  }
+  .cat-ripple,
+  .cat-bubble,
+  .cat-heart,
+  .cat-zzz {
+    animation: none !important;
+    display: none;
+  }
+}

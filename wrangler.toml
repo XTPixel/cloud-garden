@@ -1,0 +1,7 @@
+name = "cloud-garden"
+compatibility_date = "2026-07-03"
+
+# 静态站点配置：部署 dist/ 目录
+[assets]
+directory = "./dist"
+not_found_handling = "404-page"

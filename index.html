@@ -4,7 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>云外庭院 · Personal Garden</title>
-  <script src="src/js/theme-init.js"></script>
+  <script>
+    (() => {
+      const key = 'dashboard.theme', root = document.documentElement;
+      try { if (localStorage.getItem(key) === 'night') root.dataset.theme = 'night'; }
+      catch (e) { /* 存储不可用时忽略 */ }
+    })();
+  </script>
   <link rel="stylesheet" href="src/css/base.css" />
   <link rel="stylesheet" href="src/css/widgets.css" />
   <link rel="stylesheet" href="src/css/cat.css" />

@@ -4,7 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>&#29031;&#29255;&#22681; &middot; &#20113;&#22806;&#24237;&#38498;</title>
-  <script src="src/js/theme-init.js"></script>
+  <script>
+    (() => {
+      const key = 'dashboard.theme', root = document.documentElement;
+      try { if (localStorage.getItem(key) === 'night') root.dataset.theme = 'night'; }
+      catch (e) { /* 存储不可用时忽略 */ }
+    })();
+  </script>
   <link rel="stylesheet" href="src/css/base.css" />
   <link rel="stylesheet" href="src/css/pages.css" />
 </head>
@@ -18,6 +24,7 @@
   <div class="sky-layer garden-silhouette garden-right" aria-hidden="true"></div>
   <div class="sky-layer vine-trail" aria-hidden="true"></div>
   <button class="theme-toggle" id="themeToggle" type="button" aria-label="&#20999;&#25442;&#20027;&#39064;" aria-pressed="false"><span>&#9790;</span><b>&#22812;&#38388;</b></button>
+  <button class="photo-refresh-btn" id="photoRefreshBtn" type="button" aria-label="&#25195;&#25551;&#24182;&#26356;&#26032;&#29031;&#29255;&#22681;" title="&#21047;&#26032;&#29031;&#29255;&#22681;&#65288;&#38656; node server.js &#25903;&#25345;&#65289;">&#8635;</button>
 
   <main class="photos-page-shell" aria-label="&#29031;&#29255;&#22681;&#39029;&#38754;">
     <aside class="projects-side photos-side floating-nav island-card">

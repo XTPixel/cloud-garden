@@ -1,3 +1,9 @@
+# 构建输出
+dist/
+
+# 依赖
+node_modules/
+
 # 大体积照片 - 用占位文件代替
 photos/*.jpg
 photos/*.jpeg

@@ -9,6 +9,9 @@ photos/*.jpg
 photos/*.jpeg
 photos/*.png
 
+# 照片重命名缓存
+photos/.rename_cache.json
+
 # 音乐文件
 src/assets/music/*.mp3
 src/assets/music/*.wav

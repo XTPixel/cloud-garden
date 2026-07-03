@@ -20,8 +20,10 @@ const OUTPUT = path.join(__dirname, '..', 'src', 'data', 'photos.json');
 const EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.gif', '.bmp', '.avif']);
 
 if (!fs.existsSync(PHOTO_DIR)) {
-  console.error('❌ 目录不存在: ' + PHOTO_DIR);
-  process.exit(1);
+  // 目录不存在时生成空清单，不阻塞构建
+  fs.writeFileSync(OUTPUT, '[]\n');
+  console.log('⚠️  photos/ 目录不存在，已生成空照片清单');
+  process.exit(0);
 }
 
 const files = fs.readdirSync(PHOTO_DIR)

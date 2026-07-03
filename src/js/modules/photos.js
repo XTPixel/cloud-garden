@@ -1,4 +1,7 @@
 import { escapeHtml, escapeAttribute, clamp } from '../utils/format.js';
+import { photos as photosConfig } from '../config.js';
+
+const PHOTO_BASE = photosConfig.baseUrl;
 
 const wall = document.querySelector('#photoWall');
 const lightbox = document.querySelector('#photoLightbox');
@@ -73,7 +76,7 @@ function formatPhotoTitle(filename) {
 
 function openLightbox(filename) {
   const title = formatPhotoTitle(filename);
-  lightboxImage.src = `photos/${filename}`;
+  lightboxImage.src = `${PHOTO_BASE}/${filename}`;
   lightboxImage.alt = title;
   lightboxCaption.textContent = title;
   lightbox.setAttribute('aria-hidden', 'false');
@@ -172,7 +175,7 @@ function renderPhotos() {
     return `
       <figure class="photo-paper" tabindex="0" role="button" aria-label="查看 ${escapeAttribute(title)}"
               style="--photo-x:${left}vw; --photo-y:${top}vh; --rotate:${rotate}deg; --hover-rotate:${(rotate * 0.45).toFixed(1)}deg; --z:${index + 1};">
-        <img src="photos/${escapeAttribute(photo)}" alt="${escapeAttribute(title)}" draggable="false" />
+        <img src="${PHOTO_BASE}/${escapeAttribute(photo)}" alt="${escapeAttribute(title)}" draggable="false" />
         <figcaption>${escapeHtml(title)}</figcaption>
       </figure>
     `;

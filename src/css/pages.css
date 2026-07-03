@@ -333,14 +333,14 @@ body.is-page-leaving .floating-nav {
 
 /* ---- 照片墙 ---- */
 .photos-page {
-  overflow: hidden;
+  /* 继承 .projects-page 的 overflow: auto，使页面可滚动 */
 }
 
 .photos-page-shell {
   position: relative;
   z-index: 3;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .photos-side,
@@ -355,13 +355,96 @@ body.is-page-leaving .floating-nav {
 }
 
 .photo-wall {
-  position: fixed;
-  inset: 0;
+  position: relative;
   z-index: 3;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
   min-height: 100vh;
-  overflow: visible;
+}
+
+/* ---- 照片墙刷新按钮 & Toast ---- */
+.photo-refresh-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 220;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  border-radius: 999px;
+  color: #5f8b8f;
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: 0 16px 36px rgba(78, 123, 104, 0.16), var(--inner);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  cursor: pointer;
+  font-size: 1.3rem;
+  line-height: 1;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.photo-refresh-btn:hover {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.86);
+}
+
+.photo-refresh-btn:active {
+  transform: scale(0.94);
+}
+
+.photo-refresh-btn.is-spinning {
+  animation: photo-refresh-spin 0.7s linear infinite;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+@keyframes photo-refresh-spin {
+  to { transform: rotate(360deg); }
+}
+
+.photo-toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  z-index: 9999;
+  transform: translateX(-50%) translateY(20px);
+  padding: 10px 24px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.72);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: #e8fbf7;
+  font-size: 0.88rem;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.photo-toast.is-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+html[data-theme="night"] .photo-refresh-btn {
+  color: #a3d6d9;
+  background: rgba(28, 54, 70, 0.62);
+  border-color: rgba(120, 215, 209, 0.32);
+}
+
+html[data-theme="night"] .photo-refresh-btn:hover {
+  background: rgba(28, 54, 70, 0.82);
+}
+
+@media (max-width: 760px) {
+  .photo-refresh-btn {
+    top: 14px;
+    right: 14px;
+    width: 38px;
+    height: 38px;
+    font-size: 1.1rem;
+  }
 }
 
 .photo-paper {
@@ -1033,10 +1116,6 @@ body.is-page-leaving .floating-nav {
     top: 12px;
     max-width: calc(100vw - 24px);
     padding: 7px 8px;
-  }
-
-  .photo-wall {
-    min-height: 100vh;
   }
 
   .photo-paper {

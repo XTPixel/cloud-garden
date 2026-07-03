@@ -9,18 +9,27 @@ import { loadWeather } from '../modules/weather.js';
 import { initMusicPlayer } from '../modules/music.js';
 import { initPageTransitions } from '../modules/pageTransitions.js';
 import { initCursorTrail } from '../modules/cursorTrail.js';
-import { initCat, catReact } from '../modules/cat.js';
+
+/* ============================================
+   电子宠物 · 庭中黑猫（默认关闭）
+   如需启用，取消下方 import 注释，并在 init()
+   中取消 initCat() 及相关 catReact() 调用的注释
+   资源文件：src/assets/cat/*.gif
+   控制模块：src/js/modules/cat.js
+   样式：    src/css/cat.css
+   ============================================ */
+// import { initCat, catReact } from '../modules/cat.js';
 
 function bindEvents() {
   elements.quoteCard.addEventListener('click', (event) => {
     if (event.target.closest('.drag-handle')) return;
     nextQuote();
-    try { catReact('quoteClick'); } catch (e) {}
+    // catReact('quoteClick');
   });
   elements.quoteCard.addEventListener('keydown', (event) => {
     if (event.key === 'Enter' || event.key === ' ') {
       nextQuote();
-      try { catReact('quoteClick'); } catch (e) {}
+      // catReact('quoteClick');
     }
   });
   elements.noteWall.addEventListener('pointerdown', startNoteDrag);
@@ -28,7 +37,7 @@ function bindEvents() {
   elements.resetLayout.addEventListener('click', resetLayout);
   elements.refreshWeather.addEventListener('click', () => {
     loadWeather();
-    try { catReact('weatherChange'); } catch (e) {}
+    // catReact('weatherChange');
   });
 }
 
@@ -58,12 +67,12 @@ async function init() {
     initMusicPlayer();
   } catch (e) { console.warn('[首页] initMusicPlayer:', e); }
   try {
-    // 猫对音乐的反应
-    const audio = elements.musicAudio;
-    if (audio) {
-      audio.addEventListener('play', () => { try { catReact('musicPlay'); } catch (e) {} });
-      audio.addEventListener('pause', () => { try { catReact('musicPause'); } catch (e) {} });
-    }
+    // 如需启用电子宠物，在此处取消注释：
+    // const audio = elements.musicAudio;
+    // if (audio) {
+    //   audio.addEventListener('play', () => { try { catReact('musicPlay'); } catch (e) {} });
+    //   audio.addEventListener('pause', () => { try { catReact('musicPause'); } catch (e) {} });
+    // }
   } catch (e) { console.warn('[首页] 猫音乐连接:', e); }
   try {
     loadWeather();
@@ -72,7 +81,7 @@ async function init() {
     initCursorTrail();
   } catch (e) { console.warn('[首页] initCursorTrail:', e); }
   try {
-    initCat();
+    // initCat();  /* 启用电子宠物 */
   } catch (e) { console.warn('[首页] initCat:', e); }
   try {
     initPageTransitions({ homeEntry: true });

@@ -14,12 +14,12 @@ const playlist = [
     artist: '《罗小黑战记》主题曲 · 艾索',
   },
   {
-    src: MUSIC_BASE ? `${MUSIC_BASE}/稻香-周杰伦.mp3` : '',
+    src: MUSIC_BASE ? `${MUSIC_BASE}/稻香-周杰伦.mp3` : new URL('../../assets/music/稻香-周杰伦.mp3', import.meta.url).href,
     title: '稻香',
     artist: '周杰伦',
   },
   {
-    src: MUSIC_BASE ? `${MUSIC_BASE}/昔涟-张韶涵＿HOYO-MiX.mp3` : '',
+    src: MUSIC_BASE ? `${MUSIC_BASE}/昔涟-张韶涵＿HOYO-MiX.mp3` : new URL('../../assets/music/昔涟-张韶涵＿HOYO-MiX.mp3', import.meta.url).href,
     title: '昔涟',
     artist: '张韶涵 & HOYO-MiX',
   },

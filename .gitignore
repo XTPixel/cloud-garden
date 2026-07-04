@@ -13,11 +13,6 @@ photos/*.png
 photos/.rename_cache.json
 photos/rename_photos.py
 
-# 音乐文件
-src/assets/music/*.mp3
-src/assets/music/*.wav
-src/assets/music/*.flac
-
 # OS 缓存文件
 .DS_Store
 Thumbs.db

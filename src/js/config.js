@@ -14,10 +14,10 @@ export const github = {
 
 /** 照片来源：七牛云 CDN 公网 URL（也可通过 VITE_PHOTOS_BASE_URL 环境变量覆盖） */
 export const photos = {
-  baseUrl: import.meta.env.VITE_PHOTOS_BASE_URL || 'https://cloud-garden.s3.cn-north-1.qiniucs.com/photos'
+  baseUrl: import.meta.env.VITE_PHOTOS_BASE_URL || 'http://thmrgc8qb.hb-bkt.clouddn.com/photos'
 };
 
 /** 音乐来源：七牛云 CDN 公网 URL（也可通过 VITE_MUSIC_BASE_URL 环境变量覆盖） */
 export const music = {
-  baseUrl: import.meta.env.VITE_MUSIC_BASE_URL || 'https://cloud-garden.s3.cn-north-1.qiniucs.com/music'
+  baseUrl: import.meta.env.VITE_MUSIC_BASE_URL || 'http://thmrgc8qb.hb-bkt.clouddn.com/music'
 };

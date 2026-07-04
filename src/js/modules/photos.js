@@ -76,7 +76,7 @@ function formatPhotoTitle(filename) {
 
 function openLightbox(filename) {
   const title = formatPhotoTitle(filename);
-  lightboxImage.src = `${PHOTO_BASE}/${filename}`;
+  lightboxImage.src = `${PHOTO_BASE}/${encodeURIComponent(filename)}`;
   lightboxImage.alt = title;
   lightboxCaption.textContent = title;
   lightbox.setAttribute('aria-hidden', 'false');
@@ -175,7 +175,7 @@ function renderPhotos() {
     return `
       <figure class="photo-paper" tabindex="0" role="button" aria-label="查看 ${escapeAttribute(title)}"
               style="--photo-x:${left}vw; --photo-y:${top}vh; --rotate:${rotate}deg; --hover-rotate:${(rotate * 0.45).toFixed(1)}deg; --z:${index + 1};">
-        <img src="${PHOTO_BASE}/${escapeAttribute(photo)}" alt="${escapeAttribute(title)}" draggable="false" />
+        <img src="${PHOTO_BASE}/${encodeURIComponent(photo)}" alt="${escapeAttribute(title)}" draggable="false" />
         <figcaption>${escapeHtml(title)}</figcaption>
       </figure>
     `;

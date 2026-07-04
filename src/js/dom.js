@@ -26,6 +26,8 @@ export const elements = {
   resetLayout: document.querySelector('#resetLayout'),
   musicAudio: document.querySelector('#musicAudio'),
   musicToggle: document.querySelector('#musicToggle'),
+  musicPrev: document.querySelector('#musicPrev'),
+  musicNext: document.querySelector('#musicNext'),
   musicProgress: document.querySelector('#musicProgress'),
   songTitle: document.querySelector('#songTitle'),
   songArtist: document.querySelector('#songArtist'),

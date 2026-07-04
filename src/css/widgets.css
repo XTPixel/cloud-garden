@@ -657,6 +657,28 @@
   color: #fff;
   background: linear-gradient(135deg, #73d7c5, #96dc91 48%, #b8b0ff);
   cursor: pointer;
+  transition: opacity 0.2s, filter 0.2s;
+}
+
+/* 按钮控制组 */
+.music-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* 切歌按钮略小 */
+.music-controls #musicPrev,
+.music-controls #musicNext {
+  width: 32px;
+  height: 32px;
+  font-size: 0.85rem;
+}
+
+.music-controls button:disabled {
+  opacity: 0.3;
+  cursor: default;
+  filter: grayscale(0.6);
 }
 
 /* ---- 天气 ---- */

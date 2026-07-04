@@ -130,8 +130,12 @@
         <small id="songArtist">《罗小黑战记》主题曲 · 艾索</small>
         <i><b id="musicProgress"></b></i>
       </div>
-      <audio id="musicAudio" preload="metadata" src="src/assets/music/wan-an-miao.mp3"></audio>
-      <button id="musicToggle" type="button" aria-label="播放晚安喵">▶</button>
+      <audio id="musicAudio" preload="metadata"></audio>
+      <div class="music-controls">
+        <button id="musicPrev" type="button" aria-label="上一首">⏮</button>
+        <button id="musicToggle" type="button" aria-label="播放晚安喵">▶</button>
+        <button id="musicNext" type="button" aria-label="下一首">⏭</button>
+      </div>
     </section>
 
     <section class="widget weather-widget island-card" data-widget="weather" style="--x: 74%; --y: 74%; --w: 210px; --h: 154px;">

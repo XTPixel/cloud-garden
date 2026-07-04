@@ -52,32 +52,11 @@
     <section class="projects-board favorites-board island-card" aria-labelledby="favoritesTitle">
       <div class="projects-board-head favorites-board-head">
         <div>
-          <span class="kicker">MANAGE LINKS</span>
+          <span class="kicker">BOOKMARK PORTS</span>
           <h2 id="favoritesTitle">&#25910;&#34255;&#21345;&#29255;</h2>
-        </div>
-        <div class="favorite-actions" aria-label="&#25910;&#34255;&#31649;&#29702;&#24037;&#20855;">
-          <button class="favorite-action-button" type="button" id="selectAllFavorites">&#20840;&#36873;</button>
-          <button class="favorite-action-button danger" type="button" id="deleteSelectedFavorites">&#25209;&#37327;&#21024;&#38500;</button>
         </div>
       </div>
 
-      <form class="favorite-form" id="favoriteForm" autocomplete="off">
-        <label>
-          <span>&#32593;&#31449;&#21517;&#31216;</span>
-          <input id="favoriteTitle" name="title" type="text" placeholder="&#20363;&#22914;&#65306;OpenAI" required />
-        </label>
-        <label>
-          <span>&#32593;&#31449;&#22320;&#22336;</span>
-          <input id="favoriteUrl" name="url" type="url" placeholder="https://example.com" required />
-        </label>
-        <label>
-          <span>&#31616;&#30701;&#22791;&#27880;</span>
-          <input id="favoriteDescription" name="description" type="text" placeholder="&#35760;&#19979;&#25910;&#34255;&#23427;&#30340;&#29702;&#30001;" />
-        </label>
-        <button type="submit">&#28155;&#21152;&#25910;&#34255;</button>
-      </form>
-
-      <p class="favorite-tip" id="favoriteTip">&#20351;&#29992;&#21345;&#29255;&#21491;&#19978;&#35282;&#30340;&#36873;&#25321;&#26631;&#35760;&#36827;&#34892;&#25209;&#37327;&#21024;&#38500;&#12290;</p>
       <div class="favorite-grid" id="favoriteGrid" aria-live="polite"></div>
     </section>
   </main>

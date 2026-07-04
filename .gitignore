@@ -11,6 +11,7 @@ photos/*.png
 
 # 照片重命名缓存
 photos/.rename_cache.json
+photos/rename_photos.py
 
 # 音乐文件
 src/assets/music/*.mp3

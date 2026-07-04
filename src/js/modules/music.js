@@ -54,23 +54,15 @@ function setUnavailableState() {
 
 function updateButtonStates() {
   const { musicPrev, musicNext } = elements;
+  const prev = currentIndex > 0 ? currentIndex - 1 : playlist.length - 1;
+  const next = currentIndex < playlist.length - 1 ? currentIndex + 1 : 0;
   if (musicPrev) {
-    musicPrev.disabled = currentIndex === 0;
-    musicPrev.setAttribute(
-      'aria-label',
-      currentIndex > 0
-        ? `上一首：${playlist[currentIndex - 1].title}`
-        : '已是第一首',
-    );
+    musicPrev.disabled = false;
+    musicPrev.setAttribute('aria-label', `上一首：${playlist[prev].title}`);
   }
   if (musicNext) {
-    musicNext.disabled = currentIndex === playlist.length - 1;
-    musicNext.setAttribute(
-      'aria-label',
-      currentIndex < playlist.length - 1
-        ? `下一首：${playlist[currentIndex + 1].title}`
-        : '已是最后一首',
-    );
+    musicNext.disabled = false;
+    musicNext.setAttribute('aria-label', `下一首：${playlist[next].title}`);
   }
 }
 
@@ -120,16 +112,16 @@ async function toggleMusic() {
 }
 
 function prevTrack() {
-  if (currentIndex <= 0) return;
-  loadTrack(currentIndex - 1);
+  const prev = currentIndex > 0 ? currentIndex - 1 : playlist.length - 1;
+  loadTrack(prev);
   // 切歌后自动播放
   const { musicAudio } = elements;
   if (musicAudio) musicAudio.play().catch(() => {});
 }
 
 function nextTrack() {
-  if (currentIndex >= playlist.length - 1) return;
-  loadTrack(currentIndex + 1);
+  const next = currentIndex < playlist.length - 1 ? currentIndex + 1 : 0;
+  loadTrack(next);
   const { musicAudio } = elements;
   if (musicAudio) musicAudio.play().catch(() => {});
 }
@@ -155,13 +147,6 @@ export function initMusicPlayer() {
   musicAudio.addEventListener('loadedmetadata', updateProgress);
   musicAudio.addEventListener('error', setUnavailableState);
 
-  // 自动切歌
-  musicAudio.addEventListener('ended', () => {
-    if (currentIndex < playlist.length - 1) {
-      nextTrack();
-    } else {
-      // 列表播完，回到第一首并停止
-      loadTrack(0);
-    }
-  });
+  // 自动切歌（循环播放）
+  musicAudio.addEventListener('ended', nextTrack);
 }

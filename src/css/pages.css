@@ -849,95 +849,10 @@ html[data-theme="night"] .photo-refresh-btn:hover {
   align-self: start;
 }
 
-.favorite-actions {
+
+.favorite-card-main {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: flex-end;
-}
-
-.favorite-action-button,
-.favorite-form button,
-.favorite-card-controls button {
-  border: 1px solid rgba(255,255,255,0.82);
-  border-radius: 999px;
-  color: #42646a;
-  background: rgba(255,255,255,0.58);
-  box-shadow: var(--inner);
-  cursor: pointer;
-  font-weight: 900;
-  transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease, opacity 0.18s ease;
-}
-
-.favorite-action-button:hover,
-.favorite-form button:hover,
-.favorite-card-controls button:hover:not(:disabled) {
-  color: #315256;
-  background: rgba(255,255,255,0.86);
-  transform: translateY(-2px);
-}
-
-.favorite-action-button {
-  padding: 9px 13px;
-  font-size: 0.76rem;
-}
-
-.favorite-action-button.danger,
-.favorite-card-controls .danger {
-  color: #9d5060;
-}
-
-.favorite-form {
-  display: grid;
-  grid-template-columns: minmax(150px, 1fr) minmax(220px, 1.25fr) minmax(180px, 1fr) auto;
-  gap: 12px;
-  margin: 22px 0 12px;
-  padding: 14px;
-  border: 1px solid rgba(255,255,255,0.7);
-  border-radius: 26px 30px 24px 32px;
-  background: rgba(255,255,255,0.34);
-}
-
-.favorite-form label {
-  display: grid;
-  gap: 7px;
-  min-width: 0;
-  color: #6f8a92;
-  font-size: 0.72rem;
-  font-weight: 900;
-}
-
-.favorite-form input {
-  width: 100%;
-  min-height: 42px;
-  padding: 0 13px;
-  border: 1px solid rgba(255,255,255,0.86);
-  border-radius: 16px;
-  color: #42646a;
-  background: rgba(255,255,255,0.72);
-  box-shadow: var(--inner);
-  font: inherit;
-  outline: 0;
-}
-
-.favorite-form input:focus {
-  border-color: rgba(115, 215, 197, 0.82);
-  box-shadow: 0 0 0 4px rgba(115, 215, 197, 0.14), var(--inner);
-}
-
-.favorite-form button {
-  align-self: end;
-  min-height: 42px;
-  padding: 0 16px;
-  color: #fff;
-  background: linear-gradient(135deg, #73d7c5, #96dc91 58%, #b8b0ff);
-}
-
-.favorite-tip {
-  margin: 0 0 16px;
-  color: #789098;
-  font-size: 0.82rem;
-  font-weight: 800;
+  gap: 14px;
 }
 
 .favorite-grid {
@@ -985,33 +900,6 @@ html[data-theme="night"] .photo-refresh-btn:hover {
   transform: translateY(-6px);
 }
 
-.favorite-check {
-  position: absolute;
-  right: 16px;
-  top: 16px;
-  z-index: 2;
-  display: grid;
-  width: 26px;
-  height: 26px;
-  place-items: center;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.72);
-  box-shadow: var(--inner);
-  cursor: pointer;
-}
-
-.favorite-check input {
-  width: 15px;
-  height: 15px;
-  accent-color: #73d7c5;
-  cursor: pointer;
-}
-
-.favorite-card-main {
-  display: flex;
-  gap: 14px;
-  padding-right: 28px;
-}
 
 .favorite-favicon {
   display: grid;
@@ -1051,27 +939,6 @@ html[data-theme="night"] .photo-refresh-btn:hover {
   color: #35bfb3;
   font-size: 0.74rem;
   font-weight: 900;
-}
-
-.favorite-card-controls {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  align-self: end;
-  margin-top: 16px;
-}
-
-.favorite-card-controls button {
-  min-height: 32px;
-  padding: 0 11px;
-  font-size: 0.72rem;
-}
-
-.favorite-card-controls button:disabled {
-  cursor: not-allowed;
-  opacity: 0.42;
 }
 
 /* =============================================
@@ -1123,24 +990,9 @@ html[data-theme="night"] .photo-refresh-btn:hover {
   }
 }
 
-@media (max-width: 1080px) {
-  .favorite-form {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .favorite-form button {
-    align-self: stretch;
-  }
-}
-
 @media (max-width: 760px) {
-  .favorite-grid,
-  .favorite-form {
+  .favorite-grid {
     grid-template-columns: 1fr;
-  }
-
-  .favorite-actions {
-    justify-content: flex-start;
   }
 }
 
@@ -1181,8 +1033,7 @@ html[data-theme="night"] .projects-board,
 html[data-theme="night"] .article-side,
 html[data-theme="night"] .article-outline,
 html[data-theme="night"] .article-reader,
-html[data-theme="night"] .favorite-card,
-html[data-theme="night"] .favorite-form {
+html[data-theme="night"] .favorite-card {
   border-color: var(--line);
   color: var(--ink);
   background:
@@ -1199,7 +1050,6 @@ html[data-theme="night"] .article-card p,
 html[data-theme="night"] .article-card time,
 html[data-theme="night"] .article-reader-meta,
 html[data-theme="night"] .markdown-body,
-html[data-theme="night"] .favorite-tip,
 html[data-theme="night"] .favorite-card p {
   color: var(--muted);
 }
@@ -1214,21 +1064,6 @@ html[data-theme="night"] .markdown-body h3,
 html[data-theme="night"] .article-outline h2,
 html[data-theme="night"] .favorite-card h3 {
   color: #f2fffb;
-}
-
-html[data-theme="night"] .favorite-action-button,
-html[data-theme="night"] .favorite-form button,
-html[data-theme="night"] .favorite-card-controls button {
-  border-color: rgba(188, 240, 231, 0.24);
-  color: #d7f7f1;
-  background: rgba(255, 255, 255, 0.09);
-}
-
-html[data-theme="night"] .favorite-action-button:hover,
-html[data-theme="night"] .favorite-form button:hover,
-html[data-theme="night"] .favorite-card-controls button:hover:not(:disabled) {
-  color: #06242a;
-  background: linear-gradient(135deg, #9ff4e8, #aebdff);
 }
 
 html[data-theme="night"] .photo-lightbox-close,
@@ -1252,8 +1087,7 @@ html[data-theme="night"] .article-reader-meta span {
 }
 
 html[data-theme="night"] .markdown-body code,
-html[data-theme="night"] .markdown-body pre,
-html[data-theme="night"] .favorite-form input {
+html[data-theme="night"] .markdown-body pre {
   border-color: rgba(188, 240, 231, 0.18);
   color: #eefdf9;
   background: rgba(7, 22, 35, 0.34);

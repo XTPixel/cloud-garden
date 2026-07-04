@@ -59,16 +59,10 @@ export default defineConfig({
           resolve(outDir, 'articles')
         )
 
-        // 照片清单 JSON（被 fetch 动态加载）
+        // 数据文件（如照片清单等）
         total += copyDir(
           resolve(__dirname, 'src', 'data'),
           resolve(outDir, 'src', 'data')
-        )
-
-        // 照片图片
-        total += copyDir(
-          resolve(__dirname, 'photos'),
-          resolve(outDir, 'photos')
         )
 
         console.log(`\n📦 已复制 ${total} 个运行时文件到构建输出`)

@@ -43,5 +43,11 @@ export const elements = {
   favoriteDescription: document.querySelector('#favoriteDescription'),
   favoriteTip: document.querySelector('#favoriteTip'),
   selectAllFavorites: document.querySelector('#selectAllFavorites'),
-  deleteSelectedFavorites: document.querySelector('#deleteSelectedFavorites')
+  deleteSelectedFavorites: document.querySelector('#deleteSelectedFavorites'),
+  settingsToggle: document.querySelector('#settingsToggle'),
+  settingsPanel: document.querySelector('#settingsPanel'),
+  settingsClose: document.querySelector('#settingsClose'),
+  settingsResetLayout: document.querySelector('#settingsResetLayout'),
+  settingsNightToggle: document.querySelector('#settingsNightToggle'),
+  themeGallery: document.querySelector('#themeGallery')
 };

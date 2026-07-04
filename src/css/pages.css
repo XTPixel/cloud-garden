@@ -1116,3 +1116,282 @@ html[data-theme="night"] .favorite-card small,
 html[data-theme="night"] .greeting-widget strong {
   color: #77e4d8;
 }
+
+/* =============================================
+   配色主题：子页面组件覆盖
+   ============================================= */
+
+/* ---- 海中月：卡片渐变 ---- */
+html[data-palette="ocean"] .projects-hero,
+html[data-palette="ocean"] .projects-board,
+html[data-palette="ocean"] .article-side,
+html[data-palette="ocean"] .article-outline,
+html[data-palette="ocean"] .article-reader {
+  background:
+    radial-gradient(circle at 22% 18%, rgba(220, 240, 255, 0.42), transparent 8rem),
+    linear-gradient(145deg, rgba(245, 250, 255, 0.76), rgba(235, 248, 255, 0.52)),
+    var(--glass);
+}
+
+html[data-palette="ocean"] .article-card a {
+  background:
+    radial-gradient(circle at 12% 16%, rgba(168, 184, 255, 0.2), transparent 5rem),
+    linear-gradient(145deg, rgba(248, 252, 255, 0.76), rgba(230, 245, 250, 0.48));
+}
+
+html[data-palette="ocean"] .project-card {
+  background:
+    radial-gradient(circle at 16% 18%, rgba(220, 240, 255, 0.22), transparent 4.5rem),
+    linear-gradient(145deg, rgba(248, 252, 255, 0.72), rgba(235, 248, 255, 0.44));
+}
+
+html[data-palette="ocean"] .project-card::before {
+  background: linear-gradient(90deg, var(--aqua), var(--leaf), var(--lilac));
+}
+
+html[data-palette="ocean"] .favorite-card {
+  background:
+    radial-gradient(circle at 16% 18%, rgba(220, 240, 255, 0.2), transparent 6rem),
+    radial-gradient(circle at 86% 72%, rgba(168, 184, 255, 0.18), transparent 8rem),
+    linear-gradient(145deg, rgba(248, 252, 255, 0.72), rgba(235, 248, 255, 0.46));
+}
+
+html[data-palette="ocean"] .favorite-card::before {
+  background: linear-gradient(90deg, var(--aqua), var(--leaf), var(--lilac));
+}
+
+html[data-palette="ocean"] .favorite-favicon {
+  background: linear-gradient(135deg, var(--aqua), var(--leaf) 52%, var(--lilac));
+}
+
+html[data-palette="ocean"] .article-card a:hover {
+  border-color: rgba(95, 168, 211, 0.72);
+}
+
+/* ---- 落樱缤纷：卡片渐变 ---- */
+html[data-palette="cherry"] .projects-hero,
+html[data-palette="cherry"] .projects-board,
+html[data-palette="cherry"] .article-side,
+html[data-palette="cherry"] .article-outline,
+html[data-palette="cherry"] .article-reader {
+  background:
+    radial-gradient(circle at 22% 18%, rgba(255, 235, 242, 0.42), transparent 8rem),
+    linear-gradient(145deg, rgba(255, 248, 250, 0.76), rgba(255, 240, 245, 0.52)),
+    var(--glass);
+}
+
+html[data-palette="cherry"] .article-card a {
+  background:
+    radial-gradient(circle at 12% 16%, rgba(201, 160, 232, 0.2), transparent 5rem),
+    linear-gradient(145deg, rgba(255, 250, 252, 0.76), rgba(255, 240, 248, 0.48));
+}
+
+html[data-palette="cherry"] .project-card {
+  background:
+    radial-gradient(circle at 16% 18%, rgba(255, 225, 240, 0.22), transparent 4.5rem),
+    linear-gradient(145deg, rgba(255, 250, 252, 0.72), rgba(255, 240, 248, 0.44));
+}
+
+html[data-palette="cherry"] .project-card::before {
+  background: linear-gradient(90deg, var(--aqua), var(--leaf), var(--lilac));
+}
+
+html[data-palette="cherry"] .favorite-card {
+  background:
+    radial-gradient(circle at 16% 18%, rgba(255, 225, 240, 0.2), transparent 6rem),
+    radial-gradient(circle at 86% 72%, rgba(201, 160, 232, 0.18), transparent 8rem),
+    linear-gradient(145deg, rgba(255, 250, 252, 0.72), rgba(255, 238, 245, 0.46));
+}
+
+html[data-palette="cherry"] .favorite-card::before {
+  background: linear-gradient(90deg, var(--aqua), var(--leaf), var(--lilac));
+}
+
+html[data-palette="cherry"] .favorite-favicon {
+  background: linear-gradient(135deg, var(--aqua), var(--leaf) 52%, var(--lilac));
+}
+
+html[data-palette="cherry"] .article-card a:hover {
+  border-color: rgba(224, 160, 192, 0.72);
+}
+
+/* ---- 海中月：夜间卡片背景 ---- */
+html[data-palette="ocean"][data-theme="night"] .projects-side,
+html[data-palette="ocean"][data-theme="night"] .projects-hero,
+html[data-palette="ocean"][data-theme="night"] .projects-board,
+html[data-palette="ocean"][data-theme="night"] .article-side,
+html[data-palette="ocean"][data-theme="night"] .article-outline,
+html[data-palette="ocean"][data-theme="night"] .article-reader,
+html[data-palette="ocean"][data-theme="night"] .favorite-card {
+  background:
+    radial-gradient(circle at 14% 10%, rgba(74, 159, 200, 0.14), transparent 7rem),
+    linear-gradient(145deg, rgba(20, 45, 65, 0.82), rgba(15, 35, 50, 0.66));
+}
+
+html[data-palette="ocean"][data-theme="night"] .article-card a {
+  background:
+    radial-gradient(circle at 12% 16%, rgba(136, 152, 232, 0.16), transparent 5rem),
+    linear-gradient(145deg, rgba(20, 45, 65, 0.82), rgba(15, 35, 50, 0.66));
+}
+
+html[data-palette="ocean"][data-theme="night"] .project-card {
+  background:
+    radial-gradient(circle at 16% 18%, rgba(74, 159, 200, 0.12), transparent 4.5rem),
+    linear-gradient(145deg, rgba(20, 45, 65, 0.76), rgba(15, 35, 50, 0.50));
+}
+
+html[data-palette="ocean"][data-theme="night"] .favorite-favicon,
+html[data-palette="ocean"][data-theme="night"] .photo-lightbox-close {
+  color: #06242a;
+  background: linear-gradient(135deg, #80c0e8, #a8b8ff);
+}
+
+html[data-palette="ocean"][data-theme="night"] .article-card a:hover {
+  border-color: rgba(74, 159, 200, 0.5);
+}
+
+html[data-palette="ocean"][data-theme="night"] .article-tags span,
+html[data-palette="ocean"][data-theme="night"] .article-reader-meta span {
+  color: #06242a;
+  background: linear-gradient(135deg, #5fa8d3, #7ec8e3);
+}
+
+html[data-palette="ocean"][data-theme="night"] .markdown-body a,
+html[data-palette="ocean"][data-theme="night"] .article-back,
+html[data-palette="ocean"][data-theme="night"] .favorite-card small {
+  color: #7ec8e3;
+}
+
+/* ---- 落樱缤纷：夜间卡片背景 ---- */
+html[data-palette="cherry"][data-theme="night"] .projects-side,
+html[data-palette="cherry"][data-theme="night"] .projects-hero,
+html[data-palette="cherry"][data-theme="night"] .projects-board,
+html[data-palette="cherry"][data-theme="night"] .article-side,
+html[data-palette="cherry"][data-theme="night"] .article-outline,
+html[data-palette="cherry"][data-theme="night"] .article-reader,
+html[data-palette="cherry"][data-theme="night"] .favorite-card {
+  background:
+    radial-gradient(circle at 14% 10%, rgba(216, 136, 184, 0.14), transparent 7rem),
+    linear-gradient(145deg, rgba(50, 20, 35, 0.82), rgba(40, 15, 30, 0.66));
+}
+
+html[data-palette="cherry"][data-theme="night"] .article-card a {
+  background:
+    radial-gradient(circle at 12% 16%, rgba(184, 136, 216, 0.16), transparent 5rem),
+    linear-gradient(145deg, rgba(50, 20, 35, 0.82), rgba(40, 15, 30, 0.66));
+}
+
+html[data-palette="cherry"][data-theme="night"] .project-card {
+  background:
+    radial-gradient(circle at 16% 18%, rgba(216, 136, 184, 0.12), transparent 4.5rem),
+    linear-gradient(145deg, rgba(50, 20, 35, 0.76), rgba(40, 15, 30, 0.50));
+}
+
+html[data-palette="cherry"][data-theme="night"] .favorite-favicon,
+html[data-palette="cherry"][data-theme="night"] .photo-lightbox-close {
+  color: #1a0a14;
+  background: linear-gradient(135deg, #e0a0c0, #c9a0e8);
+}
+
+html[data-palette="cherry"][data-theme="night"] .article-card a:hover {
+  border-color: rgba(216, 136, 184, 0.5);
+}
+
+html[data-palette="cherry"][data-theme="night"] .article-tags span,
+html[data-palette="cherry"][data-theme="night"] .article-reader-meta span {
+  color: #1a0a14;
+  background: linear-gradient(135deg, #e0a0c0, #f0b5c8);
+}
+
+html[data-palette="cherry"][data-theme="night"] .markdown-body a,
+html[data-palette="cherry"][data-theme="night"] .article-back,
+html[data-palette="cherry"][data-theme="night"] .favorite-card small {
+  color: #d888b8;
+}
+
+/* ---- 跨页面强调色变量 ---- */
+html[data-palette="ocean"] .projects-profile,
+html[data-palette="ocean"] .project-links a,
+html[data-palette="ocean"] .project-card-head a,
+html[data-palette="ocean"] .article-back,
+html[data-palette="ocean"] .favorite-card small {
+  color: var(--aqua);
+}
+
+html[data-palette="ocean"] .projects-hero::before {
+  background: radial-gradient(circle, rgba(255, 230, 154, 0.48), rgba(95, 168, 211, 0.2) 48%, transparent 70%);
+}
+
+html[data-palette="ocean"] .markdown-body a {
+  color: var(--aqua);
+}
+
+html[data-palette="cherry"] .projects-profile,
+html[data-palette="cherry"] .project-links a,
+html[data-palette="cherry"] .project-card-head a,
+html[data-palette="cherry"] .article-back,
+html[data-palette="cherry"] .favorite-card small {
+  color: var(--aqua);
+}
+
+html[data-palette="cherry"] .projects-hero::before {
+  background: radial-gradient(circle, rgba(255, 200, 180, 0.48), rgba(224, 160, 192, 0.2) 48%, transparent 70%);
+}
+
+html[data-palette="cherry"] .markdown-body a {
+  color: var(--aqua);
+}
+
+html[data-palette="ocean"] .article-tags span,
+html[data-palette="ocean"] .article-reader-meta span {
+  border-color: rgba(95, 168, 211, 0.38);
+  color: #3e7a8a;
+}
+
+html[data-palette="cherry"] .article-tags span,
+html[data-palette="cherry"] .article-reader-meta span {
+  border-color: rgba(224, 160, 192, 0.38);
+  color: #8a5a6a;
+}
+
+html[data-palette="ocean"] .article-reader-head {
+  border-bottom-color: rgba(95, 168, 211, 0.28);
+}
+
+html[data-palette="cherry"] .article-reader-head {
+  border-bottom-color: rgba(224, 160, 192, 0.28);
+}
+
+html[data-palette="ocean"] .markdown-body code {
+  background: rgba(95, 168, 211, 0.16);
+  color: #315256;
+}
+
+html[data-palette="cherry"] .markdown-body code {
+  background: rgba(224, 160, 192, 0.16);
+  color: #5a3a4a;
+}
+
+html[data-palette="ocean"] .projects-status {
+  border-color: rgba(95, 168, 211, 0.5);
+}
+
+html[data-palette="cherry"] .projects-status {
+  border-color: rgba(224, 160, 192, 0.5);
+}
+
+html[data-palette="ocean"] .project-grid {
+  scrollbar-color: rgba(95, 168, 211, 0.5) transparent;
+}
+
+html[data-palette="cherry"] .project-grid {
+  scrollbar-color: rgba(224, 160, 192, 0.5) transparent;
+}
+
+html[data-palette="ocean"] .floating-nav .profile-avatar {
+  box-shadow: 0 10px 24px rgba(95, 168, 211, 0.2);
+}
+
+html[data-palette="cherry"] .floating-nav .profile-avatar {
+  box-shadow: 0 10px 24px rgba(224, 160, 192, 0.2);
+}

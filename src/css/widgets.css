@@ -1044,90 +1044,6 @@
   text-align: right;
 }
 
-/* ---- HUD + 重置布局 ---- */
-.hud {
-  position: fixed;
-  left: 22px;
-  bottom: 20px;
-  z-index: 50;
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  color: #66868e;
-  font-size: 0.78rem;
-}
-
-.hud span,
-.reset-layout {
-  border: 1px solid rgba(255,255,255,0.8);
-  border-radius: 999px;
-  padding: 9px 13px;
-  background: rgba(255,255,255,0.54);
-  box-shadow: var(--inner);
-  -webkit-backdrop-filter: blur(18px);
-  backdrop-filter: blur(18px);
-}
-
-.hud strong {
-  color: #35bfb3;
-}
-
-.reset-layout {
-  position: fixed;
-  right: 22px;
-  top: 22px;
-  z-index: 50;
-  color: #66868e;
-  opacity: 0.74;
-  border: 0;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.76);
-  cursor: pointer;
-}
-
-.reset-layout:hover {
-  opacity: 1;
-}
-
-.reset-layout {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  min-height: 42px;
-  padding: 0 15px;
-  border: 1px solid rgba(255, 255, 255, 0.82);
-  border-radius: 999px;
-  color: #5f8b8f;
-  background: rgba(255, 255, 255, 0.62);
-  box-shadow: 0 16px 36px rgba(78, 123, 104, 0.16), var(--inner);
-  -webkit-backdrop-filter: blur(18px);
-  backdrop-filter: blur(18px);
-  cursor: pointer;
-  font-weight: 900;
-  opacity: 1;
-  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-}
-
-.reset-layout:hover {
-  transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.86);
-}
-
-.reset-layout span {
-  display: grid;
-  width: 22px;
-  height: 22px;
-  place-items: center;
-  border-radius: 999px;
-  color: #fff;
-  background: linear-gradient(135deg, #78d7d1, #c9c1ff);
-  font-size: 0.86rem;
-}
-
-.reset-layout b {
-  font-size: 0.78rem;
-  letter-spacing: 0.04em;
-}
 
 /* ---- 光标尾迹 ---- */
 .cursor-trail-layer {
@@ -1241,9 +1157,7 @@ html[data-theme="night"] .quick-link,
 html[data-theme="night"] .clock-mode-label,
 html[data-theme="night"] .clock-tabs button,
 html[data-theme="night"] .clock-actions button,
-html[data-theme="night"] .timer-setup input,
-html[data-theme="night"] .reset-layout,
-html[data-theme="night"] .hud span {
+html[data-theme="night"] .timer-setup input {
   border-color: rgba(188, 240, 231, 0.24);
   color: #d7f7f1;
   background: rgba(255, 255, 255, 0.09);
@@ -1254,9 +1168,7 @@ html[data-theme="night"] .side-nav a:hover,
 html[data-theme="night"] .quick-link:hover,
 html[data-theme="night"] .clock-tabs button.active,
 html[data-theme="night"] .clock-tabs button:hover,
-html[data-theme="night"] .clock-actions button:hover,
-html[data-theme="night"] .reset-layout:hover,
-html[data-theme="night"] .theme-toggle:hover {
+html[data-theme="night"] .clock-actions button:hover {
   color: #06242a;
   background: linear-gradient(135deg, #9ff4e8, #aebdff);
 }
@@ -1320,11 +1232,6 @@ html[data-theme="night"] .sticky-note {
   background:
     linear-gradient(160deg, rgba(255,255,255,0.08), transparent 35%),
     linear-gradient(180deg, rgba(100, 82, 35, 0.92), rgba(68, 56, 33, 0.9));
-}
-
-html[data-theme="night"] .reset-layout span {
-  color: #06242a;
-  background: linear-gradient(135deg, #9ff4e8, #aebdff);
 }
 
 html[data-theme="night"] .portal-widget {
@@ -1419,11 +1326,977 @@ html[data-theme="night"] .portal-caption::after {
   color: #77e4d8;
 }
 
-html[data-theme="night"] .reset-layout {
+/* =============================================
+   设置按钮
+   ============================================= */
+.settings-btn {
+  position: fixed;
+  top: 20px;
+  right: 85px;
+  z-index: 220;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 42px;
+  padding: 0 15px;
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  border-radius: 999px;
+  color: #5f8b8f;
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: 0 16px 36px rgba(78, 123, 104, 0.16), var(--inner);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  cursor: pointer;
+  font-weight: 900;
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.settings-btn span {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border-radius: 999px;
+  color: #fff;
+  background: linear-gradient(135deg, #78d7d1, #c9c1ff);
+  font-size: 1rem;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.settings-btn b {
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  font-weight: 900;
+}
+
+.settings-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.86);
+}
+
+.settings-btn:hover span {
+  transform: rotate(60deg);
+}
+
+/* 设置打开时按钮图标旋转 */
+html.settings-open .settings-btn span {
+  transform: rotate(120deg);
+}
+
+html.settings-open .settings-btn:hover span {
+  transform: rotate(180deg);
+}
+
+/* ---- 设置面板 ---- */
+.settings-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 420px;
+  height: 100vh;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, 0.86);
+  border-right: 0;
+  border-radius: 34px 0 0 38px;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 22% 8%, rgba(255, 250, 214, 0.38), transparent 12rem),
+    radial-gradient(circle at 88% 88%, rgba(159, 227, 172, 0.22), transparent 10rem),
+    radial-gradient(circle at 50% 50%, rgba(248, 255, 244, 0.92), rgba(235, 255, 238, 0.72)),
+    var(--glass);
+  box-shadow:
+    -12px 0 48px rgba(78, 123, 104, 0.12),
+    0 0 0 1px rgba(255, 255, 255, 0.86),
+    var(--inner);
+  -webkit-backdrop-filter: blur(32px) saturate(1.08);
+  backdrop-filter: blur(32px) saturate(1.08);
+  transform: translateX(100%);
+  transition: transform 0.52s cubic-bezier(0.34, 0.08, 0.2, 1);
+  will-change: transform;
+  overflow: hidden;
+}
+
+html.settings-open .settings-panel {
+  transform: translateX(0);
+}
+
+.settings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-shrink: 0;
+  padding: 24px 28px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.76);
+}
+
+.settings-header h2 {
+  margin: 0;
+  font-size: 1.32rem;
+  letter-spacing: 0.06em;
+}
+
+.settings-close-btn {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  border-radius: 14px;
+  color: #5f8b8f;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: var(--inner);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: transform 0.22s ease, background 0.22s ease, color 0.22s ease;
+}
+
+html.settings-open .settings-close-btn:hover {
+  color: #b5536c;
+  background: rgba(255, 231, 237, 0.88);
+  transform: translateY(-1px) scale(1.05);
+}
+
+.settings-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 18px 28px 28px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(120, 215, 209, 0.3) transparent;
+}
+
+.settings-body::-webkit-scrollbar {
+  width: 5px;
+}
+
+.settings-body::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(120, 215, 209, 0.3);
+}
+
+.settings-group {
+  margin-bottom: 24px;
+  padding: 18px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: var(--inner);
+}
+
+.settings-group-title {
+  margin: 0 0 14px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #6aa98c;
+}
+
+.settings-subtitle {
+  margin: -8px 0 14px;
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 40px;
+  font-size: 0.9rem;
+  color: #5f7a82;
+}
+
+.settings-row > span:first-child {
+  flex: 1;
+}
+
+.settings-action-btn {
+  min-height: 32px;
+  padding: 0 14px;
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  border-radius: 999px;
+  color: #5f8b8f;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: var(--inner);
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease;
+}
+
+.settings-action-btn:hover {
+  color: #315256;
+  background: rgba(255, 255, 255, 0.86);
+  transform: translateY(-1px);
+}
+
+/* ---- 配色选择画廊 ---- */
+.theme-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.palette-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 6px 10px;
+  border: 2px solid transparent;
+  border-radius: 18px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.20);
+  transition: border-color 0.24s ease, background 0.24s ease, transform 0.24s ease;
+}
+
+.palette-card:hover {
+  background: rgba(255, 255, 255, 0.40);
+  transform: translateY(-2px);
+}
+
+.palette-card.active {
+  border-color: var(--aqua);
+  background: rgba(255, 255, 255, 0.50);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.6), 0 8px 20px rgba(120, 215, 209, 0.15);
+}
+
+.palette-preview {
+  position: relative;
+  width: 100%;
+  height: 60px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+/* 各配色预览图 */
+.palette-garden {
+  background:
+    radial-gradient(circle at 40% 30%, rgba(255, 255, 255, 0.96), transparent 70%),
+    radial-gradient(circle at 30% 80%, rgba(157, 227, 172, 0.7), transparent 60%),
+    radial-gradient(circle at 70% 20%, rgba(201, 193, 255, 0.4), transparent 50%),
+    linear-gradient(180deg, #edf8fb 0%, #eef8f1 44%, #dcf4df 100%);
+}
+
+.palette-ocean {
+  background:
+    radial-gradient(circle at 40% 30%, rgba(255, 255, 255, 0.96), transparent 70%),
+    radial-gradient(circle at 30% 80%, rgba(130, 190, 230, 0.6), transparent 60%),
+    radial-gradient(circle at 70% 20%, rgba(168, 184, 255, 0.4), transparent 50%),
+    linear-gradient(180deg, #e8f4fb 0%, #dceef8 44%, #cbe3f4 100%);
+}
+
+.palette-cherry {
+  background:
+    radial-gradient(circle at 40% 30%, rgba(255, 255, 255, 0.96), transparent 70%),
+    radial-gradient(circle at 30% 80%, rgba(240, 160, 200, 0.5), transparent 60%),
+    radial-gradient(circle at 70% 20%, rgba(201, 160, 232, 0.35), transparent 50%),
+    linear-gradient(180deg, #fef0f5 0%, #fde8f0 44%, #fce0ea 100%);
+}
+
+/* 预览图内装饰元素 */
+.pp-sun,
+.pp-moon {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  top: 8px;
+  left: 50%;
+  margin-left: -9px;
+  border-radius: 999px;
+}
+
+.pp-sun {
+  background: radial-gradient(circle, #fffbd0, #ffe69a);
+  box-shadow: 0 0 12px rgba(255, 230, 154, 0.6);
+}
+
+.pp-moon {
+  background: radial-gradient(circle, #f0f4ff, #c8d8ff);
+  box-shadow: 0 0 12px rgba(200, 216, 255, 0.5);
+}
+
+.pp-isle {
+  position: absolute;
+  border-radius: 48% 52% 46% 54%;
+  background: linear-gradient(180deg, #bdf0a6 0 30%, #8edb9a 31% 60%, #86b77d 61% 100%);
+  box-shadow: 0 2px 6px rgba(80, 117, 91, 0.15);
+}
+
+.pp-a { width: 48px; height: 18px; left: 6px; bottom: 6px; }
+.pp-b { width: 28px; height: 12px; right: 8px; bottom: 10px; opacity: 0.7; }
+
+.pp-wave {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(180, 215, 245, 0.5);
+}
+
+.pp-1 { width: 42px; height: 8px; left: 4px; bottom: 6px; }
+.pp-2 { width: 32px; height: 6px; right: 6px; bottom: 12px; opacity: 0.6; }
+
+.pp-petal {
+  position: absolute;
+  border-radius: 50% 0 50% 0;
+  background: rgba(240, 160, 200, 0.5);
+}
+
+.pp-p1 { width: 8px; height: 8px; left: 28%; top: 38%; transform: rotate(15deg); }
+.pp-p2 { width: 7px; height: 7px; right: 28%; top: 30%; transform: rotate(-20deg); }
+.pp-p3 { width: 6px; height: 6px; left: 50%; top: 52%; transform: rotate(45deg); opacity: 0.6; }
+
+.palette-name {
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  color: #5f8b8f;
+}
+
+.palette-card.active .palette-name {
+  color: var(--ink);
+}
+
+/* ---- 夜间模式开关（设置面板内） ---- */
+.night-row {
+  margin-top: 4px;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 8px;
+}
+
+.toggle-switch input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.toggle-track {
+  display: inline-block;
+  width: 38px;
+  height: 22px;
+  border-radius: 999px;
+  background: rgba(200, 210, 210, 0.5);
+  box-shadow: var(--inner);
+  transition: background 0.28s ease;
+  position: relative;
+}
+
+.toggle-track::after {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  transition: transform 0.28s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+.toggle-switch input:checked + .toggle-track {
+  background: linear-gradient(135deg, #5f6f8a, #3a4a6a);
+}
+
+.toggle-switch input:checked + .toggle-track::after {
+  transform: translateX(16px);
+  background: #f0f4ff;
+}
+
+/* ---- 设置面板打开时的推送动画 ---- */
+html.settings-open .desktop,
+html.settings-open .settings-btn {
+  transform: translateX(-420px);
+  transition: transform 0.52s cubic-bezier(0.34, 0.08, 0.2, 1);
+}
+
+/* 关闭时的回归动画 */
+html:not(.settings-open) .desktop,
+html:not(.settings-open) .settings-btn {
+  transform: translateX(0);
+  transition: transform 0.52s cubic-bezier(0.34, 0.08, 0.2, 1);
+}
+
+/* 设置面板关闭时的回归动画 */
+html:not(.settings-open) .settings-panel {
+  transform: translateX(100%);
+  transition: transform 0.52s cubic-bezier(0.34, 0.08, 0.2, 1);
+}
+
+/* ---- 夜间模式：设置面板覆盖 ---- */
+html[data-theme="night"] .settings-panel {
   border-color: var(--line);
   color: var(--ink);
   background:
+    radial-gradient(circle at 14% 10%, rgba(119, 228, 216, 0.1), transparent 10rem),
+    radial-gradient(circle at 88% 88%, rgba(184, 183, 255, 0.08), transparent 8rem),
+    linear-gradient(165deg, rgba(24, 50, 66, 0.94), rgba(18, 38, 53, 0.88));
+  box-shadow:
+    -12px 0 48px rgba(2, 11, 22, 0.32),
+    0 0 0 1px rgba(188, 240, 231, 0.14),
+    var(--inner);
+}
+
+html[data-theme="night"] .settings-header h2 {
+  color: #e8fbf7;
+}
+
+html[data-theme="night"] .settings-header {
+  border-bottom-color: rgba(188, 240, 231, 0.16);
+}
+
+html[data-theme="night"] .settings-close-btn,
+html[data-theme="night"] .settings-action-btn {
+  border-color: rgba(188, 240, 231, 0.24);
+  color: #d7f7f1;
+  background: rgba(255, 255, 255, 0.09);
+}
+
+html[data-theme="night"] .settings-close-btn:hover {
+  color: #ff8a9b;
+  background: rgba(100, 44, 54, 0.6);
+}
+
+html[data-theme="night"] .settings-action-btn:hover {
+  color: #06242a;
+  background: linear-gradient(135deg, #9ff4e8, #aebdff);
+}
+
+html[data-theme="night"] .settings-group {
+  border-color: rgba(188, 240, 231, 0.18);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+html[data-theme="night"] .settings-group-title {
+  color: #8eceb5;
+}
+
+html[data-theme="night"] .settings-subtitle {
+  color: #e8fbf7;
+}
+
+html[data-theme="night"] .settings-row {
+  color: #bddbdc;
+}
+
+html[data-theme="night"] .palette-card {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+html[data-theme="night"] .palette-card:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+html[data-theme="night"] .palette-card.active {
+  border-color: var(--aqua);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 0 1px rgba(188, 240, 231, 0.15), 0 8px 20px rgba(2, 11, 22, 0.25);
+}
+
+html[data-theme="night"] .palette-name {
+  color: #bddbdc;
+}
+
+html[data-theme="night"] .palette-card.active .palette-name {
+  color: #e8fbf7;
+}
+
+html[data-theme="night"] .toggle-track {
+  background: rgba(200, 210, 210, 0.2);
+}
+
+html[data-theme="night"] .toggle-track::after {
+  background: #d0d8e0;
+}
+
+html[data-theme="night"] .toggle-switch input:checked + .toggle-track {
+  background: linear-gradient(135deg, #6f8fba, #4a6a8a);
+}
+
+html[data-theme="night"] .toggle-switch input:checked + .toggle-track::after {
+  background: #f0f4ff;
+}
+
+html[data-theme="night"] .toggle-switch input:checked + .toggle-track::after {
+  background: #f0f4ff;
+}
+
+/* =============================================
+   配色主题：场景与控件覆盖
+   ============================================= */
+
+/* ---- 海中月：传送门场景 ---- */
+html[data-palette="ocean"] .portal-scene {
+  background:
+    linear-gradient(180deg, rgba(170, 212, 240, 0.62), rgba(200, 225, 245, 0.55)),
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.8), transparent 8rem);
+}
+
+html[data-palette="ocean"] .floating-island {
+  background: linear-gradient(180deg, #8ec8e8 0 26%, #5aa0c8 27% 55%, #4a7898 56% 62%, #5a6888 63% 100%);
+  box-shadow: 0 18px 34px rgba(40, 80, 120, 0.17);
+}
+
+html[data-palette="ocean"] .floating-island::before {
+  background:
+    radial-gradient(circle, #d8f0ff 0 3px, transparent 4px),
+    radial-gradient(circle, #b0d8f0 0 4px, transparent 5px);
+}
+
+html[data-palette="ocean"] .mini-tower {
+  background: linear-gradient(180deg, #d8ecff, #7ec8e3);
+  box-shadow: inset 0 0 0 3px rgba(255,255,255,0.45);
+}
+
+html[data-palette="ocean"][data-theme="night"] .portal-scene {
+  background:
+    radial-gradient(circle at 44% 24%, rgba(200, 225, 250, 0.24) 0 1.8rem, transparent 1.9rem),
+    radial-gradient(circle at 72% 18%, rgba(255, 255, 255, 0.78) 0 1px, transparent 2px),
+    radial-gradient(circle at 18% 28%, rgba(255, 255, 255, 0.68) 0 1px, transparent 2px),
+    radial-gradient(circle at 82% 58%, rgba(100, 180, 230, 0.54) 0 1px, transparent 2px),
+    linear-gradient(180deg, rgba(10, 28, 50, 0.82), rgba(15, 45, 65, 0.68));
+}
+
+html[data-palette="ocean"][data-theme="night"] .floating-island {
+  background:
+    linear-gradient(180deg, #5aa8d0 0 23%, #3a80b0 24% 52%, #2a6088 53% 60%, #2a3850 61% 100%);
+  box-shadow: 0 18px 34px rgba(2, 11, 22, 0.32), 0 0 22px rgba(74, 159, 200, 0.14);
+}
+
+html[data-palette="ocean"][data-theme="night"] .floating-island::before {
+  background:
+    radial-gradient(circle, #b8e0f8 0 3px, transparent 4px),
+    radial-gradient(circle, #80c0e0 0 4px, transparent 5px);
+}
+
+html[data-palette="ocean"][data-theme="night"] .mini-tower {
+  background: linear-gradient(180deg, #b8d8f0, #4a9fc8);
+  box-shadow: inset 0 0 0 3px rgba(255,255,255,0.22), 0 0 22px rgba(74, 159, 200, 0.34);
+}
+
+html[data-palette="ocean"] .sun {
+  background: radial-gradient(circle, #e0f0ff 0 38%, #b8d8ff 39% 100%);
+  box-shadow: 0 0 60px rgba(180, 216, 255, 0.7);
+}
+
+html[data-palette="ocean"][data-theme="night"] .sun {
+  width: 68px;
+  height: 68px;
+  background:
+    radial-gradient(circle at 38% 34%, transparent 0 28%, rgba(200, 225, 250, 0.95) 29% 58%, transparent 59%),
+    radial-gradient(circle, rgba(168, 184, 255, 0.92), rgba(74, 159, 200, 0.2) 70%);
+  box-shadow: 0 0 46px rgba(168, 184, 255, 0.46);
+}
+
+/* ---- 落桃庭：传送门场景 ---- */
+html[data-palette="cherry"] .portal-scene {
+  background:
+    linear-gradient(180deg, rgba(245, 200, 220, 0.62), rgba(250, 215, 225, 0.55)),
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.8), transparent 8rem);
+}
+
+html[data-palette="cherry"] .floating-island {
+  background: linear-gradient(180deg, #e8b8c8 0 26%, #d888b0 27% 55%, #b87898 56% 62%, #9a7888 63% 100%);
+  box-shadow: 0 18px 34px rgba(140, 80, 100, 0.17);
+}
+
+html[data-palette="cherry"] .floating-island::before {
+  background:
+    radial-gradient(circle, #ffe8f0 0 3px, transparent 4px),
+    radial-gradient(circle, #f0c8d8 0 4px, transparent 5px);
+}
+
+html[data-palette="cherry"] .mini-tower {
+  background: linear-gradient(180deg, #ffe8f0, #e0a0c0);
+  box-shadow: inset 0 0 0 3px rgba(255,255,255,0.45);
+}
+
+html[data-palette="cherry"][data-theme="night"] .portal-scene {
+  background:
+    radial-gradient(circle at 44% 24%, rgba(240, 200, 220, 0.24) 0 1.8rem, transparent 1.9rem),
+    radial-gradient(circle at 72% 18%, rgba(255, 255, 255, 0.78) 0 1px, transparent 2px),
+    radial-gradient(circle at 18% 28%, rgba(255, 255, 255, 0.68) 0 1px, transparent 2px),
+    radial-gradient(circle at 82% 58%, rgba(220, 120, 160, 0.54) 0 1px, transparent 2px),
+    linear-gradient(180deg, rgba(35, 10, 22, 0.82), rgba(50, 20, 35, 0.68));
+}
+
+html[data-palette="cherry"][data-theme="night"] .floating-island {
+  background:
+    linear-gradient(180deg, #c880a8 0 23%, #a86088 24% 52%, #885070 53% 60%, #503840 61% 100%);
+  box-shadow: 0 18px 34px rgba(2, 11, 22, 0.32), 0 0 22px rgba(200, 120, 160, 0.14);
+}
+
+html[data-palette="cherry"][data-theme="night"] .floating-island::before {
+  background:
+    radial-gradient(circle, #f0c8d8 0 3px, transparent 4px),
+    radial-gradient(circle, #e0a0b8 0 4px, transparent 5px);
+}
+
+html[data-palette="cherry"][data-theme="night"] .mini-tower {
+  background: linear-gradient(180deg, #f0d0e0, #d888b0);
+  box-shadow: inset 0 0 0 3px rgba(255,255,255,0.22), 0 0 22px rgba(200, 120, 160, 0.34);
+}
+
+html[data-palette="cherry"] .sun {
+  background: radial-gradient(circle, #fff4f0 0 38%, #ffd0c0 39% 100%);
+  box-shadow: 0 0 60px rgba(255, 200, 180, 0.7);
+}
+
+html[data-palette="cherry"][data-theme="night"] .sun {
+  width: 68px;
+  height: 68px;
+  background:
+    radial-gradient(circle at 38% 34%, transparent 0 28%, rgba(250, 210, 220, 0.95) 29% 58%, transparent 59%),
+    radial-gradient(circle, rgba(200, 160, 232, 0.92), rgba(200, 120, 160, 0.2) 70%);
+  box-shadow: 0 0 46px rgba(200, 160, 232, 0.46);
+}
+
+/* ---- 配色主题：时光卡片背景 ---- */
+html[data-palette="ocean"] .rune-card,
+html[data-palette="ocean"] .parchment-card {
+  background:
+    radial-gradient(circle at 22% 18%, rgba(220, 240, 255, 0.42), transparent 8rem),
+    linear-gradient(145deg, rgba(245, 250, 255, 0.76), rgba(235, 248, 255, 0.52)),
+    var(--glass);
+}
+
+html[data-palette="cherry"] .rune-card,
+html[data-palette="cherry"] .parchment-card {
+  background:
+    radial-gradient(circle at 22% 18%, rgba(255, 235, 242, 0.42), transparent 8rem),
+    linear-gradient(145deg, rgba(255, 248, 250, 0.76), rgba(255, 240, 245, 0.52)),
+    var(--glass);
+}
+
+html[data-palette="ocean"] .portal-widget {
+  background: radial-gradient(circle at 52% 20%, rgba(220, 240, 255, 0.24), transparent 9rem), linear-gradient(160deg, rgba(248, 252, 255, 0.78), rgba(220, 240, 250, 0.5));
+}
+
+html[data-palette="cherry"] .portal-widget {
+  background: radial-gradient(circle at 52% 20%, rgba(255, 225, 235, 0.24), transparent 9rem), linear-gradient(160deg, rgba(255, 250, 252, 0.78), rgba(255, 230, 240, 0.5));
+}
+
+/* ---- 配色主题：卡片夜间背景 ---- */
+html[data-palette="ocean"][data-theme="night"] .rune-card,
+html[data-palette="ocean"][data-theme="night"] .parchment-card {
+  background:
+    radial-gradient(circle at 14% 10%, rgba(100, 180, 230, 0.14), transparent 7rem),
+    linear-gradient(145deg, rgba(20, 45, 65, 0.82), rgba(15, 35, 50, 0.66));
+}
+
+html[data-palette="cherry"][data-theme="night"] .rune-card,
+html[data-palette="cherry"][data-theme="night"] .parchment-card {
+  background:
+    radial-gradient(circle at 14% 10%, rgba(220, 120, 160, 0.14), transparent 7rem),
+    linear-gradient(145deg, rgba(50, 20, 35, 0.82), rgba(40, 15, 30, 0.66));
+}
+
+html[data-palette="ocean"][data-theme="night"] .portal-widget {
+  background:
+    radial-gradient(circle at 72% 8%, rgba(168, 184, 255, 0.18), transparent 8rem),
+    linear-gradient(160deg, rgba(20, 45, 65, 0.82), rgba(15, 35, 50, 0.66));
+}
+
+html[data-palette="cherry"][data-theme="night"] .portal-widget {
+  background:
+    radial-gradient(circle at 72% 8%, rgba(200, 160, 232, 0.18), transparent 8rem),
+    linear-gradient(160deg, rgba(50, 20, 35, 0.82), rgba(40, 15, 30, 0.66));
+}
+
+html[data-palette="ocean"][data-theme="night"] .island-card {
+  background:
+    radial-gradient(circle at 14% 10%, rgba(100, 180, 230, 0.14), transparent 7rem),
+    linear-gradient(145deg, rgba(20, 45, 65, 0.82), rgba(15, 35, 50, 0.66));
+}
+
+html[data-palette="cherry"][data-theme="night"] .island-card {
+  background:
+    radial-gradient(circle at 14% 10%, rgba(220, 120, 160, 0.14), transparent 7rem),
+    linear-gradient(145deg, rgba(50, 20, 35, 0.82), rgba(40, 15, 30, 0.66));
+}
+
+/* ---- 配色主题：音乐按钮与强调色渐变 ---- */
+html[data-palette="ocean"] .music-widget button,
+html[data-palette="ocean"] .notes-fab {
+  background: linear-gradient(135deg, #5fa8d3, #7ec8e3 48%, #a8b8ff);
+}
+
+html[data-palette="cherry"] .music-widget button,
+html[data-palette="cherry"] .notes-fab {
+  background: linear-gradient(135deg, #e0a0c0, #f0b5c8 48%, #c9a0e8);
+}
+
+html[data-palette="ocean"][data-theme="night"] .music-widget button,
+html[data-palette="ocean"][data-theme="night"] .notes-fab {
+  color: #06242a;
+  background: linear-gradient(135deg, #80c0e8, #a8d0e8);
+}
+
+html[data-palette="cherry"][data-theme="night"] .music-widget button,
+html[data-palette="cherry"][data-theme="night"] .notes-fab {
+  color: #1a0a14;
+  background: linear-gradient(135deg, #e0a0c0, #d888b0);
+}
+
+html[data-palette="ocean"] .weather-head button {
+  background: linear-gradient(135deg, #5fa8d3, #a8b8ff);
+}
+
+html[data-palette="cherry"] .weather-head button {
+  background: linear-gradient(135deg, #e0a0c0, #c9a0e8);
+}
+
+html[data-palette="ocean"] .quick-link-icon {
+  background: linear-gradient(135deg, #5fa8d3, #7ec8e3);
+}
+
+html[data-palette="cherry"] .quick-link-icon {
+  background: linear-gradient(135deg, #e0a0c0, #f0b5c8);
+}
+
+html[data-palette="ocean"] .settings-btn span {
+  background: linear-gradient(135deg, #5fa8d3, #a8b8ff);
+}
+
+html[data-palette="cherry"] .settings-btn span {
+  background: linear-gradient(135deg, #e0a0c0, #c9a0e8);
+}
+
+html[data-palette="ocean"] .sticky-note-label::before {
+  background: linear-gradient(135deg, #5fa8d3, #7ec8e3);
+  box-shadow: 0 0 12px rgba(100, 180, 230, 0.72);
+}
+
+html[data-palette="cherry"] .sticky-note-label::before {
+  background: linear-gradient(135deg, #e0a0c0, #f0b5c8);
+  box-shadow: 0 0 12px rgba(200, 120, 160, 0.72);
+}
+
+html[data-palette="ocean"] .calendar-grid .today {
+  background: linear-gradient(135deg, #7ec8e3, #5fa8d3 48%, #a8b8ff);
+}
+
+html[data-palette="cherry"] .calendar-grid .today {
+  background: linear-gradient(135deg, #f0b5c8, #e0a0c0 48%, #c9a0e8);
+}
+
+html[data-palette="ocean"] .year-mini b {
+  background: linear-gradient(90deg, #5fa8d3, #7ec8e3, #ffe69a);
+}
+
+html[data-palette="cherry"] .year-mini b {
+  background: linear-gradient(90deg, #e0a0c0, #f0b5c8, #ffd9a0);
+}
+
+html[data-palette="ocean"] .weather-orb {
+  background: radial-gradient(circle, #fff 0 18%, #ffe69a 19% 42%, #7ec8e3 43% 70%, #5fa8d3 71% 100%);
+  box-shadow: 0 10px 24px rgba(100, 160, 210, 0.2);
+}
+
+html[data-palette="cherry"] .weather-orb {
+  background: radial-gradient(circle, #fff 0 18%, #ffd9a0 19% 42%, #f0b5c8 43% 70%, #e0a0c0 71% 100%);
+  box-shadow: 0 10px 24px rgba(200, 120, 160, 0.2);
+}
+
+html[data-palette="ocean"][data-theme="night"] .weather-orb {
+  filter: brightness(0.88) saturate(1.08);
+}
+
+html[data-palette="cherry"][data-theme="night"] .weather-orb {
+  filter: brightness(0.88) saturate(1.08);
+}
+
+/* 海中月 · 夜间模式特色覆盖 */
+html[data-palette="ocean"][data-theme="night"] .side-nav a.active,
+html[data-palette="ocean"][data-theme="night"] .side-nav a:hover {
+  background: linear-gradient(135deg, #80c0e8, #a8b8ff);
+}
+
+html[data-palette="cherry"][data-theme="night"] .side-nav a.active,
+html[data-palette="cherry"][data-theme="night"] .side-nav a:hover {
+  background: linear-gradient(135deg, #e0a0c0, #c9a0e8);
+}
+
+html[data-palette="ocean"][data-theme="night"] .clock-tabs button.active,
+html[data-palette="ocean"][data-theme="night"] .clock-tabs button:hover,
+html[data-palette="ocean"][data-theme="night"] .clock-actions button:hover {
+  background: linear-gradient(135deg, #80c0e8, #a8b8ff);
+}
+
+html[data-palette="cherry"][data-theme="night"] .clock-tabs button.active,
+html[data-palette="cherry"][data-theme="night"] .clock-tabs button:hover,
+html[data-palette="cherry"][data-theme="night"] .clock-actions button:hover {
+  background: linear-gradient(135deg, #e0a0c0, #c9a0e8);
+}
+
+html[data-palette="ocean"][data-theme="night"] .quick-link:hover {
+  background: linear-gradient(135deg, #80c0e8, #a8b8ff);
+}
+
+html[data-palette="cherry"][data-theme="night"] .quick-link:hover {
+  background: linear-gradient(135deg, #e0a0c0, #c9a0e8);
+}
+
+html[data-palette="ocean"][data-theme="night"] .settings-btn:hover,
+html[data-palette="ocean"][data-theme="night"] .settings-btn span {
+  background: linear-gradient(135deg, #80c0e8, #a8b8ff);
+}
+
+html[data-palette="cherry"][data-theme="night"] .settings-btn:hover,
+html[data-palette="cherry"][data-theme="night"] .settings-btn span {
+  background: linear-gradient(135deg, #e0a0c0, #c9a0e8);
+}
+
+html[data-palette="ocean"][data-theme="night"] .settings-action-btn:hover {
+  background: linear-gradient(135deg, #80c0e8, #a8b8ff);
+}
+
+html[data-palette="cherry"][data-theme="night"] .settings-action-btn:hover {
+  background: linear-gradient(135deg, #e0a0c0, #c9a0e8);
+}
+
+html[data-palette="ocean"][data-theme="night"] .music-widget button,
+html[data-palette="ocean"][data-theme="night"] .weather-head button {
+  color: #06242a;
+  background: linear-gradient(135deg, #80c0e8, #a8b8ff);
+}
+
+html[data-palette="cherry"][data-theme="night"] .music-widget button,
+html[data-palette="cherry"][data-theme="night"] .weather-head button {
+  color: #1a0a14;
+  background: linear-gradient(135deg, #e0a0c0, #c9a0e8);
+}
+
+/* ---- 配色主题：其他控件 ---- */
+html[data-palette="ocean"] .song-info i b {
+  background: linear-gradient(90deg, #5fa8d3, #7ec8e3 58%, #a8b8ff);
+}
+
+html[data-palette="cherry"] .song-info i b {
+  background: linear-gradient(90deg, #e0a0c0, #f0b5c8 58%, #c9a0e8);
+}
+
+html[data-palette="ocean"] .clock-tabs button.active {
+  color: #fff;
+  background: linear-gradient(135deg, #5fa8d3, #7ec8e3);
+}
+
+html[data-palette="cherry"] .clock-tabs button.active {
+  color: #fff;
+  background: linear-gradient(135deg, #e0a0c0, #f0b5c8);
+}
+
+html[data-palette="ocean"] .clock-widget .digital-time {
+  background:
+    linear-gradient(180deg, rgba(245, 250, 255, 0.56), rgba(225, 240, 250, 0.68)),
+    repeating-linear-gradient(180deg, rgba(49, 95, 88, 0.08) 0 1px, transparent 1px 6px);
+}
+
+html[data-palette="cherry"] .clock-widget .digital-time {
+  background:
+    linear-gradient(180deg, rgba(255, 248, 250, 0.56), rgba(255, 240, 248, 0.68)),
+    repeating-linear-gradient(180deg, rgba(95, 60, 80, 0.08) 0 1px, transparent 1px 6px);
+}
+
+html[data-palette="ocean"] .seg.active,
+html[data-palette="ocean"] .seg-colon i {
+  background: linear-gradient(180deg, #6bb5e8, #5fa8d3);
+  box-shadow: 0 0 8px rgba(95, 168, 211, 0.34), 0 1px 0 rgba(255,255,255,0.42) inset;
+}
+
+html[data-palette="cherry"] .seg.active,
+html[data-palette="cherry"] .seg-colon i {
+  background: linear-gradient(180deg, #e8a0c0, #d888b0);
+  box-shadow: 0 0 8px rgba(216, 136, 184, 0.34), 0 1px 0 rgba(255,255,255,0.42) inset;
+}
+
+html[data-palette="ocean"] .greeting-widget h2 {
+  color: #315256;
+}
+
+html[data-palette="cherry"] .greeting-widget h2 {
+  color: #5a3a4a;
+}
+
+html[data-palette="ocean"] .greeting-widget strong {
+  color: #5fa8d3;
+}
+
+html[data-palette="cherry"] .greeting-widget strong {
+  color: #d888b0;
+}
+
+html[data-palette="ocean"] .spirit {
+  background:
+    radial-gradient(circle at 35% 25%, #fff, transparent 22%),
+    radial-gradient(circle at 70% 78%, rgba(160, 200, 240, 0.48), transparent 28%),
+    linear-gradient(160deg, #f0f8ff, #e0f0ff 55%, #f0e8ff);
+  box-shadow: 0 18px 46px rgba(100, 160, 210, 0.28), inset 0 -10px 20px rgba(100, 160, 210, 0.16);
+}
+
+html[data-palette="cherry"] .spirit {
+  background:
+    radial-gradient(circle at 35% 25%, #fff, transparent 22%),
+    radial-gradient(circle at 70% 78%, rgba(240, 160, 200, 0.48), transparent 28%),
+    linear-gradient(160deg, #fff0f5, #ffe8f0 55%, #fce8ff);
+  box-shadow: 0 18px 46px rgba(200, 120, 160, 0.28), inset 0 -10px 20px rgba(200, 120, 160, 0.16);
+}
+
+html[data-palette="ocean"] .portal-caption {
+  color: #5a8a9a;
+}
+
+html[data-palette="cherry"] .portal-caption {
+  color: #9a7a8a;
+}
+
+html[data-palette="ocean"] .kicker {
+  color: #5aa5a0;
+}
+
+html[data-palette="cherry"] .kicker {
+  color: #b08090;
+}
+
+html[data-palette="ocean"] .year-mini b {
+  background: linear-gradient(90deg, #5fa8d3, #7ec8e3, #ffe69a);
+}
+
+html[data-palette="cherry"] .year-mini b {
+  background: linear-gradient(90deg, #e0a0c0, #f0b5c8, #ffd9a0);
+}
+
+html[data-theme="night"] .settings-btn b {
+  font-weight: 900;
+}
+
+html[data-theme="night"] .settings-btn {
+  border-color: var(--line);
+  color: #d7f7f1;
+  background:
     radial-gradient(circle at 14% 10%, rgba(119, 228, 216, 0.14), transparent 7rem),
     linear-gradient(145deg, rgba(28, 54, 70, 0.82), rgba(18, 38, 53, 0.66));
-  box-shadow: var(--shadow), var(--inner);
+  box-shadow: 0 16px 36px rgba(2, 11, 22, 0.32), var(--inner);
+}
+
+html[data-theme="night"] .settings-btn:hover {
+  color: #06242a;
+  background: linear-gradient(135deg, #9ff4e8, #aebdff);
+}
+
+html[data-theme="night"] .settings-btn span {
+  color: #06242a;
+  background: linear-gradient(135deg, #9ff4e8, #aebdff);
 }

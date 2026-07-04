@@ -3,18 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>&#29031;&#29255;&#22681; &middot; &#20113;&#22806;&#24237;&#38498;</title>
+  <title>云外庭院</title>
   <script>
     (() => {
       const key = 'dashboard.theme', root = document.documentElement;
       try { if (localStorage.getItem(key) === 'night') root.dataset.theme = 'night'; }
-      catch (e) { /* 存储不可用时忽略 */ }
+      catch (e) {}
     })();
   </script>
   <link rel="stylesheet" href="src/css/base.css" />
   <link rel="stylesheet" href="src/css/pages.css" />
+  <style>
+    .photos-closed { text-align: center; padding: 80px 20px; color: var(--ink, #315256); }
+    .photos-closed h2 { font-size: 2rem; margin-bottom: 12px; }
+    .photos-closed p  { opacity: 0.7; }
+  </style>
 </head>
-<body class="projects-page photos-page">
+<body class="projects-page">
   <div class="sky-layer stars" aria-hidden="true"></div>
   <div class="sky-layer aurora aurora-one" aria-hidden="true"></div>
   <div class="sky-layer aurora aurora-two" aria-hidden="true"></div>
@@ -23,32 +28,24 @@
   <div class="sky-layer garden-silhouette garden-left" aria-hidden="true"></div>
   <div class="sky-layer garden-silhouette garden-right" aria-hidden="true"></div>
   <div class="sky-layer vine-trail" aria-hidden="true"></div>
-  <button class="theme-toggle" id="themeToggle" type="button" aria-label="&#20999;&#25442;&#20027;&#39064;" aria-pressed="false"><span>&#9790;</span><b>&#22812;&#38388;</b></button>
-  <button class="photo-refresh-btn" id="photoRefreshBtn" type="button" aria-label="&#25195;&#25551;&#24182;&#26356;&#26032;&#29031;&#29255;&#22681;" title="&#21047;&#26032;&#29031;&#29255;&#22681;&#65288;&#38656; node server.js &#25903;&#25345;&#65289;">&#8635;</button>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换主题" aria-pressed="false"><span>☾</span><b>夜间</b></button>
 
-  <main class="photos-page-shell" aria-label="&#29031;&#29255;&#22681;&#39029;&#38754;">
-    <aside class="projects-side photos-side floating-nav island-card">
+  <main class="photos-page-shell">
+    <aside class="projects-side floating-nav island-card">
       <div class="profile-head">
         <img class="avatar profile-avatar" src="src/assets/avatar.jpg" alt="XTPixel avatar" />
       </div>
-      <nav class="side-nav" aria-label="Garden navigation">
-        <a href="index.html" aria-label="Home"><span class="nav-icon" aria-hidden="true">&#8962;</span><span class="nav-label">&#39318;&#39029;</span></a>
-        <a href="projects.html" aria-label="Projects"><span class="nav-icon" aria-hidden="true">&#9874;</span><span class="nav-label">&#24320;&#21457;&#39033;&#30446;</span></a>
-        <a href="articles.html" aria-label="Articles"><span class="nav-icon" aria-hidden="true">&#9998;</span><span class="nav-label">&#36817;&#26399;&#25991;&#31456;</span></a>
-        <a class="active" href="photos.html" aria-label="Photos"><span class="nav-icon" aria-hidden="true">&#9639;</span><span class="nav-label">&#29031;&#29255;&#22681;</span></a>
-        <a href="favorites.html" aria-label="Favorites"><span class="nav-icon" aria-hidden="true">&#9678;</span><span class="nav-label">&#32593;&#31449;&#25910;&#34255;</span></a>
+      <nav class="side-nav" aria-label="庭院导航">
+        <a href="index.html"><span class="nav-icon" aria-hidden="true">⌂</span><span class="nav-label">首页</span></a>
+        <a href="projects.html"><span class="nav-icon" aria-hidden="true">⚒</span><span class="nav-label">开发项目</span></a>
+        <a href="articles.html"><span class="nav-icon" aria-hidden="true">✎</span><span class="nav-label">近期文章</span></a>
+        <a href="favorites.html"><span class="nav-icon" aria-hidden="true">◎</span><span class="nav-label">网站收藏</span></a>
       </nav>
     </aside>
-
-    <div class="photo-wall" id="photoWall" aria-live="polite"></div>
+    <div class="photos-closed">
+      <h2>📷 照片墙</h2>
+      <p>暂不可用，敬请期待。</p>
+    </div>
   </main>
-
-  <div class="photo-lightbox" id="photoLightbox" aria-hidden="true" role="dialog" aria-label="&#29031;&#29255;&#22823;&#22270;&#39044;&#35272;">
-    <button class="photo-lightbox-close" type="button" aria-label="&#20851;&#38381;&#22823;&#22270;">&times;</button>
-    <img id="photoLightboxImage" src="" alt="" />
-    <p id="photoLightboxCaption"></p>
-  </div>
-
-  <script type="module" src="src/js/pages/photos.js"></script>
 </body>
 </html>

@@ -9,6 +9,7 @@ import { loadWeather } from '../modules/weather.js';
 import { initMusicPlayer } from '../modules/music.js';
 import { initPageTransitions } from '../modules/pageTransitions.js';
 import { initCursorTrail } from '../modules/cursorTrail.js';
+import { initSettings } from '../modules/settings.js';
 
 /* ============================================
    电子宠物 · 庭中黑猫（默认关闭）
@@ -34,7 +35,6 @@ function bindEvents() {
   });
   elements.noteWall.addEventListener('pointerdown', startNoteDrag);
   elements.noteWall.addEventListener('input', updateNoteText);
-  elements.resetLayout.addEventListener('click', resetLayout);
   elements.refreshWeather.addEventListener('click', () => {
     loadWeather();
     // catReact('weatherChange');
@@ -95,6 +95,9 @@ async function init() {
   try {
     enableNoteDragging();
   } catch (e) { console.warn('[首页] enableNoteDragging:', e); }
+  try {
+    initSettings();
+  } catch (e) { console.warn('[首页] initSettings:', e); }
   try {
     bindEvents();
   } catch (e) { console.warn('[首页] bindEvents:', e); }

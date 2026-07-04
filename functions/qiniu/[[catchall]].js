@@ -17,12 +17,15 @@ export async function onRequest(context) {
   try {
     const response = await fetch(qiniuUrl);
 
+    const responseHeaders = new Headers({
+      'Content-Type':   response.headers.get('Content-Type') || 'application/octet-stream',
+      'Cache-Control':  'public, max-age=31536000',
+      'X-Debug-Qiniu-Url': qiniuUrl,  // 调试：记录实际请求的七牛云 URL
+    });
+
     return new Response(response.body, {
       status: response.status,
-      headers: {
-        'Content-Type':   response.headers.get('Content-Type') || 'application/octet-stream',
-        'Cache-Control':  'public, max-age=31536000',
-      },
+      headers: responseHeaders,
     });
   } catch (err) {
     return new Response(`代理失败: ${err.message}`, { status: 502 });

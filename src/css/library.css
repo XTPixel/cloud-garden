@@ -1,0 +1,820 @@
+/* ========================================
+   library.css — 藏书阁专属样式
+   书架、书籍卡片、详情弹窗、主题覆盖
+   ======================================== */
+
+/* ───── 藏书阁页面布局 ───── */
+.library-page .projects-page-shell {
+  width: min(1100px, calc(100% - 48px));
+}
+
+.library-hero {
+  min-height: 160px;
+}
+
+.library-hero p {
+  max-width: 420px;
+}
+
+.library-board {
+  align-self: start;
+}
+
+/* ───── 分类 Tab ───── */
+.library-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 0 6px;
+}
+
+.library-tabs button {
+  padding: 7px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 999px;
+  color: #5f7c82;
+  background: rgba(255, 255, 255, 0.36);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 900;
+  line-height: 1.3;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.library-tabs button:hover {
+  color: #315256;
+  background: rgba(255, 255, 255, 0.58);
+  transform: translateY(-1px);
+}
+
+.library-tabs button.active {
+  color: #06242a;
+  background: linear-gradient(135deg, #9ff4e8, #aebdff);
+  border-color: transparent;
+}
+
+/* ───── 书架区域 ───── */
+.library-shelf-area {
+  margin-top: 12px;
+  border-radius: 20px 24px 22px 26px;
+  padding: 20px 20px 8px;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(184, 176, 255, 0.08), transparent 60%),
+    linear-gradient(180deg, rgba(60, 45, 30, 0.06) 0%, rgba(80, 60, 40, 0.04) 100%);
+  transition: background 0.4s ease;
+}
+
+/* ───── 单层书架 ───── */
+.library-shelf {
+  margin-bottom: 24px;
+}
+
+.library-shelf:last-child {
+  margin-bottom: 0;
+}
+
+.library-books-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  justify-content: center;
+  padding: 16px 8px 0;
+  min-height: 240px;
+  align-items: flex-end;
+}
+
+/* ───── 书架木板 ───── */
+.shelf-plank {
+  position: relative;
+  height: 18px;
+  margin-top: 14px;
+  border-radius: 3px 3px 4px 4px;
+  background:
+    linear-gradient(180deg,
+      #c4943a 0%, #d4a44a 2px, #b8842e 4px,
+      #a07020 6px, #b08028 8px, #987018 10px,
+      #a87828 12px, #c49038 14px, #b8842e 16px, #a07020 18px);
+  box-shadow:
+    0 -1px 0 rgba(0, 0, 0, 0.06),
+    0 3px 8px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+  transition: background 0.4s ease;
+}
+
+.shelf-grain {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(92deg,
+      transparent 0 8px, rgba(0, 0, 0, 0.03) 8px 9px, transparent 9px 18px,
+      rgba(255, 255, 255, 0.04) 18px 20px, transparent 20px 32px);
+  pointer-events: none;
+}
+
+/* ───── 书籍卡片 ───── */
+.library-book {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 152px;
+  width: 152px;
+  min-height: 218px;
+  padding: 0;
+  border: none;
+  border-radius: 6px 6px 3px 3px;
+  color: inherit;
+  cursor: pointer;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(248, 245, 240, 0.88));
+  box-shadow:
+    0 8px 20px rgba(70, 60, 50, 0.10),
+    0 2px 4px rgba(70, 60, 50, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transform: rotate(var(--s-rotate, 0deg));
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              filter 0.3s ease;
+  animation: bookShelfIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  text-align: center;
+  line-height: 1.3;
+  overflow: hidden;
+}
+
+.library-book:hover,
+.library-book:focus-visible {
+  transform: rotate(var(--s-rotate, 0deg)) translateY(-8px) scale(1.04);
+  box-shadow:
+    0 20px 44px rgba(60, 50, 40, 0.18),
+    0 4px 8px rgba(60, 50, 40, 0.08);
+  filter: saturate(1.06) brightness(1.02);
+  z-index: 10;
+  outline: none;
+}
+
+.library-book:active {
+  transform: rotate(var(--s-rotate, 0deg)) scale(0.96);
+  transition-duration: 0.1s;
+}
+
+@keyframes bookShelfIn {
+  from {
+    transform: rotate(var(--s-rotate, 0deg)) translateY(24px) scale(0.85);
+    opacity: 0;
+    filter: blur(2px);
+  }
+  to {
+    transform: rotate(var(--s-rotate, 0deg)) translateY(0) scale(1);
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+/* ───── 书脊色条 (左侧) ───── */
+.book-spine {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background: var(--spine, #6B4226);
+  border-radius: 4px 0 0 2px;
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.12);
+}
+
+/* ───── 类型图标 ───── */
+.book-type-icon {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+
+/* ───── 书的内容区 ───── */
+.book-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 22px 14px 10px;
+}
+
+.book-title {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 0;
+  color: #3a4a4a;
+  font-size: 0.92rem;
+  font-weight: 800;
+  line-height: 1.35;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.book-creator {
+  display: block;
+  margin: 4px 0 0;
+  color: #7a8a82;
+  font-size: 0.68rem;
+  font-weight: 800;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.book-divider {
+  display: block;
+  width: 50%;
+  height: 1px;
+  margin: 8px auto;
+  background: repeating-linear-gradient(90deg,
+    rgba(115, 170, 160, 0.32) 0 4px,
+    transparent 4px 8px);
+}
+
+.book-rating {
+  display: block;
+  color: #6ab8a8;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+}
+
+/* ───── 状态条 (底部) ───── */
+.book-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% + 28px);
+  margin: 6px -14px 0;
+  padding: 5px 0 4px;
+  font-size: 0.62rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  transition: background 0.3s ease;
+}
+
+.book-status-bar[data-status="done"] {
+  background: rgba(212, 175, 55, 0.18);
+  color: #8a6c1a;
+}
+
+.book-status-bar[data-status="reading"] {
+  background: rgba(90, 200, 180, 0.18);
+  color: #1a7a6a;
+}
+
+.book-status-bar[data-status="wish"] {
+  background: rgba(160, 140, 220, 0.18);
+  color: #5a4a8a;
+}
+
+/* ───── 空书架 ───── */
+.library-shelf-empty .library-books-row {
+  min-height: 140px;
+  align-items: center;
+}
+
+.library-books-row-empty .projects-status {
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+/* =============================================
+   详情弹窗 — overlay
+   ============================================= */
+.detail-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(20, 38, 42, 0.62);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transition: opacity 0.32s ease;
+  cursor: pointer;
+}
+
+.detail-overlay[aria-hidden="false"] {
+  cursor: pointer;
+}
+
+/* ───── 详情卡片 ───── */
+.detail-card {
+  position: fixed;
+  z-index: 10001;
+  width: min(480px, 88vw);
+  max-height: 76vh;
+  left: calc(50% - min(240px, 44vw));
+  top: clamp(48px, 10vh, 96px);
+  padding: 32px 30px 28px;
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  border-radius: 28px 32px 26px 34px;
+  color: #3a4a4a;
+  background:
+    radial-gradient(circle at 22% 12%, rgba(255, 250, 214, 0.5), transparent 8rem),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(245, 248, 240, 0.88));
+  box-shadow:
+    0 28px 64px rgba(30, 40, 30, 0.24),
+    0 8px 20px rgba(30, 40, 30, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92);
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.28s ease;
+  cursor: default;
+  overflow-y: auto;
+  pointer-events: none;
+}
+
+.detail-card.is-open {
+  transform: scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* detail 内容布局 */
+.detail-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 999px;
+  color: #5f7c82;
+  background: rgba(255, 255, 255, 0.52);
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.detail-close:hover {
+  background: rgba(255, 255, 255, 0.82);
+  transform: scale(1.08);
+}
+
+.detail-type {
+  display: inline-block;
+  padding: 3px 10px;
+  border: 1px solid rgba(115, 170, 160, 0.32);
+  border-radius: 999px;
+  color: #4d8682;
+  background: rgba(255, 255, 255, 0.52);
+  font-size: 0.7rem;
+  font-weight: 900;
+  margin-bottom: 12px;
+}
+
+.detail-title {
+  margin: 0 0 2px;
+  color: #315256;
+  font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
+
+.detail-creator {
+  margin: 0 0 14px;
+  color: #5f7c82;
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+.detail-rating {
+  margin-bottom: 10px;
+  color: #6ab8a8;
+  font-size: 1.2rem;
+  letter-spacing: 0.08em;
+}
+
+.detail-status {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 900;
+  margin-bottom: 16px;
+}
+
+.detail-status[data-status="done"] {
+  background: rgba(212, 175, 55, 0.16);
+  color: #8a6c1a;
+}
+
+.detail-status[data-status="reading"] {
+  background: rgba(90, 200, 180, 0.16);
+  color: #1a7a6a;
+}
+
+.detail-status[data-status="wish"] {
+  background: rgba(160, 140, 220, 0.16);
+  color: #5a4a8a;
+}
+
+.detail-comment {
+  margin: 0 0 18px;
+  color: #4b676d;
+  font-size: 0.9rem;
+  font-weight: 750;
+  line-height: 1.8;
+}
+
+.detail-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.detail-tags span {
+  padding: 4px 9px;
+  border: 1px solid rgba(115, 215, 197, 0.32);
+  border-radius: 999px;
+  color: #4d8682;
+  background: rgba(255, 255, 255, 0.42);
+  font-size: 0.68rem;
+  font-weight: 900;
+}
+
+.detail-date {
+  margin-top: 4px;
+  color: #7a9a90;
+  font-size: 0.74rem;
+  font-weight: 800;
+}
+
+/* =============================================
+   夜间模式 — 藏书阁覆盖
+   ============================================= */
+html[data-theme="night"] .library-tabs button {
+  border-color: rgba(188, 240, 231, 0.22);
+  color: #bddbdc;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+html[data-theme="night"] .library-tabs button:hover {
+  color: #e8fbf7;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+html[data-theme="night"] .library-tabs button.active {
+  color: #06242a;
+  background: linear-gradient(135deg, #9ff4e8, #aebdff);
+}
+
+/* 书架墙壁 */
+html[data-theme="night"] .library-shelf-area {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(119, 228, 216, 0.06), transparent 60%),
+    linear-gradient(180deg, rgba(10, 20, 25, 0.5) 0%, rgba(18, 30, 35, 0.4) 100%);
+}
+
+/* 书籍卡片 */
+html[data-theme="night"] .library-book {
+  background:
+    linear-gradient(145deg, rgba(38, 60, 68, 0.88), rgba(28, 48, 55, 0.82));
+  box-shadow:
+    0 8px 20px rgba(2, 11, 22, 0.28),
+    0 2px 4px rgba(2, 11, 22, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+html[data-theme="night"] .library-book:hover,
+html[data-theme="night"] .library-book:focus-visible {
+  box-shadow:
+    0 20px 44px rgba(2, 11, 22, 0.36),
+    0 4px 8px rgba(2, 11, 22, 0.16);
+}
+
+html[data-theme="night"] .book-title {
+  color: #d8f5ee;
+}
+
+html[data-theme="night"] .book-creator {
+  color: #89a8a0;
+}
+
+html[data-theme="night"] .book-divider {
+  background: repeating-linear-gradient(90deg,
+    rgba(119, 228, 216, 0.2) 0 4px,
+    transparent 4px 8px);
+}
+
+html[data-theme="night"] .book-rating {
+  color: #77e4d8;
+}
+
+/* 状态条 — 夜间 */
+html[data-theme="night"] .book-status-bar[data-status="done"] {
+  background: rgba(212, 175, 55, 0.12);
+  color: #d4b84a;
+}
+
+html[data-theme="night"] .book-status-bar[data-status="reading"] {
+  background: rgba(90, 200, 180, 0.12);
+  color: #5ad8c8;
+}
+
+html[data-theme="night"] .book-status-bar[data-status="wish"] {
+  background: rgba(160, 140, 220, 0.12);
+  color: #b0a0e0;
+}
+
+/* 书架木板 — 夜间 */
+html[data-theme="night"] .shelf-plank {
+  background:
+    linear-gradient(180deg,
+      #5a4020 0%, #6a4a28 2px, #4a3018 4px,
+      #3a2810 6px, #4a3018 8px, #3a2810 10px,
+      #4a3820 12px, #5a4020 14px, #4a3018 16px, #3a2810 18px);
+  box-shadow:
+    0 -1px 0 rgba(0, 0, 0, 0.15),
+    0 3px 8px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+html[data-theme="night"] .shelf-grain {
+  background:
+    repeating-linear-gradient(92deg,
+      transparent 0 8px, rgba(0, 0, 0, 0.05) 8px 9px, transparent 9px 18px,
+      rgba(255, 255, 255, 0.02) 18px 20px, transparent 20px 32px);
+}
+
+/* 详情弹窗 — 夜间 */
+html[data-theme="night"] .detail-overlay {
+  background: rgba(3, 12, 22, 0.78);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+html[data-theme="night"] .detail-card {
+  border-color: rgba(188, 240, 231, 0.22);
+  color: #d8f5ee;
+  background:
+    radial-gradient(circle at 22% 12%, rgba(119, 228, 216, 0.10), transparent 8rem),
+    linear-gradient(145deg, rgba(26, 50, 58, 0.94), rgba(18, 38, 48, 0.88));
+  box-shadow:
+    0 28px 64px rgba(2, 11, 22, 0.4),
+    0 8px 20px rgba(2, 11, 22, 0.2),
+    inset 0 1px 0 rgba(188, 240, 231, 0.08);
+}
+
+html[data-theme="night"] .detail-title {
+  color: #f2fffb;
+}
+
+html[data-theme="night"] .detail-creator {
+  color: #89a8a0;
+}
+
+html[data-theme="night"] .detail-rating {
+  color: #77e4d8;
+}
+
+html[data-theme="night"] .detail-comment {
+  color: #bddbdc;
+}
+
+html[data-theme="night"] .detail-date {
+  color: #7a9a90;
+}
+
+html[data-theme="night"] .detail-close {
+  border-color: rgba(188, 240, 231, 0.2);
+  color: #bddbdc;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+html[data-theme="night"] .detail-close:hover {
+  color: #06242a;
+  background: linear-gradient(135deg, #9ff4e8, #aebdff);
+}
+
+html[data-theme="night"] .detail-type {
+  border-color: rgba(119, 228, 216, 0.22);
+  color: #77e4d8;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+html[data-theme="night"] .detail-status[data-status="done"] {
+  background: rgba(212, 175, 55, 0.12);
+  color: #d4b84a;
+}
+
+html[data-theme="night"] .detail-status[data-status="reading"] {
+  background: rgba(90, 200, 180, 0.12);
+  color: #5ad8c8;
+}
+
+html[data-theme="night"] .detail-status[data-status="wish"] {
+  background: rgba(160, 140, 220, 0.12);
+  color: #b0a0e0;
+}
+
+html[data-theme="night"] .detail-tags span {
+  border-color: rgba(119, 228, 216, 0.16);
+  color: #77e4d8;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* =============================================
+   沧海月明 — 藏书阁覆盖
+   ============================================= */
+html[data-palette="ocean"] .library-shelf-area {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(168, 184, 255, 0.06), transparent 60%),
+    linear-gradient(180deg, rgba(50, 60, 70, 0.05) 0%, rgba(60, 70, 80, 0.04) 100%);
+}
+
+html[data-palette="ocean"] .shelf-plank {
+  background:
+    linear-gradient(180deg,
+      #8a8a7a 0%, #9a9a88 2px, #7a7a6a 4px,
+      #6a6a5a 6px, #7a7a6a 8px, #6a6a5a 10px,
+      #7a7a6a 12px, #8a8a7a 14px, #7a7a6a 16px, #6a6a5a 18px);
+}
+
+html[data-palette="ocean"] .book-rating {
+  color: var(--aqua);
+}
+
+html[data-palette="ocean"] .detail-rating {
+  color: var(--aqua);
+}
+
+html[data-palette="ocean"] .library-tabs button.active {
+  background: linear-gradient(135deg, #80c0e8, #a8b8ff);
+}
+
+/* 沧海 + 夜间 */
+html[data-palette="ocean"][data-theme="night"] .library-shelf-area {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(74, 159, 200, 0.06), transparent 60%),
+    linear-gradient(180deg, rgba(8, 22, 35, 0.5) 0%, rgba(12, 28, 40, 0.4) 100%);
+}
+
+html[data-palette="ocean"][data-theme="night"] .shelf-plank {
+  background:
+    linear-gradient(180deg,
+      #4a4a4a 0%, #5a5a58 2px, #3a3a38 4px,
+      #2a2a28 6px, #3a3a38 8px, #2a2a28 10px,
+      #3a3a38 12px, #4a4a48 14px, #3a3a38 16px, #2a2a28 18px);
+}
+
+html[data-palette="ocean"][data-theme="night"] .library-tabs button.active {
+  color: #06242a;
+  background: linear-gradient(135deg, #5fa8d3, #7ec8e3);
+}
+
+html[data-palette="ocean"][data-theme="night"] .detail-close:hover {
+  color: #06242a;
+  background: linear-gradient(135deg, #80c0e8, #a8b8ff);
+}
+
+html[data-palette="ocean"][data-theme="night"] .detail-type {
+  color: #7ec8e3;
+  border-color: rgba(95, 168, 211, 0.3);
+}
+
+/* =============================================
+   落樱缤纷 — 藏书阁覆盖
+   ============================================= */
+html[data-palette="cherry"] .library-shelf-area {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(201, 160, 232, 0.06), transparent 60%),
+    linear-gradient(180deg, rgba(80, 50, 60, 0.04) 0%, rgba(90, 60, 70, 0.03) 100%);
+}
+
+html[data-palette="cherry"] .shelf-plank {
+  background:
+    linear-gradient(180deg,
+      #b8887a 0%, #c89888 2px, #a87868 4px,
+      #986858 6px, #a87868 8px, #986858 10px,
+      #a87868 12px, #b88878 14px, #a87868 16px, #986858 18px);
+}
+
+html[data-palette="cherry"] .book-rating {
+  color: var(--aqua);
+}
+
+html[data-palette="cherry"] .detail-rating {
+  color: var(--aqua);
+}
+
+html[data-palette="cherry"] .library-tabs button.active {
+  background: linear-gradient(135deg, #f0b5c8, #c9a0e8);
+}
+
+/* 落樱 + 夜间 */
+html[data-palette="cherry"][data-theme="night"] .library-shelf-area {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(216, 136, 184, 0.06), transparent 60%),
+    linear-gradient(180deg, rgba(25, 10, 20, 0.5) 0%, rgba(35, 15, 28, 0.4) 100%);
+}
+
+html[data-palette="cherry"][data-theme="night"] .shelf-plank {
+  background:
+    linear-gradient(180deg,
+      #5a3830 0%, #6a4840 2px, #4a2820 4px,
+      #3a2018 6px, #4a2820 8px, #3a2018 10px,
+      #4a2820 12px, #5a3830 14px, #4a2820 16px, #3a2018 18px);
+}
+
+html[data-palette="cherry"][data-theme="night"] .library-tabs button.active {
+  color: #1a0a14;
+  background: linear-gradient(135deg, #e0a0c0, #c9a0e8);
+}
+
+html[data-palette="cherry"][data-theme="night"] .detail-close:hover {
+  color: #1a0a14;
+  background: linear-gradient(135deg, #e0a0c0, #c9a0e8);
+}
+
+html[data-palette="cherry"][data-theme="night"] .detail-type {
+  color: #d888b8;
+  border-color: rgba(216, 136, 184, 0.3);
+}
+
+/* =============================================
+   响应式
+   ============================================= */
+@media (max-width: 900px) {
+  .library-shelf-area {
+    padding: 14px 12px 6px;
+  }
+
+  .library-books-row {
+    gap: 14px;
+    padding: 12px 4px 0;
+    min-height: 200px;
+  }
+
+  .library-book {
+    flex-basis: 126px;
+    width: 126px;
+    min-height: 188px;
+  }
+
+  .book-body {
+    padding: 20px 10px 8px;
+  }
+
+  .book-title {
+    font-size: 0.82rem;
+  }
+
+  .book-creator {
+    font-size: 0.62rem;
+  }
+
+  .book-rating {
+    font-size: 0.7rem;
+  }
+
+  .book-status-bar {
+    font-size: 0.56rem;
+  }
+
+  .shelf-plank {
+    height: 14px;
+    margin-top: 10px;
+  }
+
+  .detail-card {
+    padding: 26px 22px 22px;
+  }
+}
+
+@media (max-width: 760px) {
+  .library-tabs {
+    gap: 6px;
+  }
+
+  .library-tabs button {
+    padding: 5px 12px;
+    font-size: 0.72rem;
+  }
+
+  .library-book {
+    flex-basis: 110px;
+    width: 110px;
+    min-height: 170px;
+  }
+
+  .book-type-icon {
+    font-size: 0.78rem;
+    top: 4px;
+    right: 6px;
+  }
+
+  .book-spine {
+    width: 4px;
+  }
+}

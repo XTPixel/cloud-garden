@@ -1,0 +1,290 @@
+[
+  {
+    "title": "你的名字。",
+    "creator": "新海诚",
+    "type": "movie",
+    "status": "done",
+    "rating": 5,
+    "comment": "穿越时空的系守镇，黄昏之时的那声「你的名字是——」，每次看都起鸡皮疙瘩。",
+    "tags": ["日本", "动画", "奇幻", "新海诚"]
+  },
+  {
+    "title": "迷途之子!!!!!",
+    "creator": "BanG Dream! Project",
+    "type": "anime",
+    "status": "done",
+    "rating": 5,
+    "comment": "「迷子でもいい、迷子でも進め。」",
+    "tags": ["日本", "音乐", "乐队", "青春"]
+  },
+  {
+    "title": "颂乐人偶",
+    "creator": "BanG Dream! Project",
+    "type": "anime",
+    "status": "done",
+    "rating": 4,
+    "comment": "Ave Mujica的世界观华丽又暗黑，舞台剧与摇滚的融合让人沉浸其中。",
+    "tags": ["日本", "音乐", "乐队", "暗黑"]
+  },
+  {
+    "title": "某科学的超电磁炮",
+    "creator": "镰池和马",
+    "type": "anime",
+    "status": "done",
+    "rating": 5,
+    "comment": "炮姐的电磁炮是青春的信仰，超能力者们的学园都市日常与战斗永远看不腻。",
+    "tags": ["日本", "科幻", "战斗", "校园"]
+  },
+  {
+    "title": "魔法禁书目录",
+    "creator": "镰池和马",
+    "type": "anime",
+    "status": "done",
+    "rating": 3,
+    "comment": "科学与魔法交错的宏大世界观，上条当麻的右手拯救了无数个故事。",
+    "tags": ["日本", "科幻", "魔法", "战斗"]
+  },
+  {
+    "title": "干物妹！小埋",
+    "creator": "サンカクヘッド",
+    "type": "anime",
+    "status": "done",
+    "rating": 4,
+    "comment": "在外面是完美美少女，回家就变成仓鼠干物妹。",
+    "tags": ["日本", "搞笑", "日常", "治愈"]
+  },
+  {
+    "title": "鹿乃子乃子乃子虎视眈眈",
+    "creator": "おしおしお",
+    "type": "anime",
+    "status": "done",
+    "rating": 4,
+    "comment": "一头鹿少女闯入日常的脱力系搞笑番。",
+    "tags": ["日本", "搞笑", "日常", "电波"]
+  },
+  {
+    "title": "罗小黑战记",
+    "creator": "MTJJ",
+    "type": "anime",
+    "status": "done",
+    "rating": 5,
+    "comment": "国漫的良心，小黑猫的治愈冒险。每一帧都能感受到创作者的热爱。",
+    "tags": ["国创", "治愈", "奇幻"]
+  },
+  {
+    "title": "三体动画",
+    "creator": "艺画开天",
+    "type": "anime",
+    "status": "done",
+    "rating": 2,
+    "comment": "一坨，不如电视剧版",
+    "tags": ["国创", "科幻", "三体"]
+  },
+  {
+    "title": "凡人修仙传",
+    "creator": "忘语",
+    "type": "anime",
+    "status": "wish",
+    "rating": 4,
+    "comment": "都说它是修仙番的天花板，韩老魔的稳健修仙路，列入待看清单。",
+    "tags": ["国创", "修仙", "战斗", "玄幻"]
+  },
+  {
+    "title": "中国奇谭",
+    "creator": "上海美术电影制片厂",
+    "type": "anime",
+    "status": "wish",
+    "rating": 5,
+    "comment": "八个故事八种画风，中国动画的集体爆发。听说小妖怪的夏天看哭不少人，列入待看。",
+    "tags": ["国创", "动画", "短片", "神作"]
+  },
+  {
+    "title": "那年那兔那些事儿",
+    "creator": "逆光飞行",
+    "type": "anime",
+    "status": "done",
+    "rating": 4,
+    "comment": "「每一只兔子都有一个大国梦。」",
+    "tags": ["国创", "历史", "催泪", "爱国"]
+  },
+  {
+    "title": "三国演义",
+    "creator": "王扶林",
+    "type": "tv",
+    "status": "done",
+    "rating": 5,
+    "comment": "央视94版，无法超越的经典。每一个角色都像从书里走出来的一样。",
+    "tags": ["国产", "历史", "经典", "名著改编"]
+  },
+  {
+    "title": "三体",
+    "creator": "刘慈欣",
+    "type": "book",
+    "status": "done",
+    "rating": 5,
+    "comment": "「不要回答！不要回答！不要回答！」",
+    "tags": ["科幻", "经典", "中国文学", "三体"]
+  },
+  {
+    "title": "三体电视剧",
+    "creator": "杨磊",
+    "type": "tv",
+    "status": "done",
+    "rating": 5,
+    "comment": "忠实原著的良心改编，红岸基地和古筝行动的还原度让人热泪盈眶。",
+    "tags": ["国产", "科幻", "三体", "神作"]
+  },
+  {
+    "title": "守护解放西",
+    "creator": "哔哩哔哩 / 中广天择",
+    "type": "documentary",
+    "status": "done",
+    "rating": 4,
+    "comment": "长沙解放西派出所的日常，比剧本还离谱的真实故事，笑得停不下来又引人深思。",
+    "tags": ["国产", "纪实", "搞笑", "社会"]
+  },
+  {
+    "title": "舌尖上的中国",
+    "creator": "陈晓卿",
+    "type": "documentary",
+    "status": "done",
+    "rating": 5,
+    "comment": "最好吃的纪录片，没有之一。拍的不是美食，是人与土地的情感。不要半夜看。",
+    "tags": ["国产", "美食", "文化", "经典"]
+  },
+  {
+    "title": "让子弹飞",
+    "creator": "姜文",
+    "type": "movie",
+    "status": "done",
+    "rating": 5,
+    "comment": "「我来鹅城只办三件事——公平，公平，还是公平！」姜文的浪漫与狂想，每句台词都是经典。",
+    "tags": ["国产", "喜剧", "剧情", "经典"]
+  },
+  {
+    "title": "流浪地球",
+    "creator": "郭帆",
+    "type": "movie",
+    "status": "done",
+    "rating": 5,
+    "comment": "中国科幻电影的新纪元。带着地球去流浪的浪漫，比任何飞船都更打动人心。",
+    "tags": ["国产", "科幻", "灾难", "神作"]
+  },
+  {
+    "title": "星际穿越",
+    "creator": "克里斯托弗·诺兰",
+    "type": "movie",
+    "status": "wish",
+    "rating": 5,
+    "comment": "诺兰的硬科幻巅峰，黑洞和时间膨胀的视觉奇观。一直想看，找个时间沉下来看。",
+    "tags": ["欧美", "科幻", "经典", "诺兰"]
+  },
+  {
+    "title": "奥本海默",
+    "creator": "克里斯托弗·诺兰",
+    "type": "movie",
+    "status": "wish",
+    "rating": 4,
+    "comment": "诺兰的传记片，据说原子弹爆炸的无声处理震撼到窒息。列入待看。",
+    "tags": ["欧美", "传记", "历史", "诺兰"]
+  },
+  {
+    "title": "天气之子",
+    "creator": "新海诚",
+    "type": "movie",
+    "status": "wish",
+    "rating": 4,
+    "comment": "帆高与阳菜的晴天祈愿，听说画面还是一如既往的美。待补。",
+    "tags": ["日本", "动画", "奇幻", "新海诚"]
+  },
+  {
+    "title": "铃芽之旅",
+    "creator": "新海诚",
+    "type": "movie",
+    "status": "wish",
+    "rating": 4,
+    "comment": "关门少女的公路之旅，新海诚的社会派转向之作。还没看，期待。",
+    "tags": ["日本", "动画", "奇幻", "新海诚"]
+  },
+  {
+    "title": "浪浪山小妖怪",
+    "creator": "上海美术电影制片厂",
+    "type": "movie",
+    "status": "done",
+    "rating": 4,
+    "comment": "中国奇谭里小妖怪的夏天出了独立电影？浪浪山的故事值得更多篇幅。",
+    "tags": ["国产", "动画", "奇幻"]
+  },
+  {
+    "title": "长安的荔枝",
+    "creator": "大鹏",
+    "type": "movie",
+    "status": "done",
+    "rating": 4,
+    "comment": "一骑红尘妃子笑，古装公路片的感觉。听说改编自马伯庸的小说，期待。",
+    "tags": ["国产", "历史", "剧情"]
+  },
+  {
+    "title": "飞驰人生",
+    "creator": "韩寒",
+    "type": "movie",
+    "status": "done",
+    "rating": 4,
+    "comment": "巴音布鲁克拉力赛，韩寒的赛车情怀。后半段的热血让人忘记这是一部喜剧。",
+    "tags": ["国产", "喜剧", "赛车", "励志"]
+  },
+  {
+    "title": "疯狂动物城",
+    "creator": "迪士尼",
+    "type": "movie",
+    "status": "wish",
+    "rating": 5,
+    "comment": "迪士尼的动物乌托邦，兔子警官和狐狸骗子的组合。听说树懒那段笑到窒息，列入待看。",
+    "tags": ["欧美", "动画", "喜剧", "经典"]
+  },
+  {
+    "title": "盗梦空间",
+    "creator": "克里斯托弗·诺兰",
+    "type": "movie",
+    "status": "wish",
+    "rating": 5,
+    "comment": "梦中梦中梦，诺兰的烧脑神作。陀螺到底停没停？等我亲自来验证。",
+    "tags": ["欧美", "科幻", "悬疑", "诺兰"]
+  },
+  {
+    "title": "头号玩家",
+    "creator": "史蒂文·斯皮尔伯格",
+    "type": "movie",
+    "status": "wish",
+    "rating": 4,
+    "comment": "斯皮尔伯格的彩蛋狂欢，宅向文化的情书。听说满屏都是致敬，等有空补上。",
+    "tags": ["欧美", "科幻", "游戏", "冒险"]
+  },
+  {
+    "title": "年会不能停",
+    "creator": "董润年",
+    "type": "movie",
+    "status": "done",
+    "rating": 4,
+    "comment": "打工人的嘴替喜剧，大鹏演出了每个格子间人的心声。年会那段歌舞太解气了。",
+    "tags": ["国产", "喜剧", "职场"]
+  },
+  {
+    "title": "黑神话：悟空",
+    "creator": "游戏科学",
+    "type": "game",
+    "status": "done",
+    "rating": 5,
+    "comment": "属于中国玩家的那一刻。每一场boss战都是一次朝圣，黄风大圣的陕北说书让人起鸡皮疙瘩。",
+    "tags": ["国产", "动作", "神话", "神作"]
+  },
+  {
+    "title": "赛博朋克2077",
+    "creator": "CD Projekt Red",
+    "type": "game",
+    "status": "reading",
+    "rating": 4,
+    "comment": "夜之城，我来了。2.0版本确实脱胎换骨，V的故事才刚刚开始。",
+    "tags": ["欧美", "RPG", "科幻", "开放世界"]
+  }
+]

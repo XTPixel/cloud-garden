@@ -33,6 +33,18 @@ function syncDesktopSize() {
   }
 }
 
+/** 保存当前所有 widget 的位置到 localStorage */
+function persistAllPositions() {
+  const layout = getLayout();
+  document.querySelectorAll('[data-widget]:not(.vis-row)').forEach((widget) => {
+    const name = widget.dataset.widget;
+    if (!name) return;
+    layout[name] = { x: widget.style.left, y: widget.style.top };
+  });
+  layout._meta = { desktopWidth: savedDesktop.width, desktopHeight: savedDesktop.height };
+  writeStorage(storageKeys.layout, layout);
+}
+
 function handleResize() {
   const currentWidth = window.innerWidth;
   const currentHeight = window.innerHeight;
@@ -42,7 +54,7 @@ function handleResize() {
   const scaleX = currentWidth / savedDesktop.width;
   const scaleY = currentHeight / savedDesktop.height;
 
-  const widgets = document.querySelectorAll('[data-widget]');
+  const widgets = document.querySelectorAll('[data-widget]:not(.vis-row)');
 
   // 临时 transition 实现平滑动画
   widgets.forEach((w) => {
@@ -81,6 +93,9 @@ function handleResize() {
 
   savedDesktop.width = currentWidth;
   savedDesktop.height = currentHeight;
+
+  // ★ 关键修复：缩放后立即保存位置，避免切页后恢复缩放前的旧值
+  persistAllPositions();
 }
 
 export function initResizeHandler() {
@@ -113,7 +128,7 @@ function applyPosition(widget, x, y) {
 
 function applyDefaultLayout() {
   const widgets = new Map(
-    [...document.querySelectorAll('[data-widget]')].map((widget) => [widget.dataset.widget, widget])
+    [...document.querySelectorAll('[data-widget]:not(.vis-row)')].map((widget) => [widget.dataset.widget, widget])
   );
   const viewportWidth = Math.max(document.documentElement.clientWidth, 1100);
   const viewportHeight = Math.max(document.documentElement.clientHeight, 720);
@@ -135,11 +150,20 @@ function getLayout() {
   return readStorage(storageKeys.layout, {});
 }
 
+function getDesktopSize() {
+  const desktop = document.querySelector('.desktop');
+  return desktop
+    ? { width: desktop.offsetWidth, height: desktop.offsetHeight }
+    : { width: window.innerWidth, height: window.innerHeight };
+}
+
 function saveWidgetPosition(widget, onSaved) {
   const name = widget.dataset.widget;
   if (!name) return;
   const layout = getLayout();
   layout[name] = { x: widget.style.left, y: widget.style.top };
+  // 记录当前桌面尺寸，用于跨会话视口归一化
+  layout._meta = { desktopWidth: savedDesktop.width, desktopHeight: savedDesktop.height };
   writeStorage(storageKeys.layout, layout);
   onSaved?.();
 }
@@ -150,9 +174,47 @@ export function applySavedLayout() {
     resetLayout();
     return;
   }
-  document.querySelectorAll('[data-widget]').forEach((widget) => {
+
+  // 视口归一化：如果保存时的桌面尺寸与当前不同，等比缩放位置
+  const currentSize = getDesktopSize();
+  const savedViewport = layout._meta;
+  let scaleX = 1, scaleY = 1;
+  const needsScale = savedViewport &&
+    savedViewport.desktopWidth > 0 && savedViewport.desktopHeight > 0 &&
+    (Math.abs(savedViewport.desktopWidth - currentSize.width) > 10 ||
+     Math.abs(savedViewport.desktopHeight - currentSize.height) > 10);
+  if (needsScale) {
+    scaleX = currentSize.width / savedViewport.desktopWidth;
+    scaleY = currentSize.height / savedViewport.desktopHeight;
+  }
+
+  document.querySelectorAll('[data-widget]:not(.vis-row)').forEach((widget) => {
     const saved = layout[widget.dataset.widget];
     if (!saved) return;
+
+    if (needsScale && saved.x && saved.y) {
+      const px = parseFloat(saved.x) || 0;
+      const py = parseFloat(saved.y) || 0;
+      if (px || py) {
+        const w = widget.offsetWidth;
+        const h = widget.offsetHeight;
+        let newLeft = Math.round(px * scaleX);
+        let newTop = Math.round(py * scaleY);
+        const maxX = currentSize.width - w - RESIZE_MARGIN;
+        const maxY = currentSize.height - h - RESIZE_MARGIN;
+        if (maxX >= RESIZE_MARGIN) newLeft = Math.min(newLeft, maxX);
+        if (maxY >= RESIZE_MARGIN) newTop = Math.min(newTop, maxY);
+        newLeft = Math.max(RESIZE_MARGIN, newLeft);
+        newTop = Math.max(RESIZE_MARGIN, newTop);
+        widget.style.left = `${newLeft}px`;
+        widget.style.top = `${newTop}px`;
+        widget.style.setProperty('--x', widget.style.left);
+        widget.style.setProperty('--y', widget.style.top);
+        return;
+      }
+    }
+
+    // 不需要缩放时直接应用（兼容旧数据没有 _meta 也可以直接应用）
     widget.style.left = saved.x;
     widget.style.top = saved.y;
     widget.style.setProperty('--x', saved.x);
@@ -163,10 +225,15 @@ export function applySavedLayout() {
 export function resetLayout() {
   localStorage.removeItem(storageKeys.layout);
   applyDefaultLayout();
+  // 确保 reset 后 widget 可见（即使 layout-ready 尚未由入场动画加上）
+  document.querySelectorAll('[data-widget]:not(.vis-row), .notes-fab').forEach((el) => el.classList.add('layout-ready'));
+  // 同步桌面尺寸、保存默认位置到 localStorage
+  syncDesktopSize();
+  persistAllPositions();
 }
 
 export function enableDragging({ onPositionSaved } = {}) {
-  document.querySelectorAll('[data-widget]').forEach((widget) => {
+  document.querySelectorAll('[data-widget]:not(.vis-row)').forEach((widget) => {
     let startX = 0, startY = 0, originX = 0, originY = 0, didMove = false;
 
     widget.addEventListener('pointerdown', (event) => {

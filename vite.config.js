@@ -36,6 +36,7 @@ export default defineConfig({
         projects:  resolve(__dirname, 'projects.html'),
         favorites: resolve(__dirname, 'favorites.html'),
         article:   resolve(__dirname, 'article.html'),
+        library:   resolve(__dirname, 'library.html'),
       },
     },
     assetsDir: 'assets',

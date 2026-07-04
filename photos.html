@@ -6,9 +6,9 @@
   <title>云外庭院</title>
   <script>
     (() => {
-      const key = 'dashboard.theme', root = document.documentElement;
-      try { if (localStorage.getItem(key) === 'night') root.dataset.theme = 'night'; }
-      catch (e) {}
+      const root = document.documentElement;
+      try { const p = localStorage.getItem('dashboard.palette'); if (p && p !== 'garden') root.setAttribute('data-palette', p); } catch (e) {}
+      try { if (localStorage.getItem('dashboard.theme') === 'night') root.dataset.theme = 'night'; } catch (e) {}
     })();
   </script>
   <link rel="stylesheet" href="src/css/base.css" />
@@ -28,7 +28,7 @@
   <div class="sky-layer garden-silhouette garden-left" aria-hidden="true"></div>
   <div class="sky-layer garden-silhouette garden-right" aria-hidden="true"></div>
   <div class="sky-layer vine-trail" aria-hidden="true"></div>
-  <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换主题" aria-pressed="false"><span>☾</span><b>夜间</b></button>
+  <div class="sky-layer theme-decor" aria-hidden="true"></div>
 
   <main class="photos-page-shell">
     <aside class="projects-side floating-nav island-card">
@@ -39,6 +39,7 @@
         <a href="index.html"><span class="nav-icon" aria-hidden="true">⌂</span><span class="nav-label">首页</span></a>
         <a href="projects.html"><span class="nav-icon" aria-hidden="true">⚒</span><span class="nav-label">开发项目</span></a>
         <a href="articles.html"><span class="nav-icon" aria-hidden="true">✎</span><span class="nav-label">近期文章</span></a>
+        <a href="library.html"><span class="nav-icon" aria-hidden="true">📖</span><span class="nav-label">藏书阁</span></a>
         <a href="favorites.html"><span class="nav-icon" aria-hidden="true">◎</span><span class="nav-label">网站收藏</span></a>
       </nav>
     </aside>

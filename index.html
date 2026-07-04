@@ -6,9 +6,9 @@
   <title>云外庭院 · Personal Garden</title>
   <script>
     (() => {
-      const key = 'dashboard.theme', root = document.documentElement;
-      try { if (localStorage.getItem(key) === 'night') root.dataset.theme = 'night'; }
-      catch (e) { /* 存储不可用时忽略 */ }
+      const root = document.documentElement;
+      try { const p = localStorage.getItem('dashboard.palette'); if (p && p !== 'garden') root.setAttribute('data-palette', p); } catch (e) {}
+      try { if (localStorage.getItem('dashboard.theme') === 'night') root.dataset.theme = 'night'; } catch (e) {}
     })();
   </script>
   <link rel="stylesheet" href="src/css/base.css" />
@@ -24,6 +24,7 @@
   <div class="sky-layer garden-silhouette garden-left" aria-hidden="true"></div>
   <div class="sky-layer garden-silhouette garden-right" aria-hidden="true"></div>
   <div class="sky-layer vine-trail" aria-hidden="true"></div>
+  <div class="sky-layer theme-decor" aria-hidden="true"></div>
   <button class="settings-btn" id="settingsToggle" type="button" aria-label="&#24320;&#21551;&#35774;&#32622;"><span>&#9881;</span><b>&#35774;&#32622;</b></button>
 
   <main class="desktop" id="desktop" aria-label="可拖动的云外庭院桌面">
@@ -40,6 +41,7 @@
         <a class="active" href="#">⌂ <span>首页</span></a>
         <a href="projects.html">⚒ <span>开发项目</span></a>
         <a href="articles.html">✎ <span>近期文章</span></a>
+        <a href="library.html">📖 <span>藏书阁</span></a>
         <a href="favorites.html">◎ <span>网站收藏</span></a>
       </nav>
     </section>
@@ -202,10 +204,35 @@
         </div>
       </section>
       <section class="settings-group">
-        <h3 class="settings-group-title">&#24067;&#23616;</h3>
+        <h3 class="settings-group-title">&#27169;&#22359;&#26174;&#31034;</h3>
+        <div class="widget-visibility" id="widgetVisibility">
+          <label class="vis-row" data-widget="portal"><span>&#19990;&#30028;&#31383;&#21475;</span><input type="checkbox" checked /><span class="toggle-track"></span></label>
+          <label class="vis-row" data-widget="greeting"><span>&#27599;&#26085;&#38382;&#20505;</span><input type="checkbox" checked /><span class="toggle-track"></span></label>
+          <label class="vis-row" data-widget="clock"><span>&#26102;&#38047;</span><input type="checkbox" checked /><span class="toggle-track"></span></label>
+          <label class="vis-row" data-widget="calendar"><span>&#26085;&#21382;</span><input type="checkbox" checked /><span class="toggle-track"></span></label>
+          <label class="vis-row" data-widget="links"><span>&#24555;&#25463;&#38142;&#25509;</span><input type="checkbox" checked /><span class="toggle-track"></span></label>
+          <label class="vis-row" data-widget="quote"><span>&#31751;&#35328;</span><input type="checkbox" checked /><span class="toggle-track"></span></label>
+          <label class="vis-row" data-widget="music"><span>&#38899;&#20048;</span><input type="checkbox" checked /><span class="toggle-track"></span></label>
+          <label class="vis-row" data-widget="weather"><span>&#22825;&#27668;</span><input type="checkbox" checked /><span class="toggle-track"></span></label>
+          <label class="vis-row" data-widget="notesButton"><span>&#20415;&#31614;</span><input type="checkbox" checked /><span class="toggle-track"></span></label>
+        </div>
+      </section>
+      <section class="settings-group">
+        <h3 class="settings-group-title">&#20854;&#20182;</h3>
         <div class="settings-row">
-          <span>&#22797;&#21407;&#27169;&#22359;&#20301;&#32622;</span>
+          <span>&#20809;&#26631;&#23614;&#36857;</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="settingsCursorTrail" checked />
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+        <div class="settings-row">
+          <span>&#37325;&#32622;&#27169;&#22359;&#20301;&#32622;</span>
           <button class="settings-action-btn" id="settingsResetLayout" type="button">&#37325;&#32622;</button>
+        </div>
+        <div class="settings-row" style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.4);">
+          <span>&#37325;&#32622;&#25152;&#26377;&#35774;&#32622;</span>
+          <button class="settings-action-btn settings-danger-btn" id="settingsResetAll" type="button">&#37325;&#32622;</button>
         </div>
       </section>
       <section class="settings-group">

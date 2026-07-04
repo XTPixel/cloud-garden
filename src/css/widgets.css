@@ -17,6 +17,19 @@
   transition: transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.32s ease, filter 0.32s ease, border-color 0.32s ease;
 }
 
+/* 防止 JS 加载前的 FOUC：初始隐藏，layout-ready 后可见 */
+.widget,
+.notes-fab {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.widget.layout-ready,
+.notes-fab.layout-ready {
+  opacity: 1;
+  visibility: visible;
+}
+
 .desktop-entering .widget,
 .desktop-entering .notes-fab {
   animation: cardSpiralPop 0.88s cubic-bezier(0.2, 1.32, 0.34, 1) both;
@@ -1535,6 +1548,89 @@ html.settings-open .settings-close-btn:hover {
   transform: translateY(-1px);
 }
 
+.settings-danger-btn {
+  color: #b5536c !important;
+  border-color: rgba(200, 100, 120, 0.4) !important;
+}
+.settings-danger-btn:hover {
+  color: #fff !important;
+  background: #b5536c !important;
+  border-color: #b5536c !important;
+}
+
+/* ---- 模块可见性列表 ---- */
+.widget-visibility {
+  display: grid;
+  gap: 6px;
+}
+.vis-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 32px;
+  padding: 4px 8px 4px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.18s ease;
+}
+.vis-row:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+.vis-row span:first-child {
+  flex: 1;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+.vis-row .toggle-track {
+  display: inline-block;
+  width: 30px;
+  height: 18px;
+  border-radius: 999px;
+  background: rgba(200, 210, 210, 0.5);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.08);
+  position: relative;
+  transition: background 0.24s ease;
+  flex-shrink: 0;
+}
+.vis-row .toggle-track::after {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+  transition: transform 0.24s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+.vis-row input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.vis-row input:checked + .toggle-track {
+  background: linear-gradient(135deg, var(--aqua), var(--leaf));
+}
+.vis-row input:checked + .toggle-track::after {
+  transform: translateX(12px);
+}
+
+/* night */
+html[data-theme="night"] .vis-row span:first-child {
+  color: #e8fbf7;
+}
+html[data-theme="night"] .vis-row:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+html[data-theme="night"] .vis-row .toggle-track {
+  background: rgba(200, 210, 210, 0.2);
+}
+html[data-theme="night"] .vis-row input:checked + .toggle-track {
+  background: linear-gradient(135deg, #77e4d8, #8fe5b1);
+}
+
 /* ---- 配色选择画廊 ---- */
 .theme-gallery {
   display: grid;
@@ -1716,17 +1812,23 @@ html.settings-open .settings-close-btn:hover {
 }
 
 /* ---- 设置面板打开时的推送动画 ---- */
-html.settings-open .desktop,
-html.settings-open .settings-btn {
+html.settings-open .desktop {
   transform: translateX(-420px);
   transition: transform 0.52s cubic-bezier(0.34, 0.08, 0.2, 1);
 }
+html.settings-open .settings-btn {
+  right: calc(420px + 22px);
+  transition: right 0.52s cubic-bezier(0.34, 0.08, 0.2, 1);
+}
 
 /* 关闭时的回归动画 */
-html:not(.settings-open) .desktop,
-html:not(.settings-open) .settings-btn {
+html:not(.settings-open) .desktop {
   transform: translateX(0);
   transition: transform 0.52s cubic-bezier(0.34, 0.08, 0.2, 1);
+}
+html:not(.settings-open) .settings-btn {
+  right: 85px;
+  transition: right 0.52s cubic-bezier(0.34, 0.08, 0.2, 1);
 }
 
 /* 设置面板关闭时的回归动画 */
@@ -1837,130 +1939,380 @@ html[data-theme="night"] .toggle-switch input:checked + .toggle-track::after {
    配色主题：场景与控件覆盖
    ============================================= */
 
-/* ---- 海中月：传送门场景 ---- */
+/* =============================================
+   沧海月明 · 世界窗口
+   月夜海景：月・星・船・灯台・波
+   ============================================= */
 html[data-palette="ocean"] .portal-scene {
+  overflow: hidden;
+  position: relative;
   background:
-    linear-gradient(180deg, rgba(170, 212, 240, 0.62), rgba(200, 225, 245, 0.55)),
-    radial-gradient(circle at center, rgba(255, 255, 255, 0.8), transparent 8rem);
+    radial-gradient(circle at 70% 16%, rgba(200, 228, 255, 0.3), transparent 50%),
+    radial-gradient(circle at 30% 40%, rgba(180, 215, 245, 0.15), transparent 40%),
+    linear-gradient(180deg, #1a3858 0%, #1a4a6a 25%, #2a6a8a 50%, #3a7a9a 70%, #4a8aaa 100%);
 }
 
-html[data-palette="ocean"] .floating-island {
-  background: linear-gradient(180deg, #8ec8e8 0 26%, #5aa0c8 27% 55%, #4a7898 56% 62%, #5a6888 63% 100%);
-  box-shadow: 0 18px 34px rgba(40, 80, 120, 0.17);
+/* 星星 */
+html[data-palette="ocean"] .portal-scene {
+  background-image:
+    radial-gradient(1.5px 1.5px at 15% 12%, rgba(255,255,255,0.8), transparent),
+    radial-gradient(1px 1px at 35% 8%, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1.5px 1.5px at 55% 14%, rgba(255,255,255,0.7), transparent),
+    radial-gradient(1px 1px at 80% 6%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1.5px 1.5px at 92% 18%, rgba(255,255,255,0.6), transparent),
+    ;
 }
-
-html[data-palette="ocean"] .floating-island::before {
+/* 月亮 */
+html[data-palette="ocean"] .portal-scene::before {
+  content: '';
+  position: absolute;
+  right: 26%;
+  top: 7%;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 36% 32%, #ffffff, #d0e8ff 35%, rgba(180, 215, 255, 0.5) 60%, transparent 68%);
+  box-shadow: 0 0 25px rgba(200, 225, 255, 0.5), 0 0 50px rgba(200, 225, 255, 0.2);
+  z-index: 3;
+}
+/* 水面 + 波光 */
+html[data-palette="ocean"] .portal-scene::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 55%;
   background:
-    radial-gradient(circle, #d8f0ff 0 3px, transparent 4px),
-    radial-gradient(circle, #b0d8f0 0 4px, transparent 5px);
+    repeating-linear-gradient(92deg,
+      transparent 0 14px,
+      rgba(200, 225, 255, 0.12) 14px 18px,
+      transparent 18px 30px,
+      rgba(180, 215, 245, 0.06) 30px 36px),
+    linear-gradient(180deg, rgba(60, 120, 170, 0.5) 0%, #2a6080 40%, #1a4870 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.15) 20%, #000 50%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.15) 20%, #000 50%);
+  animation: portalWave 4s ease-in-out infinite;
+  z-index: 1;
 }
 
+/* 小舟 */
 html[data-palette="ocean"] .mini-tower {
-  background: linear-gradient(180deg, #d8ecff, #7ec8e3);
-  box-shadow: inset 0 0 0 3px rgba(255,255,255,0.45);
+  display: block !important;
+  position: absolute;
+  left: auto;
+  right: 22%;
+  bottom: 32%;
+  width: 20px;
+  height: 14px;
+  border-radius: 4px 20px 4px 20px;
+  background: linear-gradient(90deg, #5a3a2a, #7a5a4a);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  z-index: 2;
+}
+/* 倒映 */
+html[data-palette="ocean"] .mini-tower::after {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 14px;
+  width: 16px;
+  height: 8px;
+  border-radius: 0 0 10px 10px;
+  background: rgba(200, 225, 255, 0.12);
+}
+/* 桅杆 */
+html[data-palette="ocean"] .mini-tower::before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: -10px;
+  width: 1.5px;
+  height: 12px;
+  background: #4a3a2a;
+}
+/* 帆 */
+html[data-palette="ocean"] .sun {
+  display: block !important;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+html[data-palette="ocean"] .sun::before {
+  content: '';
+  position: absolute;
+  right: 22%;
+  bottom: 28%;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 10px solid rgba(220, 240, 255, 0.25);
 }
 
+/* 海岛/远山 */
+html[data-palette="ocean"] .floating-island {
+  display: block !important;
+  position: absolute;
+  border-radius: 40% 60% 30% 70%;
+  background: #1a3850;
+  box-shadow: none;
+  opacity: 0.35;
+  z-index: 1;
+}
+html[data-palette="ocean"] .island-a {
+  left: 6%;
+  bottom: 42%;
+  width: 40px;
+  height: 16px;
+}
+html[data-palette="ocean"] .island-b {
+  right: 8%;
+  bottom: 38%;
+  width: 30px;
+  height: 10px;
+  opacity: 0.25;
+}
+html[data-palette="ocean"] .island-c {
+  display: none;
+}
+
+/* 夜版 */
 html[data-palette="ocean"][data-theme="night"] .portal-scene {
   background:
-    radial-gradient(circle at 44% 24%, rgba(200, 225, 250, 0.24) 0 1.8rem, transparent 1.9rem),
-    radial-gradient(circle at 72% 18%, rgba(255, 255, 255, 0.78) 0 1px, transparent 2px),
-    radial-gradient(circle at 18% 28%, rgba(255, 255, 255, 0.68) 0 1px, transparent 2px),
-    radial-gradient(circle at 82% 58%, rgba(100, 180, 230, 0.54) 0 1px, transparent 2px),
-    linear-gradient(180deg, rgba(10, 28, 50, 0.82), rgba(15, 45, 65, 0.68));
+    radial-gradient(circle at 70% 16%, rgba(40, 80, 140, 0.3), transparent 50%),
+    radial-gradient(circle at 30% 40%, rgba(30, 60, 100, 0.15), transparent 40%),
+    linear-gradient(180deg, #0a1828 0%, #0a2038 25%, #103050 50%, #184060 70%, #205070 100%);
 }
-
-html[data-palette="ocean"][data-theme="night"] .floating-island {
+html[data-palette="ocean"][data-theme="night"] .portal-scene::before {
+  background: radial-gradient(circle at 36% 32%, #c0d8f0, #6088b8 35%, rgba(40, 80, 120, 0.4) 60%, transparent 68%);
+  box-shadow: 0 0 20px rgba(60, 120, 180, 0.4);
+}
+html[data-palette="ocean"][data-theme="night"] .portal-scene::after {
   background:
-    linear-gradient(180deg, #5aa8d0 0 23%, #3a80b0 24% 52%, #2a6088 53% 60%, #2a3850 61% 100%);
-  box-shadow: 0 18px 34px rgba(2, 11, 22, 0.32), 0 0 22px rgba(74, 159, 200, 0.14);
+    repeating-linear-gradient(92deg,
+      transparent 0 14px,
+      rgba(60, 120, 180, 0.12) 14px 18px,
+      transparent 18px 30px,
+      rgba(40, 100, 160, 0.06) 30px 36px),
+    linear-gradient(180deg, rgba(30, 70, 110, 0.5) 0%, #103048 40%, #081828 100%);
 }
-
-html[data-palette="ocean"][data-theme="night"] .floating-island::before {
-  background:
-    radial-gradient(circle, #b8e0f8 0 3px, transparent 4px),
-    radial-gradient(circle, #80c0e0 0 4px, transparent 5px);
-}
-
 html[data-palette="ocean"][data-theme="night"] .mini-tower {
-  background: linear-gradient(180deg, #b8d8f0, #4a9fc8);
-  box-shadow: inset 0 0 0 3px rgba(255,255,255,0.22), 0 0 22px rgba(74, 159, 200, 0.34);
+  background: linear-gradient(90deg, #2a1a10, #4a2a1a);
+}
+html[data-palette="ocean"][data-theme="night"] .floating-island {
+  background: #081828;
 }
 
-html[data-palette="ocean"] .sun {
-  background: radial-gradient(circle, #e0f0ff 0 38%, #b8d8ff 39% 100%);
-  box-shadow: 0 0 60px rgba(180, 216, 255, 0.7);
-}
-
-html[data-palette="ocean"][data-theme="night"] .sun {
-  width: 68px;
-  height: 68px;
-  background:
-    radial-gradient(circle at 38% 34%, transparent 0 28%, rgba(200, 225, 250, 0.95) 29% 58%, transparent 59%),
-    radial-gradient(circle, rgba(168, 184, 255, 0.92), rgba(74, 159, 200, 0.2) 70%);
-  box-shadow: 0 0 46px rgba(168, 184, 255, 0.46);
-}
-
-/* ---- 落桃庭：传送门场景 ---- */
+/* =============================================
+   落樱缤纷 · 世界窗口
+   和风春景：垂枝樱・灯・花吹雪
+   ============================================= */
 html[data-palette="cherry"] .portal-scene {
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(180deg, #fcecf2 0%, #f8d8e6 35%, #eec8da 70%, #e0b8ca 100%);
+}
+
+/* 天空光晕 */
+html[data-palette="cherry"] .portal-scene {
+  background-image:
+    radial-gradient(ellipse 60px 30px at 65% 10%, rgba(255, 235, 245, 0.35), transparent);
+}
+
+/* 垂枝樱（左侧垂下的枝条） */
+html[data-palette="cherry"] .portal-scene::before {
+  content: '';
+  position: absolute;
+  left: -8%;
+  top: -6%;
+  width: 70px;
+  height: 110px;
+  border-radius: 0 0 60% 50%;
   background:
-    linear-gradient(180deg, rgba(245, 200, 220, 0.62), rgba(250, 215, 225, 0.55)),
-    radial-gradient(circle at center, rgba(255, 255, 255, 0.8), transparent 8rem);
+    /* 枝干 - 棕色曲线 */
+    linear-gradient(135deg, transparent 0 20%, #6a4a50 21% 24%, transparent 25% 40%, #6a4a50 41% 43%, transparent 44%),
+    /* 花簇1 */
+    radial-gradient(circle 8px at 35% 30%, rgba(255, 200, 220, 0.7), transparent 8.5px),
+    radial-gradient(circle 6px at 28% 26%, rgba(255, 210, 228, 0.5), transparent 6.5px),
+    /* 花簇2 */
+    radial-gradient(circle 7px at 50% 45%, rgba(255, 200, 220, 0.65), transparent 7.5px),
+    radial-gradient(circle 5px at 45% 40%, rgba(255, 210, 228, 0.45), transparent 5.5px),
+    /* 花簇3 */
+    radial-gradient(circle 6px at 42% 60%, rgba(255, 200, 220, 0.6), transparent 6.5px),
+    /* 花簇4 */
+    radial-gradient(circle 7px at 60% 72%, rgba(255, 200, 220, 0.55), transparent 7.5px),
+    radial-gradient(circle 5px at 65% 68%, rgba(255, 210, 228, 0.4), transparent 5.5px),
+    /* 花簇5 */
+    radial-gradient(circle 5px at 55% 88%, rgba(255, 200, 220, 0.45), transparent 5.5px);
+  z-index: 3;
+  animation: portalCherrySway 4s ease-in-out infinite;
 }
 
-html[data-palette="cherry"] .floating-island {
-  background: linear-gradient(180deg, #e8b8c8 0 26%, #d888b0 27% 55%, #b87898 56% 62%, #9a7888 63% 100%);
-  box-shadow: 0 18px 34px rgba(140, 80, 100, 0.17);
-}
-
-html[data-palette="cherry"] .floating-island::before {
-  background:
-    radial-gradient(circle, #ffe8f0 0 3px, transparent 4px),
-    radial-gradient(circle, #f0c8d8 0 4px, transparent 5px);
-}
-
-html[data-palette="cherry"] .mini-tower {
-  background: linear-gradient(180deg, #ffe8f0, #e0a0c0);
-  box-shadow: inset 0 0 0 3px rgba(255,255,255,0.45);
-}
-
-html[data-palette="cherry"][data-theme="night"] .portal-scene {
-  background:
-    radial-gradient(circle at 44% 24%, rgba(240, 200, 220, 0.24) 0 1.8rem, transparent 1.9rem),
-    radial-gradient(circle at 72% 18%, rgba(255, 255, 255, 0.78) 0 1px, transparent 2px),
-    radial-gradient(circle at 18% 28%, rgba(255, 255, 255, 0.68) 0 1px, transparent 2px),
-    radial-gradient(circle at 82% 58%, rgba(220, 120, 160, 0.54) 0 1px, transparent 2px),
-    linear-gradient(180deg, rgba(35, 10, 22, 0.82), rgba(50, 20, 35, 0.68));
-}
-
-html[data-palette="cherry"][data-theme="night"] .floating-island {
-  background:
-    linear-gradient(180deg, #c880a8 0 23%, #a86088 24% 52%, #885070 53% 60%, #503840 61% 100%);
-  box-shadow: 0 18px 34px rgba(2, 11, 22, 0.32), 0 0 22px rgba(200, 120, 160, 0.14);
-}
-
-html[data-palette="cherry"][data-theme="night"] .floating-island::before {
-  background:
-    radial-gradient(circle, #f0c8d8 0 3px, transparent 4px),
-    radial-gradient(circle, #e0a0b8 0 4px, transparent 5px);
-}
-
-html[data-palette="cherry"][data-theme="night"] .mini-tower {
-  background: linear-gradient(180deg, #f0d0e0, #d888b0);
-  box-shadow: inset 0 0 0 3px rgba(255,255,255,0.22), 0 0 22px rgba(200, 120, 160, 0.34);
-}
-
+/* 副枝（右上） */
 html[data-palette="cherry"] .sun {
-  background: radial-gradient(circle, #fff4f0 0 38%, #ffd0c0 39% 100%);
-  box-shadow: 0 0 60px rgba(255, 200, 180, 0.7);
+  display: block !important;
+  position: absolute;
+  left: auto;
+  right: 2%;
+  top: -2%;
+  width: 50px;
+  height: 70px;
+  border-radius: 0 0 50% 55%;
+  background:
+    /* 枝干 */
+    linear-gradient(135deg, transparent 0 30%, #6a4a50 31% 33%, transparent 34%),
+    /* 花簇 */
+    radial-gradient(circle 6px at 40% 35%, rgba(255, 200, 220, 0.6), transparent 6.5px),
+    radial-gradient(circle 5px at 35% 30%, rgba(255, 210, 228, 0.4), transparent 5.5px),
+    radial-gradient(circle 5px at 50% 55%, rgba(255, 200, 220, 0.5), transparent 5.5px),
+    radial-gradient(circle 4px at 55% 50%, rgba(255, 210, 228, 0.35), transparent 4.5px);
+  box-shadow: none;
+  z-index: 2;
+  animation: portalCherrySway 5s ease-in-out infinite reverse;
 }
 
-html[data-palette="cherry"][data-theme="night"] .sun {
-  width: 68px;
-  height: 68px;
+/* 地面（使用 portal 底部内阴影） */
+html[data-palette="cherry"] .portal-scene {
+  box-shadow: inset 0 -18px 0 rgba(190, 160, 172, 0.3);
+}
+
+/* 石灯笼 */
+html[data-palette="cherry"] .mini-tower {
+  display: block !important;
+  position: absolute;
+  left: auto;
+  right: 30%;
+  bottom: 14%;
+  width: 12px;
+  height: 18px;
+  border-radius: 2px;
+  background: #8a7880;
+  box-shadow: none;
+  z-index: 2;
+}
+html[data-palette="cherry"] .mini-tower::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -4px;
+  width: 20px;
+  height: 6px;
+  border-radius: 3px 3px 0 0;
+  background: #9a8890;
+}
+html[data-palette="cherry"] .mini-tower::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: -3px;
+  width: 18px;
+  height: 5px;
+  border-radius: 0 0 3px 3px;
+  background: #7a6870;
+}
+
+/* 隐藏所有原始岛屿元素 */
+html[data-palette="cherry"] .floating-island {
+  display: none !important;
+}
+
+/* 花瓣飘落 */
+html[data-palette="cherry"] .portal-scene::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(5px 4px at 15% 18%, rgba(245, 170, 205, 0.55), transparent 6px),
+    radial-gradient(4px 4px at 62% 12%, rgba(245, 175, 210, 0.45), transparent 5.5px),
+    radial-gradient(4px 5px at 38% 28%, rgba(240, 165, 200, 0.40), transparent 6px),
+    radial-gradient(5px 4px at 72% 38%, rgba(245, 175, 210, 0.35), transparent 6px),
+    radial-gradient(4px 4px at 22% 48%, rgba(240, 165, 200, 0.35), transparent 5.5px),
+    radial-gradient(5px 5px at 55% 52%, rgba(245, 175, 210, 0.30), transparent 6px),
+    radial-gradient(4px 4px at 30% 65%, rgba(240, 165, 200, 0.28), transparent 5.5px),
+    radial-gradient(5px 4px at 68% 70%, rgba(245, 175, 210, 0.25), transparent 6px),
+    radial-gradient(4px 4px at 12% 78%, rgba(240, 165, 200, 0.22), transparent 5.5px),
+    radial-gradient(5px 5px at 42% 80%, rgba(245, 175, 210, 0.20), transparent 6px);
+  animation: portalPetals 5s ease-in-out infinite;
+  z-index: 2;
+}
+
+/* 夜版 */
+html[data-palette="cherry"][data-theme="night"] .portal-scene {
+  background: linear-gradient(180deg, #1c0a16 0%, #1a0c18 30%, #18101a 60%, #15101a 100%);
+}
+html[data-palette="cherry"][data-theme="night"] .portal-scene::before {
   background:
-    radial-gradient(circle at 38% 34%, transparent 0 28%, rgba(250, 210, 220, 0.95) 29% 58%, transparent 59%),
-    radial-gradient(circle, rgba(200, 160, 232, 0.92), rgba(200, 120, 160, 0.2) 70%);
-  box-shadow: 0 0 46px rgba(200, 160, 232, 0.46);
+    linear-gradient(135deg, transparent 0 20%, #3a2a30 21% 24%, transparent 25% 40%, #3a2a30 41% 43%, transparent 44%),
+    radial-gradient(circle 8px at 35% 30%, rgba(150, 70, 105, 0.6), transparent 8.5px),
+    radial-gradient(circle 6px at 28% 26%, rgba(140, 60, 95, 0.4), transparent 6.5px),
+    radial-gradient(circle 7px at 50% 45%, rgba(150, 70, 105, 0.55), transparent 7.5px),
+    radial-gradient(circle 5px at 45% 40%, rgba(140, 60, 95, 0.35), transparent 5.5px),
+    radial-gradient(circle 6px at 42% 60%, rgba(150, 70, 105, 0.5), transparent 6.5px),
+    radial-gradient(circle 7px at 60% 72%, rgba(150, 70, 105, 0.45), transparent 7.5px),
+    radial-gradient(circle 5px at 65% 68%, rgba(140, 60, 95, 0.3), transparent 5.5px),
+    radial-gradient(circle 5px at 55% 88%, rgba(150, 70, 105, 0.35), transparent 5.5px);
+}
+html[data-palette="cherry"][data-theme="night"] .sun {
+  background:
+    linear-gradient(135deg, transparent 0 30%, #3a2a30 31% 33%, transparent 34%),
+    radial-gradient(circle 6px at 40% 35%, rgba(150, 70, 105, 0.5), transparent 6.5px),
+    radial-gradient(circle 5px at 35% 30%, rgba(140, 60, 95, 0.35), transparent 5.5px),
+    radial-gradient(circle 5px at 50% 55%, rgba(150, 70, 105, 0.4), transparent 5.5px),
+    radial-gradient(circle 4px at 55% 50%, rgba(140, 60, 95, 0.25), transparent 4.5px);
+}
+html[data-palette="cherry"][data-theme="night"] .mini-tower {
+  background: #3a2a32;
+}
+html[data-palette="cherry"][data-theme="night"] .mini-tower::before {
+  background: #4a3a42;
+}
+html[data-palette="cherry"][data-theme="night"] .mini-tower::after {
+  background: #2a1a22;
+}
+html[data-palette="cherry"][data-theme="night"] .portal-scene {
+  box-shadow: inset 0 -18px 0 rgba(60, 30, 42, 0.3);
+}
+html[data-palette="cherry"][data-theme="night"] .portal-scene::after {
+  background-image:
+    radial-gradient(5px 4px at 15% 18%, rgba(130, 50, 85, 0.45), transparent 6px),
+    radial-gradient(4px 4px at 62% 12%, rgba(120, 45, 80, 0.38), transparent 5.5px),
+    radial-gradient(4px 5px at 38% 28%, rgba(130, 50, 85, 0.32), transparent 6px),
+    radial-gradient(5px 4px at 72% 38%, rgba(120, 45, 80, 0.28), transparent 6px),
+    radial-gradient(4px 4px at 22% 48%, rgba(130, 50, 85, 0.28), transparent 5.5px),
+    radial-gradient(5px 5px at 55% 52%, rgba(120, 45, 80, 0.25), transparent 6px),
+    radial-gradient(4px 4px at 30% 65%, rgba(130, 50, 85, 0.22), transparent 5.5px),
+    radial-gradient(5px 4px at 68% 70%, rgba(120, 45, 80, 0.20), transparent 6px),
+    radial-gradient(4px 4px at 12% 78%, rgba(130, 50, 85, 0.18), transparent 5.5px),
+    radial-gradient(5px 5px at 42% 80%, rgba(120, 45, 80, 0.16), transparent 6px);
+}
+
+/* 追加动画 */
+@keyframes portalCherrySway {
+  0%, 100% { transform: rotate(-1deg); }
+  50% { transform: rotate(2deg); }
+}
+
+/* ---- 配色主题：Portal 动画 ---- */
+@keyframes portalWave {
+  0%, 100% { transform: translateY(0) scaleY(1); opacity: 0.8; }
+  50% { transform: translateY(-3px) scaleY(1.04); opacity: 1; }
+}
+
+@keyframes portalTreeSway {
+  0%, 100% { transform: rotate(-1deg); }
+  50% { transform: rotate(2deg); }
+}
+
+@keyframes portalPetals {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
 }
 
 /* ---- 配色主题：时光卡片背景 ---- */

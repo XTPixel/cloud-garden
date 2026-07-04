@@ -48,6 +48,9 @@ export const elements = {
   settingsPanel: document.querySelector('#settingsPanel'),
   settingsClose: document.querySelector('#settingsClose'),
   settingsResetLayout: document.querySelector('#settingsResetLayout'),
+  settingsResetAll: document.querySelector('#settingsResetAll'),
   settingsNightToggle: document.querySelector('#settingsNightToggle'),
+  settingsCursorTrail: document.querySelector('#settingsCursorTrail'),
+  widgetVisibility: document.querySelector('#widgetVisibility'),
   themeGallery: document.querySelector('#themeGallery')
 };

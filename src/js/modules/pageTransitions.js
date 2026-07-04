@@ -118,13 +118,25 @@ function getSpiralOrderedCards(cards) {
 
 function runHomeSpiralEntry() {
   const desktop = document.querySelector('.desktop');
-  if (!desktop || prefersReducedMotion()) return;
+  const allWidgets = () => document.querySelectorAll(ENTRY_SELECTOR);
+  if (!desktop) return;
 
-  const cards = Array.from(document.querySelectorAll(ENTRY_SELECTOR));
+  // 弱动效偏好：直接显示 widget，不做螺旋入场
+  if (prefersReducedMotion()) {
+    allWidgets().forEach((card) => card.classList.add('layout-ready'));
+    return;
+  }
+
+  const cards = Array.from(allWidgets());
   if (!cards.length) return;
 
   const orderedCards = getSpiralOrderedCards(cards);
   desktop.classList.add('desktop-entering');
+
+  // 标记布局就绪后再开始动画，彻底消除 FOUC
+  // 由于 cardSpiralPop 的 animation 自带 opacity 过渡，
+  // layout-ready 的 opacity: 1 会被 animation 覆盖，不会闪白
+  orderedCards.forEach((card) => card.classList.add('layout-ready'));
 
   orderedCards.forEach((card, index) => {
     const rect = card.getBoundingClientRect();

@@ -6,9 +6,9 @@
   <title>迷路了 · 云外庭院</title>
   <script>
     (() => {
-      const key = 'dashboard.theme', root = document.documentElement;
-      try { if (localStorage.getItem(key) === 'night') root.dataset.theme = 'night'; }
-      catch (e) { /* 存储不可用时忽略 */ }
+      const root = document.documentElement;
+      try { const p = localStorage.getItem('dashboard.palette'); if (p && p !== 'garden') root.setAttribute('data-palette', p); } catch (e) {}
+      try { if (localStorage.getItem('dashboard.theme') === 'night') root.dataset.theme = 'night'; } catch (e) {}
     })();
   </script>
   <link rel="stylesheet" href="src/css/base.css" />

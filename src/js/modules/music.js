@@ -1,21 +1,25 @@
 import { elements } from '../dom.js';
+import { music as musicConfig } from '../config.js';
+
+const MUSIC_BASE = musicConfig.baseUrl;
 
 /* ====================================
    播放列表 — 按顺序排在 src/assets/music/
+   （构建时通过 VITE_MUSIC_BASE_URL 切换为七牛云远程地址）
    ==================================== */
 const playlist = [
   {
-    src: new URL('../../assets/music/wan-an-miao.mp3', import.meta.url).href,
+    src: MUSIC_BASE ? `${MUSIC_BASE}/wan-an-miao.mp3` : new URL('../../assets/music/wan-an-miao.mp3', import.meta.url).href,
     title: '晚安喵',
     artist: '《罗小黑战记》主题曲 · 艾索',
   },
   {
-    src: new URL('../../assets/music/稻香-周杰伦.mp3', import.meta.url).href,
+    src: MUSIC_BASE ? `${MUSIC_BASE}/稻香-周杰伦.mp3` : '',
     title: '稻香',
     artist: '周杰伦',
   },
   {
-    src: new URL('../../assets/music/昔涟-张韶涵＿HOYO-MiX.mp3', import.meta.url).href,
+    src: MUSIC_BASE ? `${MUSIC_BASE}/昔涟-张韶涵＿HOYO-MiX.mp3` : '',
     title: '昔涟',
     artist: '张韶涵 & HOYO-MiX',
   },

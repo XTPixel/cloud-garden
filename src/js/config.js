@@ -12,7 +12,12 @@ export const github = {
   maxRepos: 6
 };
 
-/** 照片来源：本地 'photos' 或 Cloudflare R2 公网 URL */
+/** 照片来源：本地 'photos' 或七牛云/CDN 公网 URL */
 export const photos = {
   baseUrl: import.meta.env.VITE_PHOTOS_BASE_URL || 'photos'
+};
+
+/** 音乐来源：本地 'src/assets/music' 或七牛云/CDN 公网 URL */
+export const music = {
+  baseUrl: import.meta.env.VITE_MUSIC_BASE_URL || ''
 };

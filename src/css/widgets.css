@@ -591,6 +591,8 @@
   --link-a: #73d7c5;
   --link-b: #b8b0ff;
   --link-glow: rgba(115, 215, 197, 0.22);
+  cursor: pointer;
+  user-select: none;
 }
 
 /* ---- 箴言 ---- */

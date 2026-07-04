@@ -5,7 +5,6 @@ const MUSIC_BASE = musicConfig.baseUrl;
 
 /* ====================================
    播放列表 — 按顺序排在 src/assets/music/
-   （构建时通过 VITE_MUSIC_BASE_URL 切换为七牛云远程地址）
    ==================================== */
 const playlist = [
   {
@@ -27,7 +26,41 @@ const playlist = [
 
 let currentIndex = 0;
 
-// ── 内部状态更新 ──────────────────────────────────
+/* ====================================
+   状态持久化 — sessionStorage
+   跨页面切换后自动续播
+   ==================================== */
+const MUSIC_STATE_KEY = 'dashboard.musicState';
+
+function saveState(overrides = {}) {
+  const { musicAudio } = elements;
+  if (!musicAudio) return;
+  try {
+    const state = {
+      currentIndex,
+      currentTime: musicAudio.currentTime || 0,
+      isPlaying: !musicAudio.paused,
+      ...overrides,
+    };
+    sessionStorage.setItem(MUSIC_STATE_KEY, JSON.stringify(state));
+  } catch (e) {
+    /* storage full — 静默忽略 */
+  }
+}
+
+function restoreState() {
+  try {
+    const raw = sessionStorage.getItem(MUSIC_STATE_KEY);
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+}
+
+/* ====================================
+   内部状态更新
+   ==================================== */
 
 function updateProgress() {
   const { musicAudio, musicProgress } = elements;
@@ -70,11 +103,10 @@ function updateButtonStates() {
   }
 }
 
-// ── 歌曲切换 ──────────────────────────────────────
+/* ====================================
+   歌曲切换
+   ==================================== */
 
-/**
- * 加载指定索引的歌曲并更新 UI（不自动播放）
- */
 function loadTrack(index) {
   if (index < 0 || index >= playlist.length) return;
   currentIndex = index;
@@ -96,7 +128,9 @@ function loadTrack(index) {
   updateButtonStates();
 }
 
-// ── 用户操作 ──────────────────────────────────────
+/* ====================================
+   用户操作
+   ==================================== */
 
 async function toggleMusic() {
   const { musicAudio } = elements;
@@ -118,7 +152,6 @@ async function toggleMusic() {
 function prevTrack() {
   const prev = currentIndex > 0 ? currentIndex - 1 : playlist.length - 1;
   loadTrack(prev);
-  // 切歌后自动播放
   const { musicAudio } = elements;
   if (musicAudio) musicAudio.play().catch(() => {});
 }
@@ -130,27 +163,85 @@ function nextTrack() {
   if (musicAudio) musicAudio.play().catch(() => {});
 }
 
-// ── 初始化 ────────────────────────────────────────
+/* ====================================
+   初始化
+   ==================================== */
 
 export function initMusicPlayer() {
   const { musicAudio, musicToggle, musicPrev, musicNext } = elements;
   if (!musicAudio || !musicToggle) return;
 
-  // 用播放列表第一首填充 UI
-  loadTrack(0);
+  // ── 恢复跨页面播放状态 ──────────────────────
+  const savedState = restoreState();
+  let shouldAutoPlay = false;
 
-  // 点击事件
+  if (savedState && savedState.currentIndex !== undefined) {
+    const idx = savedState.currentIndex;
+    if (idx >= 0 && idx < playlist.length) {
+      currentIndex = idx;
+      loadTrack(currentIndex);
+
+      // 音频加载完成后 seek 到保存的进度
+      const seekAfterLoad = () => {
+        const ct = savedState.currentTime || 0;
+        if (ct > 0 && ct < (musicAudio.duration || Infinity)) {
+          musicAudio.currentTime = ct;
+        }
+        // 若离开时正在播放，自动续播
+        if (savedState.isPlaying) {
+          musicAudio.play().catch(() => {
+            // 浏览器阻止自动播放：等一次用户交互
+            const retry = () => { musicAudio.play().catch(() => {}); };
+            document.addEventListener('pointerdown', retry, { once: true });
+            document.addEventListener('keydown', retry, { once: true });
+          });
+        }
+      };
+
+      if (musicAudio.readyState >= 1) {
+        seekAfterLoad();
+      } else {
+        musicAudio.addEventListener('loadedmetadata', seekAfterLoad, { once: true });
+      }
+    } else {
+      loadTrack(0);
+    }
+  } else {
+    loadTrack(0);
+  }
+
+  // ── 绑定事件 ────────────────────────────────
   musicToggle.addEventListener('click', toggleMusic);
   if (musicPrev) musicPrev.addEventListener('click', prevTrack);
   if (musicNext) musicNext.addEventListener('click', nextTrack);
 
-  // 媒体事件
   musicAudio.addEventListener('play', () => setPlayingState(true));
   musicAudio.addEventListener('pause', () => setPlayingState(false));
-  musicAudio.addEventListener('timeupdate', updateProgress);
+  musicAudio.addEventListener('timeupdate', () => {
+    updateProgress();
+    saveState(); // 定期持久化进度 (约 250ms)
+  });
   musicAudio.addEventListener('loadedmetadata', updateProgress);
   musicAudio.addEventListener('error', setUnavailableState);
 
   // 自动切歌（循环播放）
   musicAudio.addEventListener('ended', nextTrack);
+
+  // ── 全局状态持久化 ──────────────────────────
+  // 页面可见性变化时保存（切标签页 / 切后台）
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) saveState();
+  });
+
+  // 页面即将卸载时保存（包括 MPA 导航）
+  window.addEventListener('pagehide', () => saveState());
+
+  // bfcache 恢复后重新同步 UI
+  window.addEventListener('pageshow', () => {
+    // 验证当前音频状态与 DOM 控件一致
+    if (!musicAudio.paused) {
+      setPlayingState(true);
+    }
+    updateProgress();
+  });
 }

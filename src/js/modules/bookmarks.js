@@ -26,13 +26,78 @@ function normalizeBookmarks(data) {
   return normalized.length > 0 ? normalized : fallbackBookmarks;
 }
 
+/* ---- Toast 提示（复用已有样式 .photo-toast） ---- */
+function showToast(msg, duration) {
+  duration = duration || 2000;
+  let el = document.querySelector('.photo-toast');
+  if (!el) {
+    el = document.createElement('div');
+    el.className = 'photo-toast';
+    document.body.appendChild(el);
+  }
+  el.textContent = msg;
+  el.classList.add('is-visible');
+  clearTimeout(el._hideTimer);
+  el._hideTimer = setTimeout(() => el.classList.remove('is-visible'), duration);
+}
+
+/* 从 QQ 邮箱分享链接中提取邮箱地址 */
+function extractEmail(url) {
+  const m = url.match(/email=([^&]+)/);
+  return m ? decodeURIComponent(m[1]) : '';
+}
+
+function handleEmailClick(e) {
+  const bookmark = bookmarks.find(b => b.tone === 'email');
+  if (!bookmark) return;
+  const email = extractEmail(bookmark.url);
+  if (!email) return;
+  navigator.clipboard.writeText(email).then(() => {
+    showToast('📋 已复制邮箱');
+  }).catch(() => {
+    /* fallback: 选中并复制 */
+    const ta = document.createElement('textarea');
+    ta.value = email;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('📋 已复制邮箱');
+  });
+}
+
 function renderBookmarks() {
-  elements.bookmarkGrid.innerHTML = bookmarks.map((bookmark) => `
-    <a class="quick-link" href="${bookmark.url}" target="_blank" rel="noreferrer" data-tone="${bookmark.tone}">
-      <span class="quick-link-icon">${platformIcons[bookmark.tone] || platformIcons.email}</span>
-      <span>${bookmark.title}</span>
-    </a>
-  `).join('');
+  elements.bookmarkGrid.innerHTML = bookmarks.map((bookmark) => {
+    if (bookmark.tone === 'email') {
+      return `
+        <span class="quick-link" role="button" tabindex="0" data-tone="email"
+              title="点击复制邮箱地址">
+          <span class="quick-link-icon">${platformIcons.email}</span>
+          <span>${bookmark.title}</span>
+        </span>
+      `;
+    }
+    return `
+      <a class="quick-link" href="${bookmark.url}" target="_blank" rel="noreferrer" data-tone="${bookmark.tone}">
+        <span class="quick-link-icon">${platformIcons[bookmark.tone] || platformIcons.email}</span>
+        <span>${bookmark.title}</span>
+      </a>
+    `;
+  }).join('');
+
+  /* 绑定 Email 点击事件 */
+  const emailLink = elements.bookmarkGrid.querySelector('[data-tone="email"]');
+  if (emailLink) {
+    emailLink.addEventListener('click', handleEmailClick);
+    emailLink.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleEmailClick(e);
+      }
+    });
+  }
 }
 
 export async function loadBookmarks() {

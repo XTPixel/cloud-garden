@@ -6,9 +6,9 @@
   <title>藏书阁 · 云外庭院</title>
   <script>
     (() => {
-      const key = 'dashboard.theme', root = document.documentElement;
-      try { if (localStorage.getItem(key) === 'night') root.dataset.theme = 'night'; }
-      catch (e) {}
+      const root = document.documentElement;
+      try { const p = localStorage.getItem('dashboard.palette'); if (p && p !== 'garden') root.setAttribute('data-palette', p); } catch (e) {}
+      try { if (localStorage.getItem('dashboard.theme') === 'night') root.dataset.theme = 'night'; } catch (e) {}
     })();
   </script>
   <link rel="stylesheet" href="src/css/base.css" />
@@ -78,6 +78,21 @@
   <div class="detail-overlay" id="detailOverlay" role="dialog" aria-label="书籍详情" aria-hidden="true" hidden>
     <div class="detail-card" id="detailCard"></div>
   </div>
+
+  <section class="page-music-player" aria-label="音乐播放器">
+    <span class="music-note">♬</span>
+    <div class="song-info">
+      <strong id="songTitle">晚安喵</strong>
+      <small id="songArtist">《罗小黑战记》主题曲 · 艾索</small>
+      <i><b id="musicProgress"></b></i>
+    </div>
+    <audio id="musicAudio" preload="metadata"></audio>
+    <div class="music-controls">
+      <button id="musicPrev" type="button" aria-label="上一首">⏮</button>
+      <button id="musicToggle" type="button" aria-label="播放晚安喵">▶</button>
+      <button id="musicNext" type="button" aria-label="下一首">⏭</button>
+    </div>
+  </section>
 
   <script type="module" src="src/js/pages/library.js"></script>
 </body>

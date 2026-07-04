@@ -1118,6 +1118,217 @@ html[data-theme="night"] .greeting-widget strong {
 }
 
 /* =============================================
+   子页面音乐播放器 — 固定底部栏
+   ============================================= */
+.page-music-player {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 64px;
+  padding: 8px 22px;
+  border: 1px solid rgba(255, 255, 255, 0.86);
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at 22% 18%, rgba(255, 250, 214, 0.42), transparent 8rem),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.86), rgba(235, 255, 238, 0.62)),
+    var(--glass);
+  box-shadow:
+    0 8px 32px rgba(78, 123, 104, 0.18),
+    0 0 0 1px rgba(255, 255, 255, 0.6),
+    var(--inner);
+  -webkit-backdrop-filter: blur(26px) saturate(1.08);
+  backdrop-filter: blur(26px) saturate(1.08);
+  transition: opacity 0.32s ease, transform 0.32s ease;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.page-music-player .music-note {
+  color: #6bd8ce;
+  font-size: 1.55rem;
+  flex-shrink: 0;
+}
+
+.page-music-player .song-info {
+  flex: 1;
+  min-width: 0;
+  max-width: 200px;
+}
+
+.page-music-player .song-info strong,
+.page-music-player .song-info small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.page-music-player .song-info strong {
+  margin-bottom: 2px;
+  color: #628087;
+  font-size: 0.85rem;
+}
+
+.page-music-player .song-info small {
+  margin-bottom: 6px;
+  color: #789098;
+  font-size: 0.65rem;
+}
+
+.page-music-player .song-info i {
+  display: block;
+  height: 6px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.74);
+}
+
+.page-music-player .song-info i b {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #6bd8ce, #96dc91 58%, #b8b0ff);
+}
+
+.page-music-player .music-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.page-music-player button {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 0;
+  border-radius: 999px;
+  color: #fff;
+  background: linear-gradient(135deg, #73d7c5, #96dc91 48%, #b8b0ff);
+  cursor: pointer;
+  transition: opacity 0.2s, filter 0.2s, transform 0.2s;
+}
+
+.page-music-player button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+}
+
+.page-music-player button:active {
+  transform: scale(0.94);
+}
+
+.page-music-player .music-controls #musicPrev,
+.page-music-player .music-controls #musicNext {
+  width: 30px;
+  height: 30px;
+  font-size: 0.82rem;
+}
+
+.page-music-player .music-controls button:disabled {
+  opacity: 0.3;
+  cursor: default;
+  filter: grayscale(0.6);
+}
+
+/* ── 夜间模式 ── */
+html[data-theme="night"] .page-music-player {
+  border-color: rgba(188, 240, 231, 0.2);
+  background:
+    radial-gradient(circle at 14% 10%, rgba(119, 228, 216, 0.12), transparent 7rem),
+    linear-gradient(145deg, rgba(22, 48, 64, 0.92), rgba(16, 34, 48, 0.82));
+  box-shadow:
+    0 8px 32px rgba(2, 11, 22, 0.32),
+    0 0 0 1px rgba(188, 240, 231, 0.1),
+    var(--inner);
+}
+
+html[data-theme="night"] .page-music-player .song-info strong {
+  color: #f2fffb;
+}
+
+html[data-theme="night"] .page-music-player .song-info small {
+  color: var(--muted);
+}
+
+html[data-theme="night"] .page-music-player .song-info i {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+html[data-theme="night"] .page-music-player button {
+  color: #06242a;
+  background: linear-gradient(135deg, #9ff4e8, #aebdff);
+}
+
+/* ── 响应式 ── */
+@media (max-width: 760px) {
+  .page-music-player {
+    bottom: 14px;
+    left: 12px;
+    right: 12px;
+    transform: none;
+    padding: 6px 14px;
+    min-height: 56px;
+    gap: 10px;
+    border-radius: 28px;
+  }
+
+  .page-music-player .music-note {
+    font-size: 1.2rem;
+  }
+
+  .page-music-player .song-info {
+    max-width: 120px;
+  }
+
+  .page-music-player button {
+    width: 34px;
+    height: 34px;
+  }
+
+  .page-music-player .music-controls #musicPrev,
+  .page-music-player .music-controls #musicNext {
+    width: 28px;
+    height: 28px;
+    font-size: 0.75rem;
+  }
+}
+
+/* ── 配色主题 ── */
+html[data-palette="ocean"] .page-music-player {
+  background:
+    radial-gradient(circle at 22% 18%, rgba(220, 240, 255, 0.42), transparent 8rem),
+    linear-gradient(145deg, rgba(245, 250, 255, 0.86), rgba(235, 248, 255, 0.62)),
+    var(--glass);
+}
+
+html[data-palette="cherry"] .page-music-player {
+  background:
+    radial-gradient(circle at 22% 18%, rgba(255, 235, 242, 0.42), transparent 8rem),
+    linear-gradient(145deg, rgba(255, 248, 250, 0.86), rgba(255, 240, 245, 0.62)),
+    var(--glass);
+}
+
+html[data-palette="ocean"][data-theme="night"] .page-music-player {
+  background:
+    radial-gradient(circle at 14% 10%, rgba(74, 159, 200, 0.12), transparent 7rem),
+    linear-gradient(145deg, rgba(18, 42, 60, 0.92), rgba(14, 32, 48, 0.82));
+}
+
+html[data-palette="cherry"][data-theme="night"] .page-music-player {
+  background:
+    radial-gradient(circle at 14% 10%, rgba(216, 136, 184, 0.12), transparent 7rem),
+    linear-gradient(145deg, rgba(46, 18, 32, 0.92), rgba(36, 14, 28, 0.82));
+}
+
+/* =============================================
    配色主题：子页面组件覆盖
    ============================================= */
 

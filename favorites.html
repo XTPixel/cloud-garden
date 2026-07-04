@@ -61,6 +61,21 @@
     </section>
   </main>
 
+  <section class="page-music-player" aria-label="音乐播放器">
+    <span class="music-note">♬</span>
+    <div class="song-info">
+      <strong id="songTitle">晚安喵</strong>
+      <small id="songArtist">《罗小黑战记》主题曲 · 艾索</small>
+      <i><b id="musicProgress"></b></i>
+    </div>
+    <audio id="musicAudio" preload="metadata"></audio>
+    <div class="music-controls">
+      <button id="musicPrev" type="button" aria-label="上一首">⏮</button>
+      <button id="musicToggle" type="button" aria-label="播放晚安喵">▶</button>
+      <button id="musicNext" type="button" aria-label="下一首">⏭</button>
+    </div>
+  </section>
+
   <script type="module" src="src/js/pages/favorites.js"></script>
 </body>
 </html>
